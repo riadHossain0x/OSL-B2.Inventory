@@ -1,0 +1,2 @@
+# WholeSale
+Inventory management system
