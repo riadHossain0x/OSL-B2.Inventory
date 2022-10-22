@@ -43,5 +43,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OSL-B2.Inventory.Entities\OSL-B2.Inventory.Entities.csproj">
+      <Project>{35260f4b-aace-483d-b4ab-0aaf5e14fa96}</Project>
+      <Name>OSL-B2.Inventory.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
