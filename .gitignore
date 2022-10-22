@@ -1,5 +1,7 @@
 **/.vs
 **/bin
+**/App_Data
+**/packages
 **/obj
 **/*.user
 **/Logs/*
