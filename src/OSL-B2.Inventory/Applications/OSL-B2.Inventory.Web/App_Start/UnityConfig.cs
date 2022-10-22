@@ -17,6 +17,7 @@ namespace WholeSale.Web
 
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
