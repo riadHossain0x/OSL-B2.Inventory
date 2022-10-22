@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WholeSale.Repository.DbContexts;
 using WholeSale.Web.Models;
 
 namespace WholeSale.Web.Controllers

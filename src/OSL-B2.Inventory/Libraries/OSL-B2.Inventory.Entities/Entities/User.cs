@@ -8,5 +8,6 @@ namespace OSL_B2.Inventory.Entities.Entities
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        public long IdentityUserId { get; set; }
     }
 }

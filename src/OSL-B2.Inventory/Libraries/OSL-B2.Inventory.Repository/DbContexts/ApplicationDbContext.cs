@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OSL_B2.Inventory.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -30,5 +32,7 @@ namespace WholeSale.Repository.DbContexts
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<User> AppUsers { get; set; }
     }
 }
