@@ -8,10 +8,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WholeSale.Repository.DbContexts;
-using WholeSale.Web.Models;
+using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Web.Models;
 
-namespace WholeSale.Web.Controllers
+namespace OSL_B2.Inventory.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

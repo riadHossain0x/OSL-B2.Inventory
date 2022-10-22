@@ -10,10 +10,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using WholeSale.Repository.DbContexts;
-using WholeSale.Web.Models;
+using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Web.Models;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public class EmailService : IIdentityMessageService
     {

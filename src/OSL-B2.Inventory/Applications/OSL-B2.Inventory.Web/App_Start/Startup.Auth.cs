@@ -5,10 +5,10 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using WholeSale.Repository.DbContexts;
-using WholeSale.Web.Models;
+using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Web.Models;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public partial class Startup
     {

@@ -2,9 +2,9 @@ using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
-using WholeSale.Web.Controllers;
+using OSL_B2.Inventory.Web.Controllers;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public static class UnityConfig
     {

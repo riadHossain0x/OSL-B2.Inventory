@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WholeSale.Web.Controllers
+namespace OSL_B2.Inventory.Web.Controllers
 {
     public class HomeController : Controller
     {

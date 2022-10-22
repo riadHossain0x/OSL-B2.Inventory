@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WholeSale.Web.Models
+namespace OSL_B2.Inventory.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
