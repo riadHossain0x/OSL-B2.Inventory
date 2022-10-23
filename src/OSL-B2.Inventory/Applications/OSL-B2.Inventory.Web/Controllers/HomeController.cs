@@ -12,6 +12,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
         public ActionResult Index()
         {
+            Log.Info("Hello");
             return View();
         }
 

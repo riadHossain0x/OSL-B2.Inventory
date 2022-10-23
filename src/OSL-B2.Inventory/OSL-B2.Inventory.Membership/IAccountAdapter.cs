@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSL_B2.Inventory.Services
+namespace OSL_B2.Inventory.Membership
 {
-    public interface IAccountService
+    public interface IAccountAdapter
     {
-        Task<IdentityResult> CreateAsync(ApplicationUser user, string password);
+        Task<bool> CreateAsync(ApplicationUser user, string password);
         Task SignInAsync(ApplicationUser user, bool isPersistent, bool rememberBrowser);
         Task<SignInStatus> PasswordSignInAsync(string email, string password, bool rememberMe, bool shouldLockout);
         Task<ApplicationUser> FindByNameAsync(string email);

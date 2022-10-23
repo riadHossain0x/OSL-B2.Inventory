@@ -2,7 +2,7 @@
 
 namespace OSL_B2.Inventory.Entities.Entities
 {
-    public class User
+    public class AppUser
     {
         public long Id { get; set; }
         public string FirstName { get; set; }

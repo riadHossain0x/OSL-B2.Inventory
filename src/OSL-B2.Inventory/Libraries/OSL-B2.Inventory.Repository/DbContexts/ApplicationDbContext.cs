@@ -29,6 +29,6 @@ namespace OSL_B2.Inventory.Repository.DbContexts
             return new ApplicationDbContext();
         }
 
-        public DbSet<User> AppUsers { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }

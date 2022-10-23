@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OSL_B2.Inventory.Repository.DbContexts.ApplicationDbContext";
         }
 
         protected override void Seed(OSL_B2.Inventory.Repository.DbContexts.ApplicationDbContext context)

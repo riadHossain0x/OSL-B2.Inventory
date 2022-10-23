@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSL_B2.Inventory.Services
+namespace OSL_B2.Inventory.Membership
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

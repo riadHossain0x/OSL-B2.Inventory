@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using OSL_B2.Inventory.Repository.DbContexts;
 using System.Threading.Tasks;
 
-namespace OSL_B2.Inventory.Services
+namespace OSL_B2.Inventory.Membership
 {
-    public class AccountService : IAccountService
+    public class AccountAdapter : IAccountAdapter
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationSignInManager _signInManager;
 
-        public AccountService(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountAdapter(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -21,9 +22,16 @@ namespace OSL_B2.Inventory.Services
             return await _userManager.ConfirmEmailAsync(userId, token);
         }
 
-        public async Task<IdentityResult> CreateAsync(ApplicationUser user, string password)
+        public async Task<bool> CreateAsync(ApplicationUser user, string password)
         {
-            return await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, password);
+
+            if(!result.Succeeded)
+                throw new InvalidOperationException("Failed to create user account!");
+
+            // user service will be here.
+            await SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            return true;
         }
 
         public async Task<ApplicationUser> FindByNameAsync(string email)

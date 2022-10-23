@@ -3,12 +3,12 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Users",
+                "dbo.AppUsers",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
@@ -105,7 +105,7 @@
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Users");
+            DropTable("dbo.AppUsers");
         }
     }
 }

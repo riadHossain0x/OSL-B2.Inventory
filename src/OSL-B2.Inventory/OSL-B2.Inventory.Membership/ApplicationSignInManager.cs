@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSL_B2.Inventory.Services
+namespace OSL_B2.Inventory.Membership
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {

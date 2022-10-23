@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Web;
 using OSL_B2.Inventory.Services;
+using OSL_B2.Inventory.Membership;
 
 namespace OSL_B2.Inventory.Web
 {
@@ -27,7 +28,7 @@ namespace OSL_B2.Inventory.Web
             container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
-            container.RegisterType<IAccountService, AccountService>();
+            container.RegisterType<IAccountAdapter, AccountAdapter>();
             container.RegisterType<ITestService, TestService>();
             
 

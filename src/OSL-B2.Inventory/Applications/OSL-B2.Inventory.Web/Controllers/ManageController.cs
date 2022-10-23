@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL_B2.Inventory.Services;
+using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Web.Models;
 
 namespace OSL_B2.Inventory.Web.Controllers

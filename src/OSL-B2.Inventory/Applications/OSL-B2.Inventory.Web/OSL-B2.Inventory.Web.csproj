@@ -280,6 +280,10 @@
       <Project>{cc1f9611-7ec6-43c3-987d-37b47d2c1d7b}</Project>
       <Name>OSL-B2.Inventory.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\OSL-B2.Inventory.Membership\OSL-B2.Inventory.Membership.csproj">
+      <Project>{2d10558c-52c8-4bde-adf4-012a65090608}</Project>
+      <Name>OSL-B2.Inventory.Membership</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

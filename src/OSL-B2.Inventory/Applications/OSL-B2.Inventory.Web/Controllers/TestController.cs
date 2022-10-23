@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Repository.DbContexts;
 using OSL_B2.Inventory.Services;
 using System;
@@ -11,9 +12,9 @@ namespace WholeSale.Web.Controllers
 {
     public class TestController : Controller
     {
-        private readonly IAccountService _accountAdapter;
+        private readonly IAccountAdapter _accountAdapter;
 
-        public TestController(IAccountService accountAdapter)
+        public TestController(IAccountAdapter accountAdapter)
         {
             _accountAdapter = accountAdapter;
         }
