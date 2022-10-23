@@ -17,30 +17,19 @@ namespace OSL_B2.Inventory.Membership.Adapters
 {
     public class AccountAdapter : IAccountAdapter
     {
-        private readonly ApplicationUserManager userManager;
-        private readonly ApplicationSignInManager signInManager;
-
-        //private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
 
         public AccountAdapter(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            //_userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IdentityResult> CreateAsync(ApplicationUser user, string password)
         {
-            return null;
-            //return await _userManager.CreateAsync(user, password);
-        }
-    }
-
-    public class SignInManager : SignInManager<ApplicationUser, string>
-    {
-        public SignInManager(UserManager<ApplicationUser, string> userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
-        {
+            var result = await _userManager.CreateAsync(user, password);
+            return result;
         }
     }
 }

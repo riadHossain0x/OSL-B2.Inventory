@@ -20,6 +20,7 @@ namespace WholeSale.Web.Controllers
         // GET: Test
         public ActionResult Index()
         {
+            _accountAdapter.CreateAsync(new ApplicationUser { Email = "arman@gmail.com", UserName= "arman@gmail.com" }, "Arman.00");
             return View();
         }
     }
