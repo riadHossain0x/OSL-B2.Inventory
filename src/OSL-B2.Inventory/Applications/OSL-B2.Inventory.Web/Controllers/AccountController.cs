@@ -151,7 +151,8 @@ namespace OSL_B2.Inventory.Web.Controllers
             {
                 try
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, 
+                        UserName = model.Email, Email = model.Email };
                     _ = await _accountService.CreateAsync(user, model.Password);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

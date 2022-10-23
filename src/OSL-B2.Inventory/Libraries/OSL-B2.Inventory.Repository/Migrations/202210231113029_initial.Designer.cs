@@ -13,7 +13,7 @@ namespace WholeSale.Repository.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202210230944551_initial"; }
+            get { return "202210231113029_initial"; }
         }
         
         string IMigrationMetadata.Source

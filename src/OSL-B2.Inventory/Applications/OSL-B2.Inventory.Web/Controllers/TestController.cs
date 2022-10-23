@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
-using OSL_B2.Inventory.Membership;
+﻿using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Repository.DbContexts;
-using OSL_B2.Inventory.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace WholeSale.Web.Controllers

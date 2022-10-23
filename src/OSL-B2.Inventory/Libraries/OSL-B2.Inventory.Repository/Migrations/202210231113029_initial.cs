@@ -8,17 +8,6 @@
         public override void Up()
         {
             CreateTable(
-                "dbo.AppUsers",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        FirstName = c.String(nullable: false, maxLength: 50, unicode: false),
-                        LastName = c.String(maxLength: 50, unicode: false),
-                        IdentityUserId = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -46,6 +35,8 @@
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(nullable: false, maxLength: 50),
+                        LastName = c.String(maxLength: 50),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -105,7 +96,6 @@
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.AppUsers");
         }
     }
 }

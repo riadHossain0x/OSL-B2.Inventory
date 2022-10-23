@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL_B2.Inventory.Entities.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace OSL_B2.Inventory.Repository.DbContexts
 {
     public class ApplicationUser : IdentityUser
     {
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -26,8 +33,6 @@ namespace OSL_B2.Inventory.Repository.DbContexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AppUser>().Property(x => x.FirstName).HasColumnType("varchar").HasMaxLength(50).IsRequired();
-            modelBuilder.Entity<AppUser>().Property(x => x.LastName).HasColumnType("varchar").HasMaxLength(50);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -36,6 +41,5 @@ namespace OSL_B2.Inventory.Repository.DbContexts
             return new ApplicationDbContext();
         }
 
-        public DbSet<AppUser> AppUsers { get; set; }
     }
 }
