@@ -1,17 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using OSL_B2.Inventory.Membership.Services;
 using OSL_B2.Inventory.Repository.DbContexts;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace OSL_B2.Inventory.Membership.Adapters
 {

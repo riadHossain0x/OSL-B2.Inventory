@@ -272,13 +272,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Membership\OSL-B2.Inventory.Membership.csproj">
-      <Project>{65D100A2-0ECC-4978-B9F1-AB834C3E6712}</Project>
-      <Name>OSL-B2.Inventory.Membership</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Repository\OSL-B2.Inventory.Repositories.csproj">
       <Project>{6bffc19c-f18d-499e-9c82-b9f5e4024afa}</Project>
       <Name>OSL-B2.Inventory.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Service\OSL-B2.Inventory.Service.csproj">
+      <Project>{cc1f9611-7ec6-43c3-987d-37b47d2c1d7b}</Project>
+      <Name>OSL-B2.Inventory.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

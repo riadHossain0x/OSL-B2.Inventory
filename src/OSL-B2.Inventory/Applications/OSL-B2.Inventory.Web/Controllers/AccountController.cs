@@ -5,8 +5,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL_B2.Inventory.Membership.Services;
 using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Services;
 using OSL_B2.Inventory.Web.Models;
 
 namespace OSL_B2.Inventory.Web.Controllers
@@ -16,14 +16,11 @@ namespace OSL_B2.Inventory.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IAccountService _accountService;
 
-        public AccountController()
+        public AccountController(IAccountService accountService)
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            
+            _accountService = accountService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -73,7 +70,7 @@ namespace OSL_B2.Inventory.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await _accountService.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -150,7 +147,7 @@ namespace OSL_B2.Inventory.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await _accountService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
