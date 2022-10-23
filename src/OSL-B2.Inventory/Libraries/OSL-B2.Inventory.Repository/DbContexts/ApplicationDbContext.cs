@@ -24,6 +24,13 @@ namespace OSL_B2.Inventory.Repository.DbContexts
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AppUser>().Property(x => x.FirstName).HasColumnType("varchar").HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<AppUser>().Property(x => x.LastName).HasColumnType("varchar").HasMaxLength(50);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

@@ -12,8 +12,8 @@
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(nullable: false),
+                        FirstName = c.String(nullable: false, maxLength: 50, unicode: false),
+                        LastName = c.String(maxLength: 50, unicode: false),
                         IdentityUserId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
