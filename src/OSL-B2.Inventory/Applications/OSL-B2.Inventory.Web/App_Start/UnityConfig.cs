@@ -25,7 +25,7 @@ namespace OSL_B2.Inventory.Web
             container.RegisterType<DbContext, ApplicationDbContext>();
             //container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
-            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            container.RegisterType<IUserStore<ApplicationUser, long>, CustomUserStore>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IAccountAdapter, AccountAdapter>();
 

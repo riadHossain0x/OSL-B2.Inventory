@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository.DbContexts
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<long, CustomUserLogin, CustomUserRole,
+    CustomUserClaim>
     {
         [Required]
         [MaxLength(50)]
@@ -16,7 +17,7 @@ namespace OSL_B2.Inventory.Repository.DbContexts
         [MaxLength(50)]
         public string LastName { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, long> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -24,10 +25,11 @@ namespace OSL_B2.Inventory.Repository.DbContexts
             return userIdentity;
         }
     }
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
+    long, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
         }
 
@@ -41,5 +43,30 @@ namespace OSL_B2.Inventory.Repository.DbContexts
             return new ApplicationDbContext();
         }
 
+    }
+    public class CustomUserStore : UserStore<ApplicationUser, CustomRole, long,
+    CustomUserLogin, CustomUserRole, CustomUserClaim>
+    {
+        public CustomUserStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
+    }
+    public class CustomUserRole : IdentityUserRole<long> { }
+    public class CustomUserClaim : IdentityUserClaim<long> { }
+    public class CustomUserLogin : IdentityUserLogin<long> { }
+
+    public class CustomRole : IdentityRole<long, CustomUserRole>
+    {
+        public CustomRole() { }
+        public CustomRole(string name) { Name = name; }
+    }
+
+    public class CustomRoleStore : RoleStore<CustomRole, long, CustomUserRole>
+    {
+        public CustomRoleStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
     }
 }

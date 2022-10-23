@@ -15,8 +15,8 @@ namespace OSL_B2.Inventory.Membership
         Task SignInAsync(ApplicationUser user, bool isPersistent, bool rememberBrowser);
         Task<SignInStatus> PasswordSignInAsync(string email, string password, bool rememberMe, bool shouldLockout);
         Task<ApplicationUser> FindByNameAsync(string email);
-        Task<bool> IsEmailConfirmedAsync(string userId);
-        Task<IdentityResult> ConfirmEmailAsync(string userId, string token);
-        Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword);
+        Task<bool> IsEmailConfirmedAsync(long userId);
+        Task<IdentityResult> ConfirmEmailAsync(long userId, string token);
+        Task<IdentityResult> ResetPasswordAsync(long userId, string token, string newPassword);
     }
 }

@@ -17,7 +17,7 @@ namespace OSL_B2.Inventory.Membership
             _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
+        public async Task<IdentityResult> ConfirmEmailAsync(long userId, string token)
         {
             return await _userManager.ConfirmEmailAsync(userId, token);
         }
@@ -39,7 +39,7 @@ namespace OSL_B2.Inventory.Membership
             return await _userManager.FindByNameAsync(email);
         }
 
-        public async Task<bool> IsEmailConfirmedAsync(string userId)
+        public async Task<bool> IsEmailConfirmedAsync(long userId)
         {
             return await _userManager.IsEmailConfirmedAsync(userId);
         }
@@ -49,7 +49,7 @@ namespace OSL_B2.Inventory.Membership
             return await _signInManager.PasswordSignInAsync(email, password, rememberMe, shouldLockout: false);
         }
 
-        public async Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword)
+        public async Task<IdentityResult> ResetPasswordAsync(long userId, string token, string newPassword)
         {
             return await _userManager.ResetPasswordAsync(userId, token, newPassword);
         }
