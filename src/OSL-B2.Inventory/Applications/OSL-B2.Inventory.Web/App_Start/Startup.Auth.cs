@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using OSL_B2.Inventory.Repository.DbContexts;
-using OSL_B2.Inventory.Web.Models;
+using OSL_B2.Inventory.Membership.Services;
 
 namespace OSL_B2.Inventory.Web
 {
@@ -55,15 +55,15 @@ namespace OSL_B2.Inventory.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "dfg",
+               appSecret: "fdg");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "rgdf",
+                ClientSecret = "dfg"
+            });
         }
     }
 }

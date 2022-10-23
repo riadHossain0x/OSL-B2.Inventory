@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using OSL_B2.Inventory.Repository.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,7 @@ namespace OSL_B2.Inventory.Membership.Adapters
 {
     public interface IAccountAdapter
     {
-        Task<IdentityResult> CreateUserAsync(object user);
-        Task<object> GetUserByEmailAsync(string email);
-        Task<object> GetUserAsync();
-        Task<SignInStatus> PasswordSignInAsync(object user);
-        Task<IList<string>> GetCurrentUserRolesAsync(string email);
-        Task SignInAsync(string email);
-        Task SignOutAsync();
-        bool IsAuthenticated();
-        string GetUserId();
+        Task<IdentityResult> CreateAsync(ApplicationUser user, string password);
+        //Task<SignInStatus> PasswordSignInAsync(string email, string password, bool isPersistant, bool shouldLockout);
     }
 }
