@@ -23,7 +23,6 @@ namespace OSL_B2.Inventory.Membership
         Task<bool> IsEmailConfirmedAsync(long userId);
         Task<IdentityResult> ConfirmEmailAsync(long userId, string token);
         Task<IdentityResult> ResetPasswordAsync(long userId, string token, string newPassword);
-        Task<bool> HasPasswordAsync(long userId);
         void LogOff();
 
         Task<List<SelectListItem>> GetValidTwoFactorProvidersAsync(long userId);

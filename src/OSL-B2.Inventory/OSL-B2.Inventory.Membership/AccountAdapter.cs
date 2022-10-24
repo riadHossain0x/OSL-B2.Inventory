@@ -84,11 +84,6 @@ namespace OSL_B2.Inventory.Membership
             return userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
         }
 
-        public async Task<bool> HasPasswordAsync(long userId)
-        {
-            return await _userManager.HasPasswordAsync(userId);
-        }
-
         public async Task<bool> IsEmailConfirmedAsync(long userId)
         {
             return await _userManager.IsEmailConfirmedAsync(userId);
