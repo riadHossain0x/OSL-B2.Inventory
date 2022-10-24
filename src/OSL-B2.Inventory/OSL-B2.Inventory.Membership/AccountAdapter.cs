@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using OSL_B2.Inventory.Repository.DbContexts;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using System.Net;
 
 namespace OSL_B2.Inventory.Membership
 {
@@ -10,11 +12,14 @@ namespace OSL_B2.Inventory.Membership
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationSignInManager _signInManager;
+        private readonly IAuthenticationManager _authenticationManager;
 
-        public AccountAdapter(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountAdapter(ApplicationUserManager userManager, ApplicationSignInManager signInManager,
+            IAuthenticationManager authenticationManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _authenticationManager = authenticationManager;
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(long userId, string token)
@@ -42,6 +47,11 @@ namespace OSL_B2.Inventory.Membership
         public async Task<bool> IsEmailConfirmedAsync(long userId)
         {
             return await _userManager.IsEmailConfirmedAsync(userId);
+        }
+
+        public void LogOff()
+        {
+            _authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
         public async Task<SignInStatus> PasswordSignInAsync(string email, string password, bool rememberMe, bool shouldLockout)

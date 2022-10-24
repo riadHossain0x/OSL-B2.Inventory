@@ -18,5 +18,6 @@ namespace OSL_B2.Inventory.Membership
         Task<bool> IsEmailConfirmedAsync(long userId);
         Task<IdentityResult> ConfirmEmailAsync(long userId, string token);
         Task<IdentityResult> ResetPasswordAsync(long userId, string token, string newPassword);
+        void LogOff();
     }
 }
