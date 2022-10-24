@@ -343,7 +343,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { FirstName = loginInfo.DefaultUserName });
             }
         }
 
@@ -369,8 +369,9 @@ namespace OSL_B2.Inventory.Web.Controllers
                     {
                         return View("ExternalLoginFailure");
                     }
-                    var user = new ApplicationUser { FirstName = info.DefaultUserName, UserName = model.Email, 
-                        Email = model.Email };
+                    var user = new ApplicationUser { FirstName = model.FirstName, UserName = info.Email, 
+                        Email = info.Email
+                    };
                     var result = await _accountService.CreateAsync(user, info);
 
                     if (result)

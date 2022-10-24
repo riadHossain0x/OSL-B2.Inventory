@@ -6,8 +6,8 @@ namespace OSL_B2.Inventory.Web.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Name")]
+        public string FirstName { get; set; }
     }
 
     public class ExternalLoginListViewModel
