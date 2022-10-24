@@ -5,13 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WholeSale.Web.Controllers
+namespace OSL_B2.Inventory.Web.Controllers
 {
     public class HomeController : Controller
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
         public ActionResult Index()
         {
+            Log.Info("Hello");
             return View();
         }
 

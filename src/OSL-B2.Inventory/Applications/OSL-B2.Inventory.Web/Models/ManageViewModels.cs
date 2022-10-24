@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace WholeSale.Web.Models
+namespace OSL_B2.Inventory.Web.Models
 {
     public class IndexViewModel
     {

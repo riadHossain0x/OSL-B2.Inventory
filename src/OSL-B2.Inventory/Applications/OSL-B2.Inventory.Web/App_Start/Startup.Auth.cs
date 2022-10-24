@@ -5,9 +5,10 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using WholeSale.Web.Models;
+using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public partial class Startup
     {
@@ -30,9 +31,10 @@ namespace WholeSale.Web
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, long>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
+                            getUserIdCallback: (id) => id.GetUserId<long>())
                 }
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
@@ -54,15 +56,15 @@ namespace WholeSale.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "dfg",
+               appSecret: "fdg");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "523859434679-q8hj6o484dndmqtnd791kikectnv7or5.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }
