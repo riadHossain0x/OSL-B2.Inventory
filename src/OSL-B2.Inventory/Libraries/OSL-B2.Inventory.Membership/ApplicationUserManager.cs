@@ -20,7 +20,7 @@ namespace OSL_B2.Inventory.Membership
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new CustomUserStore(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
             {

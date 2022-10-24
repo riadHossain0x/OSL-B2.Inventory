@@ -105,6 +105,13 @@
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="Adapters\IAccountAdapter.cs" />
     <Compile Include="DbContexts\ApplicationDbContext.cs" />
+    <Compile Include="DbContexts\Identity\ApplicationUser.cs" />
+    <Compile Include="DbContexts\Identity\RoleStore.cs" />
+    <Compile Include="DbContexts\Identity\UserStore.cs" />
+    <Compile Include="DbContexts\Identity\Role.cs" />
+    <Compile Include="DbContexts\Identity\UserClaim.cs" />
+    <Compile Include="DbContexts\Identity\UserLogin.cs" />
+    <Compile Include="DbContexts\Identity\UserRole.cs" />
     <Compile Include="Migrations\202210240903200_identity.cs" />
     <Compile Include="Migrations\202210240903200_identity.designer.cs">
       <DependentUpon>202210240903200_identity.cs</DependentUpon>
@@ -131,6 +138,7 @@
       <DependentUpon>202210240903200_identity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
