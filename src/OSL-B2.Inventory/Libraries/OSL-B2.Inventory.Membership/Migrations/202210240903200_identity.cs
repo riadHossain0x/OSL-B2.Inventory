@@ -1,9 +1,9 @@
-﻿namespace WholeSale.Repository.Migrations
+﻿namespace OSL_B2.Inventory.Membership.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class identity : DbMigration
     {
         public override void Up()
         {

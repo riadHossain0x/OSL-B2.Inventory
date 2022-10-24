@@ -3,10 +3,9 @@ using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
 using OSL_B2.Inventory.Web.Controllers;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership.DbContexts;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Web;
 using OSL_B2.Inventory.Membership;
@@ -23,9 +22,8 @@ namespace OSL_B2.Inventory.Web
             // it is NOT necessary to register your controllers
 
             container.RegisterType<DbContext, ApplicationDbContext>();
-            //container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
-            container.RegisterType<IUserStore<ApplicationUser, long>, CustomUserStore>();
+            container.RegisterType<IUserStore<ApplicationUser, long>, UserStore>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IAccountAdapter, AccountAdapter>();
 

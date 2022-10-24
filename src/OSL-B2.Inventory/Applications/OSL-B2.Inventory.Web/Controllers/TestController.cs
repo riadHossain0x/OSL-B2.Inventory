@@ -1,5 +1,5 @@
 ﻿using OSL_B2.Inventory.Membership;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership.DbContexts;
 using System.Web.Mvc;
 
 namespace WholeSale.Web.Controllers

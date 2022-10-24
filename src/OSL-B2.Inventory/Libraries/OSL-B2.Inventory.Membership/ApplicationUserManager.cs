@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace OSL_B2.Inventory.Membership
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new CustomUserStore(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
             {
