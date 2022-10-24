@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OSL_B2.Inventory.Membership")]
+[assembly: AssemblyTitle("OSL-B2.Inventory.Membership")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OSL_B2.Inventory.Membership")]
+[assembly: AssemblyProduct("OSL-B2.Inventory.Membership")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("65d100a2-0ecc-4978-b9f1-ab834c3e6712")]
+[assembly: Guid("91f348f5-d38e-4eab-a818-abef53019e34")]
 
 // Version information for an assembly consists of the following four values:
 //

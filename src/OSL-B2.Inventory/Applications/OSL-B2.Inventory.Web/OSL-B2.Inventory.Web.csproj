@@ -48,7 +48,7 @@
   <ItemGroup>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
-	</Reference>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -276,6 +276,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Membership\OSL-B2.Inventory.Membership.csproj">
+      <Project>{91f348f5-d38e-4eab-a818-abef53019e34}</Project>
+      <Name>OSL-B2.Inventory.Membership</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Repository\OSL-B2.Inventory.Repositories.csproj">
       <Project>{6bffc19c-f18d-499e-9c82-b9f5e4024afa}</Project>
       <Name>OSL-B2.Inventory.Repositories</Name>
@@ -283,10 +287,6 @@
     <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Service\OSL-B2.Inventory.Service.csproj">
       <Project>{cc1f9611-7ec6-43c3-987d-37b47d2c1d7b}</Project>
       <Name>OSL-B2.Inventory.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\OSL-B2.Inventory.Membership\OSL-B2.Inventory.Membership.csproj">
-      <Project>{2d10558c-52c8-4bde-adf4-012a65090608}</Project>
-      <Name>OSL-B2.Inventory.Membership</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
