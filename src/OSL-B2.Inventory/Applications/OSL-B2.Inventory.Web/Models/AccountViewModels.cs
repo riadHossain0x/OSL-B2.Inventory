@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WholeSale.Web.Models
+namespace OSL_B2.Inventory.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Name")]
+        public string FirstName { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -64,6 +64,16 @@ namespace WholeSale.Web.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [MaxLength(50)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

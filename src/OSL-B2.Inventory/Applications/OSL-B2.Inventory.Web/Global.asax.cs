@@ -8,7 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using WholeSale.Web.Profiles;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {

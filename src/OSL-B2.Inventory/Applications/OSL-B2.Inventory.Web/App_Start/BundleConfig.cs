@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WholeSale.Web
+namespace OSL_B2.Inventory.Web
 {
     public class BundleConfig
     {
