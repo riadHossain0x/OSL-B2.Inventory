@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

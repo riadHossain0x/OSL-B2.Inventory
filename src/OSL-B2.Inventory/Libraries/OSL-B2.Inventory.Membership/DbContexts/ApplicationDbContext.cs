@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace OSL_B2.Inventory.Repository.DbContexts
+namespace OSL_B2.Inventory.Membership.DbContexts
 {
     public class ApplicationUser : IdentityUser<long, UserLogin, UserRole,
     UserClaim>

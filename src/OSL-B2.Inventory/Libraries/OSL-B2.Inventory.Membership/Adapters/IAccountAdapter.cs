@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
