@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace OSL_B2.Inventory.Entities.Entities
@@ -8,14 +7,8 @@ namespace OSL_B2.Inventory.Entities.Entities
     public class Product
     {
         public long Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [MaxLength(256)]
         public string Image { get; set; }
-
-        [MaxLength(256)]
         public string Details { get; set; }
         public int Quantity { get; set; }
         public int Critical_Qty { get; set; }

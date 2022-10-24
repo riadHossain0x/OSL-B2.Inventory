@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository.DbContexts
 {
-    public class ApplicationUser : IdentityUser<long, CustomUserLogin, CustomUserRole,
-    CustomUserClaim>
+    public class ApplicationUser : IdentityUser<long, UserLogin, UserRole,
+    UserClaim>
     {
         [Required]
         [MaxLength(50)]
@@ -25,8 +25,8 @@ namespace OSL_B2.Inventory.Repository.DbContexts
             return userIdentity;
         }
     }
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
-    long, CustomUserLogin, CustomUserRole, CustomUserClaim>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role,
+    long, UserLogin, UserRole, UserClaim>
     {
         public ApplicationDbContext()
             : base("DefaultConnection")
@@ -44,25 +44,25 @@ namespace OSL_B2.Inventory.Repository.DbContexts
         }
 
     }
-    public class CustomUserStore : UserStore<ApplicationUser, CustomRole, long,
-    CustomUserLogin, CustomUserRole, CustomUserClaim>
+    public class CustomUserStore : UserStore<ApplicationUser, Role, long,
+    UserLogin, UserRole, UserClaim>
     {
         public CustomUserStore(ApplicationDbContext context)
             : base(context)
         {
         }
     }
-    public class CustomUserRole : IdentityUserRole<long> { }
-    public class CustomUserClaim : IdentityUserClaim<long> { }
-    public class CustomUserLogin : IdentityUserLogin<long> { }
+    public class UserRole : IdentityUserRole<long> { }
+    public class UserClaim : IdentityUserClaim<long> { }
+    public class UserLogin : IdentityUserLogin<long> { }
 
-    public class CustomRole : IdentityRole<long, CustomUserRole>
+    public class Role : IdentityRole<long, UserRole>
     {
-        public CustomRole() { }
-        public CustomRole(string name) { Name = name; }
+        public Role() { }
+        public Role(string name) { Name = name; }
     }
 
-    public class CustomRoleStore : RoleStore<CustomRole, long, CustomUserRole>
+    public class CustomRoleStore : RoleStore<Role, long, UserRole>
     {
         public CustomRoleStore(ApplicationDbContext context)
             : base(context)
