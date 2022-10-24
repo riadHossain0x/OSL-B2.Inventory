@@ -18,12 +18,11 @@ namespace OSL_B2.Inventory.Web.Controllers
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AccountController));
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        private readonly IAccountAdapter _accountService;
+        private readonly IAccountAdapter _accountAdapter;
 
-        public AccountController(IAccountAdapter accountService)
+        public AccountController(IAccountAdapter accountAdapter)
         {
-            _accountService = accountService;
+            _accountAdapter = accountAdapter;
         }
 
         public ApplicationSignInManager SignInManager
@@ -35,18 +34,6 @@ namespace OSL_B2.Inventory.Web.Controllers
             private set
             {
                 _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
             }
         }
 
@@ -73,7 +60,7 @@ namespace OSL_B2.Inventory.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await _accountService.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await _accountAdapter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -153,7 +140,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                 {
                     var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, 
                         UserName = model.Email, Email = model.Email };
-                    _ = await _accountService.CreateAsync(user, model.Password);
+                    _ = await _accountAdapter.CreateAsync(user, model.Password);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -181,7 +168,7 @@ namespace OSL_B2.Inventory.Web.Controllers
             {
                 return View("Error");
             }
-            var result = await _accountService.ConfirmEmailAsync(userId, code);
+            var result = await _accountAdapter.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -202,8 +189,8 @@ namespace OSL_B2.Inventory.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _accountService.FindByNameAsync(model.Email);
-                if (user == null || !(await _accountService.IsEmailConfirmedAsync(user.Id)))
+                var user = await _accountAdapter.FindByNameAsync(model.Email);
+                if (user == null || !(await _accountAdapter.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -248,13 +235,13 @@ namespace OSL_B2.Inventory.Web.Controllers
             {
                 return View(model);
             }
-            var user = await _accountService.FindByNameAsync(model.Email);
+            var user = await _accountAdapter.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await _accountService.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await _accountAdapter.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -287,13 +274,12 @@ namespace OSL_B2.Inventory.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            var userId = await _accountAdapter.GetUserIdAsync();
             if (userId == 0)
             {
                 return View("Error");
             }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+            var factorOptions = await _accountAdapter.GetValidTwoFactorProvidersAsync(userId);
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
@@ -322,14 +308,14 @@ namespace OSL_B2.Inventory.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await _accountAdapter.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -364,7 +350,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                 try
                 {
                     // Get the information about the user from the external login provider
-                    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                    var info = await _accountAdapter.GetExternalLoginInfoAsync();
                     if (info == null)
                     {
                         return View("ExternalLoginFailure");
@@ -372,7 +358,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                     var user = new ApplicationUser { FirstName = model.FirstName, UserName = info.Email, 
                         Email = info.Email
                     };
-                    var result = await _accountService.CreateAsync(user, info);
+                    var result = await _accountAdapter.CreateAsync(user, info);
 
                     if (result)
                     {
@@ -395,7 +381,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            _accountService.LogOff();
+            _accountAdapter.LogOff();
             return RedirectToAction("Index", "Home");
         }
 
@@ -411,12 +397,6 @@ namespace OSL_B2.Inventory.Web.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
                 if (_signInManager != null)
                 {
                     _signInManager.Dispose();
@@ -430,14 +410,6 @@ namespace OSL_B2.Inventory.Web.Controllers
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {

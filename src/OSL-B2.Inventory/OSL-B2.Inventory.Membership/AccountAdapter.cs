@@ -5,6 +5,9 @@ using OSL_B2.Inventory.Repository.DbContexts;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using System.Net;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Linq;
 
 namespace OSL_B2.Inventory.Membership
 {
@@ -42,7 +45,6 @@ namespace OSL_B2.Inventory.Membership
         public async Task<bool> CreateAsync(ApplicationUser user, ExternalLoginInfo info)
         {
             var result = await _userManager.CreateAsync(user);
-
             if (result.Succeeded)
             {
                 result = await _userManager.AddLoginAsync(user.Id, info.Login);
@@ -52,12 +54,39 @@ namespace OSL_B2.Inventory.Membership
                     return true;
                 }
             }
+
             throw new InvalidOperationException($"{string.Join(", ", result.Errors)}");
+        }
+
+        public async Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent)
+        {
+            return await _signInManager.ExternalSignInAsync(loginInfo, isPersistent);
         }
 
         public async Task<ApplicationUser> FindByNameAsync(string email)
         {
             return await _userManager.FindByNameAsync(email);
+        }
+
+        public async Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
+        {
+            return await _authenticationManager.GetExternalLoginInfoAsync();
+        }
+
+        public async Task<long> GetUserIdAsync()
+        {
+            return await _signInManager.GetVerifiedUserIdAsync();
+        }
+
+        public async Task<List<SelectListItem>> GetValidTwoFactorProvidersAsync(long userId)
+        {
+            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(userId);
+            return userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+        }
+
+        public async Task<bool> HasPasswordAsync(long userId)
+        {
+            return await _userManager.HasPasswordAsync(userId);
         }
 
         public async Task<bool> IsEmailConfirmedAsync(long userId)

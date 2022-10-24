@@ -56,9 +56,9 @@ namespace OSL_B2.Inventory.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "dfg",
-               appSecret: "fdg");
+            //app.UseFacebookAuthentication(
+            //   appId: "",
+            //   appSecret: "");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
