@@ -382,7 +382,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         public ActionResult LogOff()
         {
             _accountAdapter.LogOff();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
