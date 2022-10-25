@@ -26,11 +26,11 @@ namespace OSL_B2.Inventory.Repository.DbContexts.ModelConventions
 
             builder.Entity<Customer>().Property(x => x.ModifiedBy).IsOptional();
 
-            builder.Entity<Customer>().Property(x => x.ModifiedDate).IsOptional();
+            builder.Entity<Customer>().Property(x => x.ModifiedDate).HasColumnType("datetime2").IsOptional();
 
             builder.Entity<Customer>().Property(x => x.CreatedBy).IsRequired();
 
-            builder.Entity<Customer>().Property(x => x.CreatedDate).IsRequired();
+            builder.Entity<Customer>().Property(x => x.CreatedDate).HasColumnType("datetime2").IsRequired();
         }
     }
 }

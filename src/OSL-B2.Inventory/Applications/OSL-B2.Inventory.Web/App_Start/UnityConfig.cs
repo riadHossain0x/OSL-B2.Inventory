@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Web;
 using OSL_B2.Inventory.Membership;
+using OSL_B2.Inventory.Repository.DbContexts;
 
 namespace OSL_B2.Inventory.Web
 {
@@ -26,6 +27,7 @@ namespace OSL_B2.Inventory.Web
             container.RegisterType<IUserStore<ApplicationUser, long>, UserStore>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IAccountAdapter, AccountAdapter>();
+            container.RegisterType<IIMSDbContext, IMSDbContext>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContexts\IIMSDbContext.cs" />
     <Compile Include="DbContexts\IMSDbContext.cs" />
     <Compile Include="DbContexts\ModelConventions\CategoryModel.cs" />
     <Compile Include="DbContexts\ModelConventions\CustomerModel.cs" />
@@ -69,6 +70,10 @@
     <Compile Include="Migrations\202210250359437_tables.cs" />
     <Compile Include="Migrations\202210250359437_tables.designer.cs">
       <DependentUpon>202210250359437_tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210250433315_datetimefix.cs" />
+    <Compile Include="Migrations\202210250433315_datetimefix.designer.cs">
+      <DependentUpon>202210250433315_datetimefix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202210250359437_tables.resx">
       <DependentUpon>202210250359437_tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210250433315_datetimefix.resx">
+      <DependentUpon>202210250433315_datetimefix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

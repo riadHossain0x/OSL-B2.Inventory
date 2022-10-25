@@ -1,12 +1,13 @@
 ﻿using OSL_B2.Inventory.Entities.Entities;
 using System.Data.Entity;
 using OSL_B2.Inventory.Repository.DbContexts.ModelConventions;
+using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository.DbContexts
 {
-    public class IMSDbContext : DbContext
+    public class IMSDbContext : DbContext, IIMSDbContext
     {
-        public IMSDbContext() 
+        public IMSDbContext()
             : base("DefaultConnection")
         {
 
@@ -32,5 +33,10 @@ namespace OSL_B2.Inventory.Repository.DbContexts
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleDetail> SaleDetails { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+
+        void IIMSDbContext.SaveChanges() => base.SaveChanges();
+        async Task IIMSDbContext.SaveChangesAsync() => await base.SaveChangesAsync();
     }
 }
