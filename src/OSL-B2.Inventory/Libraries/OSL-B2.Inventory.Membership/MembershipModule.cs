@@ -4,6 +4,7 @@ using OSL_B2.Inventory.Membership.DbContexts;
 using Unity;
 using Unity.Injection;
 using System.Web;
+using System.Data.Entity;
 
 namespace OSL_B2.Inventory.Membership
 {
@@ -11,6 +12,7 @@ namespace OSL_B2.Inventory.Membership
     {
         public static void Register(UnityContainer container)
         {
+            container.RegisterType<DbContext, ApplicationDbContext>();
             container.RegisterType<IUserStore<ApplicationUser, long>, UserStore>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IAccountAdapter, AccountAdapter>();

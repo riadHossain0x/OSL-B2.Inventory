@@ -18,7 +18,6 @@ namespace OSL_B2.Inventory.Web
         {
 			var container = new UnityContainer();
 
-            container.RegisterType<DbContext, ApplicationDbContext>();
             container.RegisterType<ManageController>(new InjectionConstructor());
             MembershipModule.Register(container);
             RepositoryModule.Register(container);
