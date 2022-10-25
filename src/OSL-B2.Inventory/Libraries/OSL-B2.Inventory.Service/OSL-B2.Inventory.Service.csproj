@@ -8,8 +8,8 @@
     <ProjectGuid>{CC1F9611-7EC6-43C3-987D-37B47D2C1D7B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WholeSale.Service</RootNamespace>
-    <AssemblyName>WholeSale.Service</AssemblyName>
+    <RootNamespace>OSL_B2.Inventory.Service</RootNamespace>
+    <AssemblyName>OSL_B2.Inventory.Service</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

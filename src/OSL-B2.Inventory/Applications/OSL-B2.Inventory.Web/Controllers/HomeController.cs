@@ -1,4 +1,5 @@
 ﻿using log4net;
+using OSL_B2.Inventory.Repository.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,15 @@ namespace OSL_B2.Inventory.Web.Controllers
     public class HomeController : Controller
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
+        private readonly IIMSDbContext dbContext;
+
+        public HomeController(IIMSDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public ActionResult Index()
         {
-            Log.Info("Hello");
             return View();
         }
 
