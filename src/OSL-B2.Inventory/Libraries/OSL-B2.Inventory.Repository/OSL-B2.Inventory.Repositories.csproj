@@ -66,9 +66,9 @@
     <Compile Include="DbContexts\ModelConventions\SaleDetailModel.cs" />
     <Compile Include="DbContexts\ModelConventions\SaleModel.cs" />
     <Compile Include="DbContexts\ModelConventions\SupplierModel.cs" />
-    <Compile Include="Migrations\202210241147007_initial_Table.cs" />
-    <Compile Include="Migrations\202210241147007_initial_Table.designer.cs">
-      <DependentUpon>202210241147007_initial_Table.cs</DependentUpon>
+    <Compile Include="Migrations\202210250359437_tables.cs" />
+    <Compile Include="Migrations\202210250359437_tables.designer.cs">
+      <DependentUpon>202210250359437_tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +84,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202210241147007_initial_Table.resx">
-      <DependentUpon>202210241147007_initial_Table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202210250359437_tables.resx">
+      <DependentUpon>202210250359437_tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

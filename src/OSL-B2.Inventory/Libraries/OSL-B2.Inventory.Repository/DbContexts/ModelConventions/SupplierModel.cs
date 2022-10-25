@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WholeSale.Repository.DbContexts.ModelConventions
+namespace OSL_B2.Inventory.Repository.DbContexts.ModelConventions
 {
     internal static class SupplierModel
     {

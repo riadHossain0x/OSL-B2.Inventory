@@ -1,13 +1,8 @@
 ﻿using OSL_B2.Inventory.Entities.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WholeSale.Repository.DbContexts.ModelConventions;
+using OSL_B2.Inventory.Repository.DbContexts.ModelConventions;
 
-namespace WholeSale.Repository.DbContexts
+namespace OSL_B2.Inventory.Repository.DbContexts
 {
     public class IMSDbContext : DbContext
     {
@@ -25,6 +20,8 @@ namespace WholeSale.Repository.DbContexts
             CustomerModel.Builder(modelBuilder);
             SaleModel.Builder(modelBuilder);
             SaleDetailModel.Builder(modelBuilder);
+            PurchaseModel.Builder(modelBuilder);
+            PurchaseDetailModel.Builder(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }

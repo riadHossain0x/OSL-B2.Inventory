@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WholeSale.Repository.DbContexts.ModelConventions
+namespace OSL_B2.Inventory.Repository.DbContexts.ModelConventions
 {
     internal static class PurchaseDetailModel
     {
@@ -20,9 +20,22 @@ namespace WholeSale.Repository.DbContexts.ModelConventions
                 .HasForeignKey(x => x.SupplierId);
 
             builder.Entity<PurchaseDetail>()
+                .HasRequired(x => x.Product)
+                .WithMany(x => x.PurchaseDetails)
+                .HasForeignKey(x => x.ProductId);
+
+            builder.Entity<PurchaseDetail>()
                 .HasRequired(x => x.Purchase)
                 .WithMany(x => x.PurchaseDetails)
                 .HasForeignKey(x => x.PurchaseId);
+
+            builder.Entity<PurchaseDetail>().Property(x => x.Quantity).IsRequired();
+
+            builder.Entity<PurchaseDetail>().Property(x => x.Price)
+                .HasColumnType("decimal").HasPrecision(19, 2).IsRequired();
+
+            builder.Entity<PurchaseDetail>().Property(x => x.Total)
+                .HasColumnType("decimal").HasPrecision(19, 2).IsRequired();
         }
     }
 }

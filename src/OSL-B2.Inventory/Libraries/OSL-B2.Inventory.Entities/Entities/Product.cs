@@ -17,5 +17,6 @@ namespace OSL_B2.Inventory.Entities.Entities
         public Category Category { get; set; }
         public long CategoryId { get; set; }
         public List<SaleDetail> SaleDetails { get; set; }
+        public List<PurchaseDetail> PurchaseDetails { get; set; }
     }
 }
