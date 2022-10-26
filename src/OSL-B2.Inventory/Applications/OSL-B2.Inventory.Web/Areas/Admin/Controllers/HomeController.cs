@@ -15,7 +15,6 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public HomeController(IIMSDbContext dbContext)
         {
             this.dbContext = dbContext;
-           
         }
 
         public ActionResult Index()
