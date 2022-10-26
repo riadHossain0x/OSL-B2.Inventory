@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace OSL_B2.Inventory.Web.Controllers
+namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
