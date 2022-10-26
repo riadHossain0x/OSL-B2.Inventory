@@ -3,6 +3,7 @@ using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Service.Dtos;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace OSL_B2.Inventory.Service
@@ -27,6 +28,13 @@ namespace OSL_B2.Inventory.Service
 
             _categoryRepository.Add(entity);
             _categoryRepository.SaveChanages();
+        }
+
+        public IList<CategoryDto> GetAllCategories()
+        {
+            var entity = _categoryRepository.GetAll();
+            var entityDto = Mapper.Map<IList<CategoryDto>>(entity);
+            return entityDto;
         }
 
         public void RemoveCategory(long id)

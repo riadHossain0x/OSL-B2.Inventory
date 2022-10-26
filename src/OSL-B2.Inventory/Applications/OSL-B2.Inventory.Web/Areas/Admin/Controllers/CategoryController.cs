@@ -1,6 +1,8 @@
 ﻿using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Service.Dtos;
+using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
@@ -12,13 +14,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _categoryService.RemoveCategory(5);
-            //_categoryService.AddCategory(new CategoryDto { Name = "Riad", IsActive = StatusDto.Active, CreatedBy = 3, CreatedDate = DateTime.Now });
         }
 
         public ActionResult Index()
         {
-            return View();
+            var model = _categoryService.GetAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
+            return View(model);
         }
     }
 }

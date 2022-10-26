@@ -11,5 +11,6 @@ namespace OSL_B2.Inventory.Service
     {
         void AddCategory(CategoryDto item);
         void RemoveCategory(long id);
+        IList<CategoryDto> GetAllCategories();
     }
 }
