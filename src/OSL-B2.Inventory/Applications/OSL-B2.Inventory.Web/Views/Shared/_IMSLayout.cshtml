@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using OSL_B2.Inventory.Membership
+@{
+    var context = Factory<IAccountAdapter>.GetInstance();
+    var appUser = context.FindByName(User.Identity.Name);
+} 
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -93,7 +98,7 @@
                         <img src="~/Content/adminlte/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        @Html.ActionLink(User.Identity.Name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        @Html.ActionLink(string.Concat(appUser.FirstName," ", appUser.LastName), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                     </div>
                 </div>
 

@@ -68,6 +68,11 @@ namespace OSL_B2.Inventory.Membership
             return await _userManager.FindByNameAsync(email);
         }
 
+        public ApplicationUser FindByName(string email)
+        {
+            return _userManager.FindByName(email);
+        }
+
         public async Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
         {
             return await _authenticationManager.GetExternalLoginInfoAsync();
