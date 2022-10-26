@@ -19,6 +19,7 @@ namespace OSL_B2.Inventory.Membership
         Task<ExternalLoginInfo> GetExternalLoginInfoAsync();
         Task<SignInStatus> PasswordSignInAsync(string email, string password, bool rememberMe, bool shouldLockout);
         Task<ApplicationUser> FindByNameAsync(string email);
+        ApplicationUser FindByName(string email);
         Task<long> GetUserIdAsync();
         Task<bool> IsEmailConfirmedAsync(long userId);
         Task<IdentityResult> ConfirmEmailAsync(long userId, string token);
