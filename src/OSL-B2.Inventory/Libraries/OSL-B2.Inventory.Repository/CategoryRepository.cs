@@ -1,7 +1,9 @@
 ﻿using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository.DbContexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace OSL_B2.Inventory.Repository
 {
@@ -40,6 +42,20 @@ namespace OSL_B2.Inventory.Repository
         public Category GetById(long id)
         {
             return _context.Categories.Find(id);
+        }
+
+        public int GetCount(Expression<Func<Category, bool>> filter = null)
+        {
+            var count = 0;
+
+            IQueryable<Category> query = _context.Categories;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            count = query.Count();
+
+            return count;
         }
 
         public long Update(Category entity)

@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -88,7 +91,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryService.cs" />
+    <Compile Include="Dtos\BaseEntityDto.cs" />
+    <Compile Include="Dtos\CategoryDto.cs" />
+    <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\ProductDto.cs" />
+    <Compile Include="Dtos\PurchaseDto.cs" />
+    <Compile Include="Dtos\PurchaseDetailDto.cs" />
+    <Compile Include="Dtos\SaleDto.cs" />
+    <Compile Include="Dtos\SaleDetail.cs" />
+    <Compile Include="Dtos\SupplierDto.cs" />
     <Compile Include="ICategoryService.cs" />
+    <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModule.cs" />
   </ItemGroup>
@@ -106,6 +119,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

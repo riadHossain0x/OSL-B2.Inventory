@@ -1,5 +1,7 @@
-﻿using OSL_B2.Inventory.Entities.Entities;
+﻿using AutoMapper;
+using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
+using OSL_B2.Inventory.Service.Dtos;
 using System;
 
 namespace OSL_B2.Inventory.Service
@@ -13,9 +15,16 @@ namespace OSL_B2.Inventory.Service
             _categoryRepository = categoryRepository;
         }
 
-        public void AddCategory()
+        public void AddCategory(CategoryDto item)
         {
-            _categoryRepository.Add(new Category { Name = "Shirt", IsActive = Status.Active, CreatedBy = 3, CreatedDate = DateTime.Now });
+            var count = _categoryRepository.GetCount(x => x.Name == item.Name);
+
+            if (count > 0)
+                throw new InvalidOperationException("Category name already exist.");
+
+            var entity = Mapper.Map<Category>(item);
+
+            _categoryRepository.Add(entity);
         }
     }
 }

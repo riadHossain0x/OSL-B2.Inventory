@@ -1983,10 +1983,6 @@
       <Project>{91f348f5-d38e-4eab-a818-abef53019e34}</Project>
       <Name>OSL-B2.Inventory.Membership</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Repository\OSL-B2.Inventory.Repositories.csproj">
-      <Project>{6bffc19c-f18d-499e-9c82-b9f5e4024afa}</Project>
-      <Name>OSL-B2.Inventory.Repositories</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Service\OSL-B2.Inventory.Service.csproj">
       <Project>{cc1f9611-7ec6-43c3-987d-37b47d2c1d7b}</Project>
       <Name>OSL-B2.Inventory.Service</Name>

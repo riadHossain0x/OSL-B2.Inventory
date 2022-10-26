@@ -1,5 +1,4 @@
 ﻿using log4net;
-using OSL_B2.Inventory.Repository.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class HomeController : AdminBaseController
     {
-        private readonly IIMSDbContext dbContext;
 
-        public HomeController(IIMSDbContext dbContext)
+        public HomeController()
         {
-            this.dbContext = dbContext;
         }
 
         public ActionResult Index()
