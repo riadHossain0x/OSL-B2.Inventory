@@ -46,7 +46,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "Admin" }, new { @class = "nav-link" })
                 </li>
             </ul>
 
@@ -86,7 +86,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/Admin/Home/Index" class="brand-link">
                 <img src="~/Content/adminlte/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
                 <span class="brand-text font-weight-dark">OSL INVENTORY</span>
@@ -100,7 +100,7 @@
                         <img src="~/Content/adminlte/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        @Html.ActionLink(name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        @Html.ActionLink(name, "Index", "Manage", new { area = "Admin" }, htmlAttributes: new { title = "Manage" })
                     </div>
                 </div>
 
@@ -161,6 +161,8 @@
     <!-- Bootstrap 4 -->
     <script src="~/Content/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
+    <!-- Moment js -->
+    <script src="~/Content/adminlte/plugins/moment/moment.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="~/Content/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
@@ -172,7 +174,13 @@
     <script src="~/Content/adminlte/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Content/adminlte/js/demo.js"></script>
-
+    <script>
+        $(".nav-sidebar").on("click", ".nav-link", function (e) {
+            //e.preventDefault();
+            $(".nav-link").removeClass("active");
+            $(this).addClass("active");
+        });
+    </script>
 </body>
 </html>
 
