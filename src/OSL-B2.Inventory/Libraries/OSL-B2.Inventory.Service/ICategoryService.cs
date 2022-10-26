@@ -10,5 +10,6 @@ namespace OSL_B2.Inventory.Service
     public interface ICategoryService
     {
         void AddCategory(CategoryDto item);
+        void RemoveCategory(long id);
     }
 }

@@ -12,7 +12,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _categoryService.AddCategory(new CategoryDto { Name = "Sabbir", IsActive = StatusDto.Active, CreatedBy = 3, CreatedDate = DateTime.Now });
+            _categoryService.RemoveCategory(5);
+            //_categoryService.AddCategory(new CategoryDto { Name = "Riad", IsActive = StatusDto.Active, CreatedBy = 3, CreatedDate = DateTime.Now });
         }
 
         public ActionResult Index()

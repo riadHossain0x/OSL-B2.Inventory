@@ -2,8 +2,10 @@
 using OSL_B2.Inventory.Repository.DbContexts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository
 {
@@ -15,34 +17,17 @@ namespace OSL_B2.Inventory.Repository
         {
             _context = context;
         }
-        public long Add(Category entity)
+        public void Add(Category entity)
         {
-            long result = -1;
-
             if (entity != null)
-            {
                 _context.Categories.Add(entity);
-                _context.SaveChanges();
-                result = entity.Id;
-            }
-
-            return result;
         }
 
-        public void Delete(long id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Remove(Category entity) => _context.Categories.Remove(entity);
 
-        public IList<Category> GetAll()
-        {
-            return _context.Categories.ToList();
-        }
+        public IList<Category> GetAll() => _context.Categories.ToList();
 
-        public Category GetById(long id)
-        {
-            return _context.Categories.Find(id);
-        }
+        public Category GetById(long id) => _context.Categories.Find(id);
 
         public int GetCount(Expression<Func<Category, bool>> filter = null)
         {
@@ -58,9 +43,17 @@ namespace OSL_B2.Inventory.Repository
             return count;
         }
 
-        public long Update(Category entity)
+        public void Edit(Category entity)
         {
-            throw new System.NotImplementedException();
+            if (_context.Entry(entity).State == EntityState.Detached)
+            {
+                _context.Categories.Attach(entity);
+            }
+            _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public void SaveChanages() => _context.SaveChanges();
+
+        public async Task SaveChanagesAsync() => await _context.SaveChangesAsync();
     }
 }

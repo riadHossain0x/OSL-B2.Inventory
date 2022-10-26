@@ -13,8 +13,10 @@ namespace OSL_B2.Inventory.Repository
         IList<Category> GetAll();
         Category GetById(long id);
         int GetCount(Expression<Func<Category, bool>> filter = null);
-        long Add(Category entity);
-        long Update(Category entity);
-        void Delete(long id);
+        void Add(Category entity);
+        void Edit(Category entity);
+        void Remove(Category entity);
+        void SaveChanages();
+        Task SaveChanagesAsync();
     }
 }
