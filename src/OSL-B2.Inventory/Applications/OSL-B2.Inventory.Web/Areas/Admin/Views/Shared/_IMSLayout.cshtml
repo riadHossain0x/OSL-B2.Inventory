@@ -176,6 +176,7 @@
     <script src="~/Content/adminlte/js/demo.js"></script>
     <script>
         $(".nav-sidebar").on("click", ".nav-link", function (e) {
+            //e.preventDefault();
             $(".nav-link").removeClass("active");
             $(this).addClass("active");
         });
