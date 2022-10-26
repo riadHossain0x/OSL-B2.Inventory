@@ -6,6 +6,7 @@ namespace OSL_B2.Inventory.Web.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
         public string FirstName { get; set; }
     }

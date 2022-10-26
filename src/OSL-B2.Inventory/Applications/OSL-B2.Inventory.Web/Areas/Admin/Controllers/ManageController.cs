@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Web.Controllers;
-using OSL_B2.Inventory.Web.Models;
+using OSL_B2.Inventory.Web.Areas.Admin.Models;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
