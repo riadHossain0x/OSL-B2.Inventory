@@ -13,9 +13,8 @@ using OSL_B2.Inventory.Web.Models;
 namespace OSL_B2.Inventory.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(AccountController));
         private ApplicationSignInManager _signInManager;
         private readonly IAccountAdapter _accountAdapter;
 

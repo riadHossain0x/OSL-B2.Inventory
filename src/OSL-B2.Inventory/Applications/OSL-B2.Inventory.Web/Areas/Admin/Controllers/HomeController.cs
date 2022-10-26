@@ -8,14 +8,14 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AdminBaseController
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
         private readonly IIMSDbContext dbContext;
 
         public HomeController(IIMSDbContext dbContext)
         {
             this.dbContext = dbContext;
+           
         }
 
         public ActionResult Index()
