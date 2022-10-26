@@ -2,6 +2,8 @@
 @{
     var context = Factory<IAccountAdapter>.GetInstance();
     var appUser = context.FindByName(User.Identity.Name);
+    var name = string.Concat(appUser.FirstName, " ", appUser.LastName);
+    name = name.Length <= 15 ? name : string.Concat(name.Substring(0, 15), "...");
 } 
 <!DOCTYPE html>
 <html>
@@ -98,7 +100,7 @@
                         <img src="~/Content/adminlte/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        @Html.ActionLink(string.Concat(appUser.FirstName," ", appUser.LastName), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        @Html.ActionLink(name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                     </div>
                 </div>
 
