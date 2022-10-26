@@ -20,11 +20,6 @@
                 @Html.ActionLink("OSL Inventory", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "Admin" }, new {})</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "Admin" }, new { })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "Admin" }, new { })</li>
-                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -33,7 +28,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <strong>Copyright &copy; 2022 <a href="http://onnorokomsoftware.com">OnnoRokom Software LTD</a>.</strong>
+            All rights reserved.
         </footer>
     </div>
 
