@@ -1,8 +1,8 @@
 using AutoMapper;
-using OSL_B2.Inventory.Service.Profiles;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WholeSale.Web.Profiles;
 
 namespace OSL_B2.Inventory.Web
 {
@@ -16,7 +16,7 @@ namespace OSL_B2.Inventory.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             log4net.Config.XmlConfigurator.Configure();
-            Mapper.Initialize(x => x.AddProfile<ServiceProfile>());
+            Mapper.Initialize(x => x.AddProfile<WebProfile>());
         }
     }
 }
