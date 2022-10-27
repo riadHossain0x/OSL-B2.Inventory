@@ -1,34 +1,35 @@
-﻿@model IEnumerable<OSL_B2.Inventory.Web.Areas.Admin.Models.CategoryListViewModel>
+﻿@using System.Dynamic
+@model IEnumerable<OSL_B2.Inventory.Web.Areas.Admin.Models.CategoryListViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewData["Title"] = "Manage Category";
+    ViewBag.PageNav = "Category";
 }
 
 @section Styles
 {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 }
+<div class="pl-2">
+    <div class="text-right pb-2">
+        @Html.ActionLink("New Category", "Create", "Category", new { area = "Admin" } , new { @class = "btn btn-primary" })
+    </div>
+    <table id="table" class="table table-bordered table-hover">
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table id="table" class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                Actions
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @*@foreach (var item in Model)
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="width:15%">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -40,19 +41,33 @@
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>
                 </tr>
-            }*@
-    </tbody>
-
-</table>
-
+            }
+        </tbody>
+    </table>
+</div>
 @section Scripts
 {
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <!-- DataTables  & Plugins -->
     <script src="~/Content/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                "processing": true,
+                "columnDefs": [
+                    {
+                        "orderable": false,
+                        "targets": 1
+                    }
+                ]
+            });
         });
     </script>
 }
