@@ -3,6 +3,8 @@ using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
+using OSL_B2.Inventory.Web.Extensions;
+using OSL_B2.Inventory.Web.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,6 +63,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     var category = model.GetCategory(user.Id);
 
                     _categoryService.AddCategory(category);
+
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Successfully added a new category.",
+                        Type = ResponseTypes.Success
+                    });
 
                     return RedirectToAction(nameof(Index), new { area = "Admin" });
                 }
