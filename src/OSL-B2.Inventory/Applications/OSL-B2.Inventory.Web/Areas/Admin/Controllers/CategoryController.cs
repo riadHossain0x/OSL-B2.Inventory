@@ -21,5 +21,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             var model = _categoryService.GetAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            return RedirectToAction(nameof(Index), new { area = "Admin" });
+        }
     }
 }
