@@ -2,6 +2,7 @@
 using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Service.Dtos;
+using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Extensions;
 using OSL_B2.Inventory.Web.Models;
@@ -36,10 +37,18 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             try
             {
                 _categoryService.RemoveCategory(id);
+
+                ViewResponse("Category successfully deleted.", ResponseTypes.Success);
+            }
+            catch (InnerElementException ie)
+            {
+                ViewResponse(ie.Message, ResponseTypes.Danger);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message, ex);
+
+                ViewResponse(ex.Message, ResponseTypes.Danger);
             }
 
             return RedirectToAction(nameof(Index), new { area = "Admin" });
@@ -64,17 +73,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                     _categoryService.AddCategory(category);
 
-                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
-                    {
-                        Message = "Successfully added a new category.",
-                        Type = ResponseTypes.Success
-                    });
+                    ViewResponse("Successfully added a new category.", ResponseTypes.Success);
 
                     return RedirectToAction(nameof(Index), new { area = "Admin" });
                 }
                 catch (Exception ex)
                 {
                     Logger.Error(ex.Message, ex);
+
+                    ViewResponse(ex.Message, ResponseTypes.Danger);
                 }
             }
 
@@ -94,6 +101,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 Logger.Error(ex.Message, ex);
+
+                ViewResponse(ex.Message, ResponseTypes.Danger);
             }
 
             return RedirectToAction(nameof(Index));
@@ -112,11 +121,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                     _categoryService.EditCategory(category);
 
+                    ViewResponse("Successfully updated category.", ResponseTypes.Success);
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
                     Logger.Error(ex.Message, ex);
+
+                    ViewResponse(ex.Message, ResponseTypes.Danger);
                 }
             }
             return View(model);

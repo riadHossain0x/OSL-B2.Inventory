@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository
@@ -33,6 +34,20 @@ namespace OSL_B2.Inventory.Repository
         }
 
         public Category GetById(long id) => _context.Categories.Find(id);
+
+        public Category GetById(long id, string includeProperties = null)
+        {
+            IQueryable<Category> query = _context.Categories;
+            query.Where(x => x.Id == id);
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.FirstOrDefault();
+        }
 
         public int GetCount(Expression<Func<Category, bool>> filter = null)
         {

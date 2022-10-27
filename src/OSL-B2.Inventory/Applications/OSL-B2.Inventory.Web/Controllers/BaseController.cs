@@ -1,4 +1,6 @@
 ﻿using log4net;
+using OSL_B2.Inventory.Web.Extensions;
+using OSL_B2.Inventory.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,15 @@ namespace OSL_B2.Inventory.Web.Controllers
         public BaseController()
         {
 
+        }
+
+        public void ViewResponse(string message, ResponseTypes type)
+        {
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+            {
+                Message = message,
+                Type = type
+            });
         }
     }
 }

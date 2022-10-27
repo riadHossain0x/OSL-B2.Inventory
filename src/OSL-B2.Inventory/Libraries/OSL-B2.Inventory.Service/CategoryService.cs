@@ -2,9 +2,9 @@
 using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Service.Dtos;
+using OSL_B2.Inventory.Service.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace OSL_B2.Inventory.Service
 {
@@ -19,10 +19,10 @@ namespace OSL_B2.Inventory.Service
 
         public void AddCategory(CategoryDto item)
         {
-            var count = _categoryRepository.GetCount(x => x.Name == item.Name);
+            var count = _categoryRepository.GetCount(x => x.Name == item.Name && x.IsActive == Status.Active);
 
             if (count > 0)
-                throw new InvalidOperationException("Category name already exist.");
+                throw new InvalidOperationException("There is a category with same name already exist.");
 
             var entity = Mapper.Map<Category>(item);
 
@@ -33,11 +33,11 @@ namespace OSL_B2.Inventory.Service
         public void EditCategory(CategoryDto entity)
         {
             if(entity == null)
-                throw new InvalidOperationException("Category not found.");
+                throw new InvalidOperationException("There is no category found.");
 
-            var count = _categoryRepository.GetCount(x => x.Name == entity.Name && x.Id != entity.Id);
+            var count = _categoryRepository.GetCount(x => x.Name == entity.Name && x.IsActive == Status.Active && x.Id != entity.Id);
             if (count > 0)
-                throw new InvalidOperationException("Category with same name already exist.");
+                throw new InvalidOperationException("There is a category with same name already exist.");
 
             var category = Mapper.Map<Category>(entity);
             _categoryRepository.Edit(category);
@@ -60,10 +60,13 @@ namespace OSL_B2.Inventory.Service
 
         public void RemoveCategory(long id)
         {
-            var entity = _categoryRepository.GetById(id);
+            var entity = _categoryRepository.GetById(id, "Products");
 
             if (entity == null)
-                throw new InvalidOperationException("Category not found.");
+                throw new InvalidOperationException("There is no category found.");
+
+            //if (entity.Products.Count > 0)
+            //    throw new InnerElementException($"There is same products under {entity.Name} category.");
 
             entity.IsActive = Status.Disactive;
             _categoryRepository.Edit(entity);
