@@ -53,9 +53,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = await _accountAdapter.GetUserIdAsync();
-                var category = model.GetCategory(userId);
-                _categoryService.AddCategory(category);
+                try
+                {
+                    var user = await _accountAdapter.FindByNameAsync(User.Identity.Name);
+                    var category = model.GetCategory(user);
+                    _categoryService.AddCategory(category);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message, ex);
+                }
             }
 
             return View(model);

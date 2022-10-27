@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OSL_B2.Inventory.Membership.DbContexts;
 using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Display(Name = "Category Name")]
         public string Name { get; set; }
 
-        public CategoryDto GetCategory(long appUserId)
+        public CategoryDto GetCategory(ApplicationUser appUser)
         {
             var category = Mapper.Map<CategoryDto>(this);
-            category.CreatedBy = appUserId;
+            category.CreatedBy = appUser.Id;
             category.CreatedDate = DateTime.Now;
             return category;
         }
