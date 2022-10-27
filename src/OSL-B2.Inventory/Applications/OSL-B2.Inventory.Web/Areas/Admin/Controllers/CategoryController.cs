@@ -39,6 +39,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 Logger.Error(ex.Message, ex);
             }
+
             return RedirectToAction(nameof(Index), new { area = "Admin" });
         }
 
@@ -56,8 +57,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 try
                 {
                     var user = await _accountAdapter.FindByNameAsync(User.Identity.Name);
-                    var category = model.GetCategory(user);
+
+                    var category = model.GetCategory(user.Id);
+
                     _categoryService.AddCategory(category);
+
+                    return RedirectToAction(nameof(Index), new { area = "Admin" });
                 }
                 catch (Exception ex)
                 {
@@ -65,6 +70,47 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 }
             }
 
+            return View(model);
+        }
+
+        public ActionResult Edit(long id)
+        {
+            try
+            {
+                var category = _categoryService.GetCategory(id);
+
+                var model = Mapper.Map<CategoryEditViewModel>(category);
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CategoryEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = _accountAdapter.FindByName(User.Identity.Name);
+                    var category = model.GetCategory(user.Id);
+
+                    _categoryService.EditCategory(category);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message, ex);
+                }
+            }
             return View(model);
         }
     }

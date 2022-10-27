@@ -30,10 +30,31 @@ namespace OSL_B2.Inventory.Service
             _categoryRepository.SaveChanages();
         }
 
+        public void EditCategory(CategoryDto entity)
+        {
+            if(entity == null)
+                throw new InvalidOperationException("Category not found.");
+
+            var count = _categoryRepository.GetCount(x => x.Name == entity.Name && x.Id != entity.Id);
+            if (count > 0)
+                throw new InvalidOperationException("Category with same name already exist.");
+
+            var category = Mapper.Map<Category>(entity);
+            _categoryRepository.Edit(category);
+            _categoryRepository.SaveChanages();
+        }
+
         public IList<CategoryDto> GetAllCategories()
         {
-            var entity = _categoryRepository.GetAll();
-            var entityDto = Mapper.Map<IList<CategoryDto>>(entity);
+            var entities = _categoryRepository.GetAll();
+            var entitiesDto = Mapper.Map<IList<CategoryDto>>(entities);
+            return entitiesDto;
+        }
+
+        public CategoryDto GetCategory(long id)
+        {
+            var entity = _categoryRepository.GetById(id);
+            var entityDto = Mapper.Map<CategoryDto>(entity);
             return entityDto;
         }
 
@@ -44,7 +65,8 @@ namespace OSL_B2.Inventory.Service
             if (entity == null)
                 throw new InvalidOperationException("Category not found.");
 
-            _categoryRepository.Remove(entity);
+            entity.IsActive = Status.Disactive;
+            _categoryRepository.Edit(entity);
             _categoryRepository.SaveChanages();
         }
     }

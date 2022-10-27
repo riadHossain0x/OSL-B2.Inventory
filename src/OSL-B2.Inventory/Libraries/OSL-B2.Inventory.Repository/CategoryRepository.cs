@@ -25,7 +25,12 @@ namespace OSL_B2.Inventory.Repository
 
         public void Remove(Category entity) => _context.Categories.Remove(entity);
 
-        public IList<Category> GetAll() => _context.Categories.ToList();
+        public IList<Category> GetAll()
+        {
+            IQueryable<Category> query = _context.Categories;
+            query = query.Where(x => x.IsActive == Status.Active);
+            return query.ToList();
+        }
 
         public Category GetById(long id) => _context.Categories.Find(id);
 

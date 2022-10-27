@@ -5,11 +5,12 @@ using OSL_B2.Inventory.Service.Profiles;
 
 namespace WholeSale.Web.Profiles
 {
-    public class WebProfile : ServiceProfile
+    public class WebProfile : Profile
     {
         public WebProfile()
         {
             Mapper.CreateMap<CategoryCreateViewModel, CategoryDto>().ReverseMap();
+            Mapper.CreateMap<CategoryEditViewModel, CategoryDto>().ReverseMap();
         }
     }
 }
