@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class AdminBaseController : BaseController
+    public class AdminBaseController<TController> : BaseController<TController> where TController : Controller
     {
         public AdminBaseController()
         {

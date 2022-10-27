@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class CategoryController : AdminBaseController
+    public class CategoryController : AdminBaseController<CategoryController>
     {
         private readonly ICategoryService _categoryService;
 
@@ -24,8 +24,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
+            try
+            {
+                _categoryService.RemoveCategory(id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
             return RedirectToAction(nameof(Index), new { area = "Admin" });
         }
     }

@@ -13,7 +13,7 @@ using OSL_B2.Inventory.Web.Models;
 namespace OSL_B2.Inventory.Web.Controllers
 {
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : BaseController<AccountController>
     {
         private ApplicationSignInManager _signInManager;
         private readonly IAccountAdapter _accountAdapter;

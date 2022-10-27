@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController<TController> : Controller where TController : Controller
     {
-        public readonly ILog Logger = LogManager.GetLogger(typeof(AccountController));
+        public readonly ILog Logger = LogManager.GetLogger(typeof(TController));
 
         public BaseController()
         {

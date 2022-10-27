@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class HomeController : AdminBaseController
+    public class HomeController : AdminBaseController<HomeController>
     {
 
         public HomeController()
