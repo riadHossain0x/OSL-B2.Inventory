@@ -1,11 +1,12 @@
-﻿@using OSL_B2.Inventory.Membership
+﻿@using OSL_B2.Inventory.Web
+@using OSL_B2.Inventory.Web.Adapters
 @{
     var context = Factory.GetService<IAccountAdapter>();
 
     var appUser = context.FindByName(User.Identity.Name);
     var name = string.Concat(appUser.FirstName, " ", appUser.LastName);
     name = name.Length <= 15 ? name : string.Concat(name.Substring(0, 15), "...");
-} 
+}
 <!DOCTYPE html>
 <html>
 <head>

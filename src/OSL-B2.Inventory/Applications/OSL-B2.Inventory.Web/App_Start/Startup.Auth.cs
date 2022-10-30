@@ -5,8 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using OSL_B2.Inventory.Membership.DbContexts;
-using OSL_B2.Inventory.Membership;
+using OSL_B2.Inventory.Web.DbContexts;
+using OSL_B2.Inventory.Web.DbContexts.Identity;
 
 namespace OSL_B2.Inventory.Web
 {

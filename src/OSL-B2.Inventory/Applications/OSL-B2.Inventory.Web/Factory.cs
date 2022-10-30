@@ -1,5 +1,4 @@
-﻿using OSL_B2.Inventory.Membership;
-using Unity;
+﻿using Unity;
 
 namespace OSL_B2.Inventory.Web
 {
@@ -8,7 +7,7 @@ namespace OSL_B2.Inventory.Web
         public static T GetService<T>()
         {
             var container = new UnityContainer();
-            MembershipModule.Register(container);
+            WebModule.Register(container);
             return container.Resolve<T>();
         }
     }

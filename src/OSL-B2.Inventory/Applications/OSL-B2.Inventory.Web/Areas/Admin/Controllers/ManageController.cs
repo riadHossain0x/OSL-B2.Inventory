@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Web.Controllers;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
+using OSL_B2.Inventory.Web.DbContexts.Identity;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {

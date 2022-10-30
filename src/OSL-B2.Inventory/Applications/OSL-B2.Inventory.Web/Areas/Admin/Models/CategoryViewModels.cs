@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using OSL_B2.Inventory.Membership.DbContexts;
 using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.ComponentModel.DataAnnotations;

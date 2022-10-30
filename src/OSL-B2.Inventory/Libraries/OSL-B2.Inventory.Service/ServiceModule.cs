@@ -1,4 +1,5 @@
-﻿using Unity;
+﻿using OSL_B2.Inventory.Repository;
+using Unity;
 
 namespace OSL_B2.Inventory.Service
 {
@@ -8,6 +9,7 @@ namespace OSL_B2.Inventory.Service
         {
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<ICustomerService, CustomerService>();
+            RepositoryModule.Register(container);
         }
     }
 }

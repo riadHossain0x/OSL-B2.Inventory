@@ -1,12 +1,4 @@
-﻿using log4net;
-using OSL_B2.Inventory.Membership;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Unity;
-using Unity.Lifetime;
+﻿using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {

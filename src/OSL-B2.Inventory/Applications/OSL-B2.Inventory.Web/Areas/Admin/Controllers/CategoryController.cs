@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using OSL_B2.Inventory.Membership;
 using OSL_B2.Inventory.Service;
-using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
-using OSL_B2.Inventory.Web.Extensions;
 using OSL_B2.Inventory.Web.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using OSL_B2.Inventory.Web.Adapters;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {

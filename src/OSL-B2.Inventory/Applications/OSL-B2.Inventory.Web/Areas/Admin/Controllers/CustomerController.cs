@@ -1,4 +1,4 @@
-﻿using OSL_B2.Inventory.Membership;
+﻿using OSL_B2.Inventory.Web;
 using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Controllers;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static OSL_B2.Inventory.Web.Models.DataTableAjaxPostModels;
+using OSL_B2.Inventory.Web.Adapters;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {

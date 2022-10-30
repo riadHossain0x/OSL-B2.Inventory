@@ -193,6 +193,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AccountAdapter.cs" />
+    <Compile Include="Adapters\IAccountAdapter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -209,11 +211,26 @@
     <Compile Include="Areas\Admin\Models\CustomerViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="DbContexts\ApplicationDbContext.cs" />
+    <Compile Include="DbContexts\Identity\ApplicationSignInManager.cs" />
+    <Compile Include="DbContexts\Identity\ApplicationUserManager.cs" />
+    <Compile Include="DbContexts\Identity\ApplicationUser.cs" />
+    <Compile Include="DbContexts\Identity\Role.cs" />
+    <Compile Include="DbContexts\Identity\RoleStore.cs" />
+    <Compile Include="DbContexts\Identity\UserClaim.cs" />
+    <Compile Include="DbContexts\Identity\UserLogin.cs" />
+    <Compile Include="DbContexts\Identity\UserRole.cs" />
+    <Compile Include="DbContexts\Identity\UserStore.cs" />
     <Compile Include="Extensions\TempDataExtensions.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210301445167_membership.cs" />
+    <Compile Include="Migrations\202210301445167_membership.designer.cs">
+      <DependentUpon>202210301445167_membership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\ManageViewModels.cs" />
     <Compile Include="Models\DataTableAjaxPostModels.cs" />
@@ -221,6 +238,7 @@
     <Compile Include="Profiles\WebProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\adminlte\css\adminlte.css" />
@@ -2001,10 +2019,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Membership\OSL-B2.Inventory.Membership.csproj">
-      <Project>{91f348f5-d38e-4eab-a818-abef53019e34}</Project>
-      <Name>OSL-B2.Inventory.Membership</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\OSL-B2.Inventory.Service\OSL-B2.Inventory.Service.csproj">
       <Project>{cc1f9611-7ec6-43c3-987d-37b47d2c1d7b}</Project>
       <Name>OSL-B2.Inventory.Service</Name>
@@ -2104,6 +2118,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202210301445167_membership.resx">
+      <DependentUpon>202210301445167_membership.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

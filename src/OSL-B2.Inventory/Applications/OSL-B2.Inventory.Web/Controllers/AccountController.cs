@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using log4net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL_B2.Inventory.Membership;
-using OSL_B2.Inventory.Membership.DbContexts;
+using OSL_B2.Inventory.Web.Adapters;
+using OSL_B2.Inventory.Web.DbContexts;
+using OSL_B2.Inventory.Web.DbContexts.Identity;
 using OSL_B2.Inventory.Web.Models;
 
 namespace OSL_B2.Inventory.Web.Controllers
