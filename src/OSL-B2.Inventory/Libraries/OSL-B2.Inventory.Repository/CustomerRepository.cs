@@ -42,11 +42,12 @@ namespace OSL_B2.Inventory.Repository
 
             if (filter != null)
             {
-                //query = query.Where(filter);
-                totalDisplay = query.Count();
+                query = query.Where(filter);
             }
 
             query = query.Where(x => x.IsActive == Status.Active);
+
+            totalDisplay = query.Count();
 
             foreach (var includeProperty in includeProperties.Split
                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

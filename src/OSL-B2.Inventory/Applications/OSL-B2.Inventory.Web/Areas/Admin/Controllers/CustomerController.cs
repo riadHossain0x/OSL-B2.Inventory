@@ -33,13 +33,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult GetCustomers(DataTableAjaxPostModel model)
+        [HttpPost]
+        public JsonResult GetCustomers(DataTableAjaxPostModel parameters)
         {
 
             string sortBy = "";
             bool sortDir = true;
 
-            var data = _customerService.GetAllCustomers(model.search.value, model.length, model.start, sortBy, sortDir);
+            var value = (parameters.search != null) ? parameters.search.value: null;
+
+            var data = _customerService.GetAllCustomers(value, parameters.length, parameters.start, sortBy, sortDir);
 
             return Json(new
             {

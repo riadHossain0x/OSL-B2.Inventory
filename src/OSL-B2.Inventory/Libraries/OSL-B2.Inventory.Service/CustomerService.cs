@@ -4,6 +4,7 @@ using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace OSL_B2.Inventory.Service
 {
@@ -65,10 +66,14 @@ namespace OSL_B2.Inventory.Service
             return entityDto;
         }
 
-        public (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir)
+        public (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy = null, int take = 1, int skip = 1, string sortBy = null, bool sortDir = false)
         {
-            var result = _customerRepostory.GetAll(x => x.Name.Contains(searchBy) 
-                || x.Mobile.Contains(searchBy), null, string.Empty, skip, take);
+            Expression<Func<Customer, bool>> filter = null;
+            if (searchBy != null)
+            {
+                filter = x => x.Name.Contains(searchBy);
+            }
+            var result = _customerRepostory.GetAll(filter, null, string.Empty, skip, take);
 
             List<CustomerDto> customers = new List<CustomerDto>();
             foreach (Customer course in result.data)
