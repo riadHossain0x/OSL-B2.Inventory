@@ -35,18 +35,12 @@ namespace OSL_B2.Inventory.Repository
 
         public Category GetById(long id) => _context.Categories.Find(id);
 
-        public Category GetById(long id, string includeProperties = null)
+        public Category GetById(long id, string includeProperty = null)
         {
             IQueryable<Category> query = _context.Categories;
-            query.Where(x => x.Id == id);
+            query = query.Where(x => x.Id == id).Include(includeProperty);
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return query.FirstOrDefault();
+            return query.ToList().FirstOrDefault();
         }
 
         public int GetCount(Expression<Func<Category, bool>> filter = null)

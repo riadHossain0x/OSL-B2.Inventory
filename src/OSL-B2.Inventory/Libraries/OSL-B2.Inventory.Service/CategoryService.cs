@@ -65,8 +65,8 @@ namespace OSL_B2.Inventory.Service
             if (entity == null)
                 throw new InvalidOperationException("There is no category found.");
 
-            //if (entity.Products.Count > 0)
-            //    throw new InnerElementException($"There is same products under {entity.Name} category.");
+            if (entity.Products.Count > 0)
+                throw new InnerElementException($"There are same products under '{entity.Name}' category. Please delete those product and try again.");
 
             entity.IsActive = Status.Disactive;
             _categoryRepository.Edit(entity);
