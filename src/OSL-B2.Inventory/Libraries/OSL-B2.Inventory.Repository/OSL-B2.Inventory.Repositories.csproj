@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="DbContexts\IIMSDbContext.cs" />
     <Compile Include="DbContexts\IMSDbContext.cs" />
     <Compile Include="DbContexts\ModelConventions\CategoryModel.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="DbContexts\ModelConventions\SaleModel.cs" />
     <Compile Include="DbContexts\ModelConventions\SupplierModel.cs" />
     <Compile Include="ICategoryRepository.cs" />
+    <Compile Include="ICustomerRepository.cs" />
     <Compile Include="Migrations\202210250359437_tables.cs" />
     <Compile Include="Migrations\202210250359437_tables.designer.cs">
       <DependentUpon>202210250359437_tables.cs</DependentUpon>

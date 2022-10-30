@@ -9,6 +9,7 @@ namespace OSL_B2.Inventory.Repository
         {
             container.RegisterType<IIMSDbContext, IMSDbContext>(TypeLifetime.Scoped);
             container.RegisterType<ICategoryRepository, CategoryRepository>();
+            container.RegisterType<ICustomerRepository, CustomerRepository>();
         }
     }
 }

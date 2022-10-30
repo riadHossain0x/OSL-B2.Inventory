@@ -12,7 +12,7 @@ namespace OSL_B2.Inventory.Repository
     {
         IList<Category> GetAll();
         Category GetById(long id);
-        Category GetById(long id, string includeProperties = null);
+        Category GetById(long id, string includeProperty = null);
         int GetCount(Expression<Func<Category, bool>> filter = null);
         void Add(Category entity);
         void Edit(Category entity);
