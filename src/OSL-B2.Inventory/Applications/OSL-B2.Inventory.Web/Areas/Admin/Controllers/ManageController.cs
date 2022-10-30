@@ -12,8 +12,7 @@ using OSL_B2.Inventory.Web.Areas.Admin.Models;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    [Authorize]
-    public class ManageController : Controller
+    public class ManageController : AdminBaseController<ManageController>
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

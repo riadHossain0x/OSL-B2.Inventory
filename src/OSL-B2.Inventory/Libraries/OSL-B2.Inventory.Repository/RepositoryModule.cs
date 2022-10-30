@@ -7,7 +7,8 @@ namespace OSL_B2.Inventory.Repository
     {
         public static void Register(UnityContainer container)
         {
-            container.RegisterType<IIMSDbContext, IMSDbContext>();
+            container.RegisterType<IIMSDbContext, IMSDbContext>(TypeLifetime.Scoped);
+            container.RegisterType<ICategoryRepository, CategoryRepository>();
         }
     }
 }

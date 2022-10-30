@@ -1,6 +1,7 @@
 ﻿@using OSL_B2.Inventory.Membership
 @{
-    var context = Factory<IAccountAdapter>.GetInstance();
+    var context = Factory.GetService<IAccountAdapter>();
+
     var appUser = context.FindByName(User.Identity.Name);
     var name = string.Concat(appUser.FirstName, " ", appUser.LastName);
     name = name.Length <= 15 ? name : string.Concat(name.Substring(0, 15), "...");
@@ -122,8 +123,15 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">@ViewData["PageNav"]</li>
+                                <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                                @if (ViewBag.MidNav != null)
+                                {
+                                    <li class="breadcrumb-item"><a href="@ViewBag.MidNav.Link">@ViewBag.MidNav.Title</a></li>
+                                }
+                                @if (ViewBag.PageNav != null)
+                                {
+                                    <li class="breadcrumb-item active">@ViewBag.PageNav</li>
+                                }
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -132,7 +140,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <section class="content">
-                <partial name="_ResponsePartial" />
+                @Html.Partial("_ResponsePartial")
                 @RenderBody()
             </section>
             <!-- /.content -->

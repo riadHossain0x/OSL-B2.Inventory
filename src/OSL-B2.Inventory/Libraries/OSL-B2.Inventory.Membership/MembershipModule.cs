@@ -4,6 +4,7 @@ using OSL_B2.Inventory.Membership.DbContexts;
 using Unity;
 using System.Web;
 using System.Data.Entity;
+using OSL_B2.Inventory.Repository;
 
 namespace OSL_B2.Inventory.Membership
 {
@@ -15,6 +16,7 @@ namespace OSL_B2.Inventory.Membership
             container.RegisterType<IUserStore<ApplicationUser, long>, UserStore>();
             container.RegisterFactory<IAuthenticationManager>(o => HttpContext.Current.GetOwinContext().Authentication);
             container.RegisterType<IAccountAdapter, AccountAdapter>();
+            RepositoryModule.Register(container);
         }
     }
 }

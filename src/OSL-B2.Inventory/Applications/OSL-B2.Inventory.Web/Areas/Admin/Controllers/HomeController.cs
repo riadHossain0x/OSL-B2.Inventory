@@ -1,21 +1,19 @@
 ﻿using log4net;
-using OSL_B2.Inventory.Repository.DbContexts;
+using OSL_B2.Inventory.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Unity;
+using Unity.Lifetime;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AdminBaseController<HomeController>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
-        private readonly IIMSDbContext dbContext;
-
-        public HomeController(IIMSDbContext dbContext)
+        public HomeController()
         {
-            this.dbContext = dbContext;
         }
 
         public ActionResult Index()
