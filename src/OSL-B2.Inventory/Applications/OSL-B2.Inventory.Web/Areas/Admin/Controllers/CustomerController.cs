@@ -43,6 +43,10 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     var customer = model.GetCustomer(user.Id);
 
                     _customerService.AddCustomer(customer);
+
+                    ViewResponse("Successfully added a new customer.", ResponseTypes.Success);
+
+                    return RedirectToAction(nameof(Index), new { area = "Admin" });
                 }
                 catch (Exception ex)
                 {

@@ -39,4 +39,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
             return customer;
         }
     }
+
+    public class CustomerListViewModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string Address { get; set; }
+    }
 }
