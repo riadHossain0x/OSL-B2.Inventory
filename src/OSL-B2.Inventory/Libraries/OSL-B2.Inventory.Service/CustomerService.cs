@@ -65,11 +65,18 @@ namespace OSL_B2.Inventory.Service
             return entityDto;
         }
 
-        public IList<CustomerDto> GetAllCustomers()
+        public (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir)
         {
-            var entities = _customerRepostory.GetAll();
-            var entitiesDto = Mapper.Map<IList<CustomerDto>>(entities);
-            return entitiesDto;
+            var result = _customerRepostory.GetAll(x => x.Name.Contains(searchBy) 
+                || x.Mobile.Contains(searchBy), null, string.Empty, skip, take);
+
+            List<CustomerDto> customers = new List<CustomerDto>();
+            foreach (Customer course in result.data)
+            {
+                customers.Add(Mapper.Map<CustomerDto>(course));
+            }
+
+            return (result.total, result.totalDisplay, customers);
         }
     }
 }

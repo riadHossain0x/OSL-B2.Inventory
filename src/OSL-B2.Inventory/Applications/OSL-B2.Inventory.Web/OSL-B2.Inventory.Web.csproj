@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\ManageViewModels.cs" />
+    <Compile Include="Models\DataTableAjaxPostModels.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Profiles\WebProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

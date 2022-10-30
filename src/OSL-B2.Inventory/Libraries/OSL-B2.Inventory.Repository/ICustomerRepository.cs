@@ -10,7 +10,8 @@ namespace OSL_B2.Inventory.Repository
 {
     public interface ICustomerRepository
     {
-        IList<Customer> GetAll();
+        (IList<Customer> data, int total, int totalDisplay) GetAll(Expression<Func<Customer, bool>> filter = null,
+            string orderBy = null, string includeProperties = "", int pageIndex = 1, int pageSize = 10);
         Customer GetById(long id);
         Customer GetById(long id, string includeProperties = null);
         int GetCount(Expression<Func<Customer, bool>> filter = null);

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository
@@ -34,11 +33,30 @@ namespace OSL_B2.Inventory.Repository
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public IList<Customer> GetAll()
+        public (IList<Customer> data, int total, int totalDisplay) GetAll(Expression<Func<Customer, bool>> filter = null, 
+            string orderBy = null, string includeProperties = "", int pageIndex = 1 , int pageSize = 10)
         {
             IQueryable<Customer> query = _context.Customers;
+            var total = query.Count();
+            var totalDisplay = query.Count();
+
+            if (filter != null)
+            {
+                //query = query.Where(filter);
+                totalDisplay = query.Count();
+            }
+
             query = query.Where(x => x.IsActive == Status.Active);
-            return query.ToList();
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var result = query.OrderBy(x => x.Name).Skip(pageIndex).Take(pageSize);
+
+            return (result.ToList(), total, totalDisplay);
         }
 
         public Customer GetById(long id) => _context.Customers.Find(id);

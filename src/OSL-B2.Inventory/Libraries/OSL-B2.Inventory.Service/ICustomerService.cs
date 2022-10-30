@@ -14,6 +14,6 @@ namespace OSL_B2.Inventory.Service
         void EditCustomer(CustomerDto entity);
         void RemoveCustomer(long id);
         Customer GetCustomer(long id);
-        IList<CustomerDto> GetAllCustomers();
+        (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir);
     }
 }

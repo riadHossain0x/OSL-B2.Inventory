@@ -4,8 +4,11 @@ using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Controllers;
 using OSL_B2.Inventory.Web.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using static OSL_B2.Inventory.Web.Models.DataTableAjaxPostModels;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
@@ -28,6 +31,31 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        public JsonResult GetCustomers(DataTableAjaxPostModel model)
+        {
+
+            string sortBy = "";
+            bool sortDir = true;
+
+            var data = _customerService.GetAllCustomers(model.search.value, model.length, model.start, sortBy, sortDir);
+
+            return Json(new
+            {
+                recordsTotal = data.total,
+                recordsFiltered = data.totalDisplay,
+                data = (from record in data.records
+                        select new string[]
+                        {
+                                record.Name,
+                                record.Email,
+                                record.Mobile,
+                                record.Address,
+                                record.Id.ToString()
+                        }
+                    ).ToArray()
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
