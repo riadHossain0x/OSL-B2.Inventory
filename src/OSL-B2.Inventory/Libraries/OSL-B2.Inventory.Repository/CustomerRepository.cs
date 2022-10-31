@@ -12,7 +12,7 @@ namespace OSL_B2.Inventory.Repository
     public interface ICustomerRepository
     {
         #region Load instances
-        (IList<Customer> data, int total, int totalDisplay) GetAll(Expression<Func<Customer, bool>> filter = null,
+        (IList<Customer> data, int total, int totalDisplay) LoadAll(Expression<Func<Customer, bool>> filter = null,
             string orderBy = null, string includeProperties = "", int pageIndex = 1, int pageSize = 10); 
         #endregion
 
@@ -47,7 +47,7 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Load instances
-        public (IList<Customer> data, int total, int totalDisplay) GetAll(Expression<Func<Customer, bool>> filter = null,
+        public (IList<Customer> data, int total, int totalDisplay) LoadAll(Expression<Func<Customer, bool>> filter = null,
             string orderBy = null, string includeProperties = "", int pageIndex = 1, int pageSize = 10)
         {
             IQueryable<Customer> query = _context.Customers;

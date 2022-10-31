@@ -13,7 +13,7 @@ namespace OSL_B2.Inventory.Repository
     public interface ICategoryRepository
     {
         #region Load instances
-        IList<Category> GetAll(); 
+        IList<Category> LoadAll(); 
         #endregion
 
         #region Single instances
@@ -46,7 +46,7 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Load instances
-        public IList<Category> GetAll()
+        public IList<Category> LoadAll()
         {
             IQueryable<Category> query = _context.Categories;
             query = query.Where(x => x.IsActive == Status.Active);

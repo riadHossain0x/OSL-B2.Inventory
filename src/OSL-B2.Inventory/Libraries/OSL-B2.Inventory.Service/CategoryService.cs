@@ -17,7 +17,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        IList<CategoryDto> GetAllCategories();
+        IList<CategoryDto> LoadAllCategories();
         #endregion
 
         #region Single instances
@@ -37,9 +37,9 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        public IList<CategoryDto> GetAllCategories()
+        public IList<CategoryDto> LoadAllCategories()
         {
-            var entities = _categoryRepository.GetAll();
+            var entities = _categoryRepository.LoadAll();
             var entitiesDto = Mapper.Map<IList<CategoryDto>>(entities);
             return entitiesDto;
         }

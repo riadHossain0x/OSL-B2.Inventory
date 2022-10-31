@@ -27,7 +27,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
-            var model = _categoryService.GetAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
+            var model = _categoryService.LoadAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
             return View(model);
         }
         #endregion

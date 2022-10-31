@@ -41,7 +41,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
             var value = (parameters.search != null) ? parameters.search.value : null;
 
-            var data = _customerService.GetAllCustomers(value, parameters.length, parameters.start, sortBy, sortDir);
+            var data = _customerService.LoadAllCustomers(value, parameters.length, parameters.start, sortBy, sortDir);
 
             return Json(new
             {
