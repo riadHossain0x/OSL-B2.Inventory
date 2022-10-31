@@ -13,6 +13,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class CategoryController : AdminBaseController<CategoryController>
     {
+        #region initialization
         private readonly ICategoryService _categoryService;
         private readonly IAccountAdapter _accountAdapter;
 
@@ -20,14 +21,18 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             _categoryService = categoryService;
             _accountAdapter = accountAdapter;
-        }
+        } 
+        #endregion
 
+        #region Manage
         public ActionResult Index()
         {
             var model = _categoryService.GetAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
             return View(model);
         }
+        #endregion
 
+        #region Operations
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
@@ -131,6 +136,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 }
             }
             return View(model);
-        }
+        } 
+        #endregion
     }
 }

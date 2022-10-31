@@ -15,6 +15,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class CustomerController : BaseController<CustomerController>
     {
+        #region initialization
         private readonly IAccountAdapter _accountAdapter;
         private readonly ICustomerService _customerService;
 
@@ -22,14 +23,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             _accountAdapter = accountAdapter;
             _customerService = customerService;
-        }
+        } 
+        #endregion
 
+        #region Manage
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Create()
         {
             return View();
         }
@@ -41,7 +39,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             string sortBy = "";
             bool sortDir = true;
 
-            var value = (parameters.search != null) ? parameters.search.value: null;
+            var value = (parameters.search != null) ? parameters.search.value : null;
 
             var data = _customerService.GetAllCustomers(value, parameters.length, parameters.start, sortBy, sortDir);
 
@@ -60,6 +58,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                         }
                     ).ToArray()
             }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Operations
+        public ActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -88,6 +93,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 }
             }
             return View(model);
-        }
+        } 
+        #endregion
     }
 }

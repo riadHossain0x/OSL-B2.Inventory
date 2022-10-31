@@ -8,6 +8,15 @@ using System.Linq.Expressions;
 
 namespace OSL_B2.Inventory.Service
 {
+    public interface ICustomerService
+    {
+        void AddCustomer(CustomerDto customer);
+        void EditCustomer(CustomerDto entity);
+        void RemoveCustomer(long id);
+        Customer GetCustomer(long id);
+        (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir);
+    }
+
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepostory;
@@ -50,9 +59,6 @@ namespace OSL_B2.Inventory.Service
 
             if (entity == null)
                 throw new InvalidOperationException("There is no customer found.");
-
-            //if (entity.Products.Count > 0)
-            //    throw new InnerElementException($"There are same products under '{entity.Name}' category. Please delete those product and try again.");
 
             entity.IsActive = Status.Disactive;
             _customerRepostory.Edit(entity);

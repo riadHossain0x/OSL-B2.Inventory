@@ -13,6 +13,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class ManageController : AdminBaseController<ManageController>
     {
+        #region Initialization
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -32,9 +33,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -48,7 +49,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 _userManager = value;
             }
-        }
+        } 
+        #endregion
 
         //
         // GET: /Manage/Index

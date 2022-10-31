@@ -78,8 +78,6 @@
     <Compile Include="DbContexts\ModelConventions\SaleDetailModel.cs" />
     <Compile Include="DbContexts\ModelConventions\SaleModel.cs" />
     <Compile Include="DbContexts\ModelConventions\SupplierModel.cs" />
-    <Compile Include="ICategoryRepository.cs" />
-    <Compile Include="ICustomerRepository.cs" />
     <Compile Include="Migrations\202210250359437_tables.cs" />
     <Compile Include="Migrations\202210250359437_tables.designer.cs">
       <DependentUpon>202210250359437_tables.cs</DependentUpon>

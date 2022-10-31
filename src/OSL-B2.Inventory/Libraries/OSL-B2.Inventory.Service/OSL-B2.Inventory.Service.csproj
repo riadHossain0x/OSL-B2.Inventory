@@ -102,8 +102,6 @@
     <Compile Include="Dtos\SaleDetail.cs" />
     <Compile Include="Dtos\SupplierDto.cs" />
     <Compile Include="Exceptions\InnerElementException.cs" />
-    <Compile Include="ICategoryService.cs" />
-    <Compile Include="ICustomerService.cs" />
     <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModule.cs" />

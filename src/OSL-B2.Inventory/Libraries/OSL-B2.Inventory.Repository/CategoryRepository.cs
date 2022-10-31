@@ -10,6 +10,19 @@ using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository
 {
+    public interface ICategoryRepository
+    {
+        IList<Category> GetAll();
+        Category GetById(long id);
+        Category GetById(long id, string includeProperty = null);
+        int GetCount(Expression<Func<Category, bool>> filter = null);
+        void Add(Category entity);
+        void Edit(Category entity);
+        void Remove(Category entity);
+        void SaveChanages();
+        Task SaveChanagesAsync();
+    }
+
     public class CategoryRepository : ICategoryRepository
     {
         private readonly IMSDbContext _context;
