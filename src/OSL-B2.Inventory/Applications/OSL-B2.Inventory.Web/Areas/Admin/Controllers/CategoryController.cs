@@ -34,13 +34,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public ActionResult Details(long id)
         {
             var category = _categoryService.GetCategory(id);
+            var modifiedBy = _accountAdapter.FindById(category.ModifiedBy);
 
             var model = new CategoryDetailsViewModel
             {
                 Name = category.Name,
                 CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
                 CreatedDate = category.CreatedDate,
-                ModifiedBy = _accountAdapter.FindById(category.ModifiedBy).Email,
+                ModifiedBy = (modifiedBy != null)? modifiedBy.Email: string.Empty,
                 ModifiedDate = category.ModifiedDate
             };
 

@@ -11,23 +11,24 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        @if (!string.IsNullOrWhiteSpace(Model.ModifiedBy))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedBy)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedDate)
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>

@@ -74,6 +74,11 @@ namespace OSL_B2.Inventory.Web.Adapters
             return _userManager.FindByName(email);
         }
 
+        public async Task<ApplicationUser> FindByIdAsync(long id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
         public ApplicationUser FindById(long id)
         {
             return _userManager.FindById(id);
