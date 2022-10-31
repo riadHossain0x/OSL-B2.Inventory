@@ -50,6 +50,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
     public class CategoryDetailsViewModel
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }

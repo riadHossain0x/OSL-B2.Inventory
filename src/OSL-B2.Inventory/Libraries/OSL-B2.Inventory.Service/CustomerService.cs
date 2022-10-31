@@ -94,7 +94,7 @@ namespace OSL_B2.Inventory.Service
             {
                 filter = x => x.Name.Contains(searchBy);
             }
-            var result = _customerRepostory.LoadAll(filter, null, string.Empty, skip, take);
+            var result = _customerRepostory.LoadAll(filter, null, string.Empty, skip, 10);
 
             List<CustomerDto> customers = new List<CustomerDto>();
             foreach (Customer course in result.data)

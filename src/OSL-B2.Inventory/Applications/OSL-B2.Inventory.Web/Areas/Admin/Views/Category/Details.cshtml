@@ -1,53 +1,81 @@
-﻿@model OSL_B2.Inventory.Web.Areas.Admin.Models.CategoryDetailsViewModel
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.CategoryDetailsViewModel
+@{
+    ViewData["Title"] = "Category Details";
+    ViewBag.PageNav = "Details";
 
-<div>
-    <h4>CategoryDetailsViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        @if (!string.IsNullOrWhiteSpace(Model.ModifiedBy))
-        {
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Category";
+    MidNav.Link = "/Admin/Category/";
+    ViewBag.MidNav = MidNav;
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Category Details Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Category" class="btn btn-primary btn-sm">Manage Category</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
+                @Html.DisplayNameFor(model => model.Name)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ModifiedBy)
+                @Html.DisplayFor(model => model.Name)
             </dd>
+            @if (!string.IsNullOrWhiteSpace(Model.ModifiedBy))
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </dt>
 
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </dd>
+            }
             <dt>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
+                @Html.DisplayNameFor(model => model.CreatedBy)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ModifiedDate)
+                @Html.DisplayFor(model => model.CreatedBy)
             </dd>
-        }
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-    </dl>
+        </dl>
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <a class="btn btn-info" href="/Admin/Category/Edit/@Model.Id">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

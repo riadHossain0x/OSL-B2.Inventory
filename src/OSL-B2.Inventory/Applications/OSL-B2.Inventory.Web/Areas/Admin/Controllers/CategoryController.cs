@@ -38,6 +38,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
             var model = new CategoryDetailsViewModel
             {
+                Id = category.Id,
                 Name = category.Name,
                 CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
                 CreatedDate = category.CreatedDate,
