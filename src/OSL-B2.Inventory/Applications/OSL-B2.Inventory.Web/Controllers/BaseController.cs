@@ -18,6 +18,7 @@ namespace OSL_B2.Inventory.Web.Controllers
 
         }
 
+        #region Helpers
         public void ViewResponse(string message, ResponseTypes type)
         {
             TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
@@ -25,6 +26,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                 Message = message,
                 Type = type
             });
-        }
+        } 
+        #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace OSL_B2.Inventory.Web.Controllers
     [Authorize]
     public class AccountController : BaseController<AccountController>
     {
+        #region Initialization
         private ApplicationSignInManager _signInManager;
         private readonly IAccountAdapter _accountAdapter;
 
@@ -34,7 +35,9 @@ namespace OSL_B2.Inventory.Web.Controllers
                 _signInManager = value;
             }
         }
+        #endregion
 
+        #region Operations
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -136,8 +139,13 @@ namespace OSL_B2.Inventory.Web.Controllers
             {
                 try
                 {
-                    var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, 
-                        UserName = model.Email, Email = model.Email };
+                    var user = new ApplicationUser
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        UserName = model.Email,
+                        Email = model.Email
+                    };
                     _ = await _accountAdapter.CreateAsync(user, model.Password);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -145,7 +153,7 @@ namespace OSL_B2.Inventory.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home", new {area = "Admin"});
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
                 catch (Exception ex)
                 {
@@ -353,7 +361,10 @@ namespace OSL_B2.Inventory.Web.Controllers
                     {
                         return View("ExternalLoginFailure");
                     }
-                    var user = new ApplicationUser { FirstName = model.FirstName, UserName = info.Email, 
+                    var user = new ApplicationUser
+                    {
+                        FirstName = model.FirstName,
+                        UserName = info.Email,
                         Email = info.Email
                     };
                     var result = await _accountAdapter.CreateAsync(user, info);
@@ -390,7 +401,9 @@ namespace OSL_B2.Inventory.Web.Controllers
         {
             return View();
         }
+        #endregion
 
+        #region Helpers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -405,7 +418,6 @@ namespace OSL_B2.Inventory.Web.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
