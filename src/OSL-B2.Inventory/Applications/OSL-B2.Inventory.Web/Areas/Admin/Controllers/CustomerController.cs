@@ -32,27 +32,36 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetCustomers()
         {
-            var model = new DataTablesAjaxRequestModel(Request);
-
-            var data = _customerService.LoadAllCustomers(model.SearchText, model.Length, model.Start, model.SortColumn, 
-                model.SortDirection);
-
-            return Json(new
+            try
             {
-                draw = Request["draw"],
-                recordsTotal = data.total,
-                recordsFiltered = data.totalDisplay,
-                data = (from record in data.records
-                        select new string[]
-                        {
+                var model = new DataTablesAjaxRequestModel(Request);
+
+                var data = _customerService.LoadAllCustomers(model.SearchText, model.Length, model.Start, model.SortColumn,
+                    model.SortDirection);
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
                                 record.Name,
                                 record.Email,
                                 record.Mobile,
                                 record.Address,
                                 record.Id.ToString()
-                        }
-                    ).ToArray()
-            }, JsonRequestBehavior.AllowGet);
+                            }
+                        ).ToArray()
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+
+            return default(JsonResult);
         }
         #endregion
 

@@ -16,6 +16,6 @@ namespace OSL_B2.Inventory.Entities.Entities
     public enum Status
     {
         Active,
-        Disactive
+        Inactive
     }
 }

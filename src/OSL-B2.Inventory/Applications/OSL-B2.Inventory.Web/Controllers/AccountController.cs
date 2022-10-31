@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OSL_B2.Inventory.Web.Adapters;
+using OSL_B2.Inventory.Web.Attributes;
 using OSL_B2.Inventory.Web.DbContexts;
 using OSL_B2.Inventory.Web.DbContexts.Identity;
 using OSL_B2.Inventory.Web.Models;
@@ -41,6 +42,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -80,6 +82,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
+        [AuthorizationChecker]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
@@ -123,6 +126,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult Register()
         {
             return View();
@@ -168,6 +172,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
+        [AuthorizationChecker]
         public async Task<ActionResult> ConfirmEmail(long userId, string code)
         {
             if (userId == 0 || code == null)
@@ -181,6 +186,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -217,6 +223,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
@@ -225,6 +232,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -259,6 +267,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -278,6 +287,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
+        [AuthorizationChecker]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await _accountAdapter.GetUserIdAsync();
@@ -312,6 +322,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
+        [AuthorizationChecker]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await _accountAdapter.GetExternalLoginInfoAsync();
@@ -397,6 +408,7 @@ namespace OSL_B2.Inventory.Web.Controllers
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
+        [AuthorizationChecker]
         public ActionResult ExternalLoginFailure()
         {
             return View();

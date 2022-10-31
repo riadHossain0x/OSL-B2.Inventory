@@ -71,7 +71,7 @@ namespace OSL_B2.Inventory.Service
             if (entity == null)
                 throw new InvalidOperationException("There is no customer found.");
 
-            entity.IsActive = Status.Disactive;
+            entity.IsActive = Status.Inactive;
             _customerRepostory.Edit(entity);
             _customerRepostory.SaveChanages();
         }

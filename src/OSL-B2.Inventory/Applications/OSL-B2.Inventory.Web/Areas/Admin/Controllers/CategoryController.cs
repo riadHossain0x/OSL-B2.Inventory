@@ -27,26 +27,45 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
-            var model = _categoryService.LoadAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
-            return View(model);
+            try
+            {
+                var model = _categoryService.LoadAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse("Unable to load categories.", ResponseTypes.Danger);
+            }
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
         public ActionResult Details(long id)
         {
-            var category = _categoryService.GetCategory(id);
-            var modifiedBy = _accountAdapter.FindById(category.ModifiedBy);
-
-            var model = new CategoryDetailsViewModel
+            try
             {
-                Id = category.Id,
-                Name = category.Name,
-                CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
-                CreatedDate = category.CreatedDate,
-                ModifiedBy = (modifiedBy != null)? modifiedBy.Email: string.Empty,
-                ModifiedDate = category.ModifiedDate
-            };
+                var category = _categoryService.GetCategory(id);
+                var modifiedBy = _accountAdapter.FindById(category.ModifiedBy);
 
-            return View(model);
+                var model = new CategoryDetailsViewModel
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
+                    CreatedDate = category.CreatedDate,
+                    ModifiedBy = (modifiedBy != null) ? modifiedBy.Email : string.Empty,
+                    ModifiedDate = category.ModifiedDate
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
         #endregion
 

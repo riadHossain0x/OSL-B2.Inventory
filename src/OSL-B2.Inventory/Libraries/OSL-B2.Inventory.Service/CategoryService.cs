@@ -83,7 +83,7 @@ namespace OSL_B2.Inventory.Service
             if (entity.Products.Count > 0)
                 throw new InnerElementException($"There are same products under '{entity.Name}' category. Please delete those product and try again.");
 
-            entity.IsActive = Status.Disactive;
+            entity.IsActive = Status.Inactive;
             _categoryRepository.Edit(entity);
             _categoryRepository.SaveChanages();
         }

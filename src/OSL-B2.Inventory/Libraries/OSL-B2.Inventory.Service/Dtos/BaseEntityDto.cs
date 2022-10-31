@@ -16,6 +16,6 @@ namespace OSL_B2.Inventory.Service.Dtos
     public enum StatusDto
     {
         Active,
-        Disactive
+        Inactive
     }
 }
