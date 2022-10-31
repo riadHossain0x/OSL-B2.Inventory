@@ -49,11 +49,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 _userManager = value;
             }
-        } 
+        }
         #endregion
 
-        //
+        #region Manage
         // GET: /Manage/Index
+
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -76,7 +77,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             };
             return View(model);
         }
+        #endregion
 
+        #region Operations
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -323,7 +326,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             var result = await UserManager.AddLoginAsync(long.Parse(User.Identity.GetUserId()), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
+        #endregion
 
+        #region Helpers
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -335,7 +340,6 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

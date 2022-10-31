@@ -12,40 +12,49 @@ namespace OSL_B2.Inventory.Repository
 {
     public interface ICategoryRepository
     {
-        IList<Category> GetAll();
+        #region Load instances
+        IList<Category> GetAll(); 
+        #endregion
+
+        #region Single instances
         Category GetById(long id);
-        Category GetById(long id, string includeProperty = null);
-        int GetCount(Expression<Func<Category, bool>> filter = null);
+        Category GetById(long id, string includeProperty = null); 
+        #endregion
+
+        #region Operations
         void Add(Category entity);
         void Edit(Category entity);
         void Remove(Category entity);
         void SaveChanages();
         Task SaveChanagesAsync();
+        #endregion
+
+        #region Others
+        int GetCount(Expression<Func<Category, bool>> filter = null);
+        #endregion
     }
 
     public class CategoryRepository : ICategoryRepository
     {
+        #region Initializations
         private readonly IMSDbContext _context;
 
         public CategoryRepository(IMSDbContext context)
         {
             _context = context;
         }
-        public void Add(Category entity)
-        {
-            if (entity != null)
-                _context.Categories.Add(entity);
-        }
+        #endregion
 
-        public void Remove(Category entity) => _context.Categories.Remove(entity);
-
+        #region Load instances
         public IList<Category> GetAll()
         {
             IQueryable<Category> query = _context.Categories;
             query = query.Where(x => x.IsActive == Status.Active);
             return query.ToList();
-        }
+        } 
+        #endregion
 
+        #region Single instances
         public Category GetById(long id) => _context.Categories.Find(id);
 
         public Category GetById(long id, string includeProperty = null)
@@ -55,20 +64,15 @@ namespace OSL_B2.Inventory.Repository
 
             return query.ToList().FirstOrDefault();
         }
+        #endregion
 
-        public int GetCount(Expression<Func<Category, bool>> filter = null)
+        #region Operations
+        public void Add(Category entity)
         {
-            var count = 0;
-
-            IQueryable<Category> query = _context.Categories;
-
-            if (filter != null)
-                query = query.Where(filter);
-
-            count = query.Count();
-
-            return count;
+            if (entity != null)
+                _context.Categories.Add(entity);
         }
+        public void Remove(Category entity) => _context.Categories.Remove(entity);
 
         public void Edit(Category entity)
         {
@@ -82,5 +86,22 @@ namespace OSL_B2.Inventory.Repository
         public void SaveChanages() => _context.SaveChanges();
 
         public async Task SaveChanagesAsync() => await _context.SaveChangesAsync();
+        #endregion
+
+        #region Others
+        public int GetCount(Expression<Func<Category, bool>> filter = null)
+        {
+            var count = 0;
+
+            IQueryable<Category> query = _context.Categories;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            count = query.Count();
+
+            return count;
+        }
+        #endregion
     }
 }

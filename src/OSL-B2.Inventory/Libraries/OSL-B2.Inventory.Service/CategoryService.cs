@@ -10,22 +10,42 @@ namespace OSL_B2.Inventory.Service
 {
     public interface ICategoryService
     {
+        #region Operations
         void AddCategory(CategoryDto item);
-        void RemoveCategory(long id);
-        IList<CategoryDto> GetAllCategories();
-        CategoryDto GetCategory(long id);
         void EditCategory(CategoryDto entity);
+        void RemoveCategory(long id);
+        #endregion
+
+        #region Load instances
+        IList<CategoryDto> GetAllCategories();
+        #endregion
+
+        #region Single instances
+        CategoryDto GetCategory(long id); 
+        #endregion
     }
 
     public class CategoryService : ICategoryService
     {
+        #region Initialization
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
+        #endregion
 
+        #region Load instances
+        public IList<CategoryDto> GetAllCategories()
+        {
+            var entities = _categoryRepository.GetAll();
+            var entitiesDto = Mapper.Map<IList<CategoryDto>>(entities);
+            return entitiesDto;
+        }
+        #endregion
+
+        #region Operations
         public void AddCategory(CategoryDto item)
         {
             var count = _categoryRepository.GetCount(x => x.Name == item.Name && x.IsActive == Status.Active);
@@ -41,7 +61,7 @@ namespace OSL_B2.Inventory.Service
 
         public void EditCategory(CategoryDto entity)
         {
-            if(entity == null)
+            if (entity == null)
                 throw new InvalidOperationException("There is no category found.");
 
             var count = _categoryRepository.GetCount(x => x.Name == entity.Name && x.IsActive == Status.Active && x.Id != entity.Id);
@@ -51,20 +71,6 @@ namespace OSL_B2.Inventory.Service
             var category = Mapper.Map<Category>(entity);
             _categoryRepository.Edit(category);
             _categoryRepository.SaveChanages();
-        }
-
-        public IList<CategoryDto> GetAllCategories()
-        {
-            var entities = _categoryRepository.GetAll();
-            var entitiesDto = Mapper.Map<IList<CategoryDto>>(entities);
-            return entitiesDto;
-        }
-
-        public CategoryDto GetCategory(long id)
-        {
-            var entity = _categoryRepository.GetById(id);
-            var entityDto = Mapper.Map<CategoryDto>(entity);
-            return entityDto;
         }
 
         public void RemoveCategory(long id)
@@ -81,5 +87,16 @@ namespace OSL_B2.Inventory.Service
             _categoryRepository.Edit(entity);
             _categoryRepository.SaveChanages();
         }
+        #endregion
+
+        #region Single instances
+        public CategoryDto GetCategory(long id)
+        {
+            var entity = _categoryRepository.GetById(id);
+            var entityDto = Mapper.Map<CategoryDto>(entity);
+            return entityDto;
+        } 
+        #endregion
+
     }
 }

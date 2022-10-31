@@ -10,22 +10,33 @@ namespace OSL_B2.Inventory.Service
 {
     public interface ICustomerService
     {
+        #region Operations
         void AddCustomer(CustomerDto customer);
         void EditCustomer(CustomerDto entity);
         void RemoveCustomer(long id);
+        #endregion
+
+        #region Single instances
         Customer GetCustomer(long id);
-        (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir);
+        #endregion
+
+        #region Load instances
+        (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir); 
+        #endregion
     }
 
     public class CustomerService : ICustomerService
     {
+        #region Initialization
         private readonly ICustomerRepository _customerRepostory;
 
         public CustomerService(ICustomerRepository customerRepostory)
         {
             _customerRepostory = customerRepostory;
         }
+        #endregion
 
+        #region Operations
         public void AddCustomer(CustomerDto customer)
         {
             var count = _customerRepostory.GetCount(x => x.Name == customer.Name && x.IsActive == Status.Active);
@@ -64,14 +75,18 @@ namespace OSL_B2.Inventory.Service
             _customerRepostory.Edit(entity);
             _customerRepostory.SaveChanages();
         }
+        #endregion
 
+        #region Single instances
         public Customer GetCustomer(long id)
         {
             var entity = _customerRepostory.GetById(id);
             var entityDto = Mapper.Map<Customer>(entity);
             return entityDto;
         }
+        #endregion
 
+        #region Load instances
         public (int total, int totalDisplay, IList<CustomerDto> records) GetAllCustomers(string searchBy = null, int take = 1, int skip = 1, string sortBy = null, bool sortDir = false)
         {
             Expression<Func<Customer, bool>> filter = null;
@@ -88,6 +103,7 @@ namespace OSL_B2.Inventory.Service
             }
 
             return (result.total, result.totalDisplay, customers);
-        }
+        } 
+        #endregion
     }
 }
