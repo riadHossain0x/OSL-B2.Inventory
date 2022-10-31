@@ -13,7 +13,9 @@ namespace OSL_B2.Inventory.Repository
     public interface ICategoryRepository
     {
         #region Load instances
-        IList<Category> LoadAll(); 
+        IList<Category> LoadAll();
+        (IList<Category> data, int total, int totalDisplay) LoadAll(Expression<Func<Category, bool>> filter = null,
+            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
 
         #region Single instances
@@ -51,7 +53,38 @@ namespace OSL_B2.Inventory.Repository
             IQueryable<Category> query = _context.Categories;
             query = query.Where(x => x.IsActive == Status.Active);
             return query.ToList();
-        } 
+        }
+
+        public (IList<Category> data, int total, int totalDisplay) LoadAll(Expression<Func<Category, bool>> filter = null,
+            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
+        {
+            IQueryable<Category> query = _context.Categories;
+
+            query = query.Where(x => x.IsActive == Status.Active);
+
+            var total = query.Count();
+            var totalDisplay = query.Count();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+
+            totalDisplay = query.Count();
+
+            //sorting
+            switch (sortBy)
+            {
+                case "Name":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+                    break;
+            }
+
+            var result = query.OrderBy(x => x.Name).Skip(pageIndex).Take(pageSize);
+
+            return (result.ToList(), total, totalDisplay);
+        }
         #endregion
 
         #region Single instances

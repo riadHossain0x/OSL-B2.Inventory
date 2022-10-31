@@ -27,17 +27,43 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetCategories()
+        {
             try
             {
-                var model = _categoryService.LoadAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
-                return View(model);
+                var model = new DataTablesAjaxRequestModel(Request);
+                var data = _categoryService.LoadAllCategories(model.SearchText, model.Length, model.Start, model.SortColumn, 
+                    model.SortDirection);
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
+                                record.Name,
+                                record.IsActive.ToString(),
+                                record.ModifiedBy.ToString(),
+                                record.ModifiedDate.ToString(),
+                                record.CreatedBy.ToString(),
+                                record.CreatedDate.ToString(),
+                                record.Id.ToString()
+                            }
+                        ).ToArray()
+                });
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message, ex);
-                ViewResponse("Unable to load categories.", ResponseTypes.Danger);
             }
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+
+            return default(JsonResult);
         }
 
         public ActionResult Details(long id)

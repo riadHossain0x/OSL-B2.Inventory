@@ -54,7 +54,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                                 record.Id.ToString()
                             }
                         ).ToArray()
-                }, JsonRequestBehavior.AllowGet);
+                });
             }
             catch (Exception ex)
             {

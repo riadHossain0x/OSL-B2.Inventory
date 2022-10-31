@@ -1,5 +1,4 @@
 ﻿@using System.Dynamic
-@model IEnumerable<OSL_B2.Inventory.Web.Areas.Admin.Models.CategoryListViewModel>
 
 @{
     ViewData["Title"] = "Manage Category";
@@ -29,11 +28,25 @@
     </div>
     <div class="card-body">
         <table id="table" class="table table-bordered table-hover">
-
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        Name
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        ModifiedBy
+                    </th>
+                    <th>
+                        ModifiedDate
+                    </th>
+                    <th>
+                        CreatedBy
+                    </th>
+                    <th>
+                        CreatedDate
                     </th>
                     <th style="width:15%">
                         Actions
@@ -41,30 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/category/edit/@item.Id'">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </button>
-                            <button type="submit" class="btn btn-dark btn-sm" onclick="window.location.href='/admin/category/details/@item.Id'">
-                                <i class="fas fa-eye"></i>
-                                View
-                            </button>
-                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='@item.Id'>
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                }
+                
             </tbody>
         </table>
     </div>
@@ -86,10 +76,40 @@
         $(document).ready(function () {
             $('#table').DataTable({
                 "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/admin/category/getcategories",
+                    "type": "POST",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "name": "Name" },
+                    { "name": "Status" },
+                    { "name": "ModifiedBy" },
+                    { "name": "ModifiedDate" },
+                    { "name": "CreatedBy" },
+                    { "name": "CreatedDate" }
+                ],
                 "columnDefs": [
                     {
                         "orderable": false,
-                        "targets": 1
+                        "targets": 6,
+                        "render": function (data, type, row) {
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/category/edit/${data}'">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </button>
+                                        <button type="submit" class="btn btn-dark btn-sm" onclick="window.location.href='/admin/category/details/${data}'">
+                                            <i class="fas fa-eye"></i>
+                                            View
+                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Delete
+                                        </button>`;
+                        }
                     }
                 ]
             });

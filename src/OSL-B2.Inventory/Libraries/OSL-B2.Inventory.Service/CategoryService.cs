@@ -5,6 +5,7 @@ using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Service.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace OSL_B2.Inventory.Service
 {
@@ -18,6 +19,7 @@ namespace OSL_B2.Inventory.Service
 
         #region Load instances
         IList<CategoryDto> LoadAllCategories();
+        (int total, int totalDisplay, IList<CategoryDto> records) LoadAllCategories(string searchBy, int length, int start, string sortBy, string sortDir);
         #endregion
 
         #region Single instances
@@ -42,6 +44,24 @@ namespace OSL_B2.Inventory.Service
             var entities = _categoryRepository.LoadAll();
             var entitiesDto = Mapper.Map<IList<CategoryDto>>(entities);
             return entitiesDto;
+        }
+
+        public (int total, int totalDisplay, IList<CategoryDto> records) LoadAllCategories(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
+        {
+            Expression<Func<Category, bool>> filter = null;
+            if (searchBy != null)
+            {
+                filter = x => x.Name.Contains(searchBy);
+            }
+            var result = _categoryRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
+
+            List<CategoryDto> customers = new List<CategoryDto>();
+            foreach (Category course in result.data)
+            {
+                customers.Add(Mapper.Map<CategoryDto>(course));
+            }
+
+            return (result.total, result.totalDisplay, customers);
         }
         #endregion
 
