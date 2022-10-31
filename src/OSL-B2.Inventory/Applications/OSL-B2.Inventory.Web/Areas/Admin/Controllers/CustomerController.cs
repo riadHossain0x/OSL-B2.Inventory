@@ -1,14 +1,11 @@
-﻿using OSL_B2.Inventory.Web;
-using OSL_B2.Inventory.Service;
+﻿using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Controllers;
 using OSL_B2.Inventory.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using static OSL_B2.Inventory.Web.Models.DataTableAjaxPostModels;
 using OSL_B2.Inventory.Web.Adapters;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
@@ -33,18 +30,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetCustomers(DataTableAjaxPostModel parameters)
+        public JsonResult GetCustomers()
         {
+            var model = new DataTablesAjaxRequestModel(Request);
 
-            string sortBy = "";
-            bool sortDir = true;
-
-            var value = (parameters.search != null) ? parameters.search.value : null;
-
-            var data = _customerService.LoadAllCustomers(value, parameters.length, parameters.start, sortBy, sortDir);
+            var data = _customerService.LoadAllCustomers(model.SearchText, model.Length, model.Start, model.SortColumn, 
+                model.SortDirection);
 
             return Json(new
             {
+                draw = Request["draw"],
                 recordsTotal = data.total,
                 recordsFiltered = data.totalDisplay,
                 data = (from record in data.records

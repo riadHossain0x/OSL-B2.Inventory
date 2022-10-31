@@ -13,7 +13,7 @@ namespace OSL_B2.Inventory.Repository
     {
         #region Load instances
         (IList<Customer> data, int total, int totalDisplay) LoadAll(Expression<Func<Customer, bool>> filter = null,
-            string orderBy = null, string includeProperties = "", int pageIndex = 1, int pageSize = 10); 
+            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null); 
         #endregion
 
         #region Single instances
@@ -48,7 +48,7 @@ namespace OSL_B2.Inventory.Repository
 
         #region Load instances
         public (IList<Customer> data, int total, int totalDisplay) LoadAll(Expression<Func<Customer, bool>> filter = null,
-            string orderBy = null, string includeProperties = "", int pageIndex = 1, int pageSize = 10)
+            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
         {
             IQueryable<Customer> query = _context.Customers;
             var total = query.Count();
@@ -63,10 +63,21 @@ namespace OSL_B2.Inventory.Repository
 
             totalDisplay = query.Count();
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            //sorting
+            switch (sortBy)
             {
-                query = query.Include(includeProperty);
+                case "Name":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+                    break;
+                case "Email":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Email) : query.OrderByDescending(c => c.Email);
+                    break;
+                case "Phone":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Mobile) : query.OrderByDescending(c => c.Mobile);
+                    break;
+                case "Address":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Address) : query.OrderByDescending(c => c.Address);
+                    break;
             }
 
             var result = query.OrderBy(x => x.Name).Skip(pageIndex).Take(pageSize);

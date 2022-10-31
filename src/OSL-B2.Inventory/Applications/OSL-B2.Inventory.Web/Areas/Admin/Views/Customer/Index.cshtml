@@ -59,20 +59,13 @@
                     "url": "/admin/customer/GetCustomers",
                     "type": "POST",
                     "datatype": "json",
-                    "contentType": "application/json; charset=utf-8",
-                    "dataType": "json",
-                    "data": function (d) {
-                        if (window.datatables_filter) {
-                            d.filter = window.datatables_filter;
-                            window.datatables_filter = "";
-                        }
-                        else {
-                            d.filter = "";
-                        }
-                        console.log(JSON.stringify({ parameters: d }));
-                        return JSON.stringify({ parameters: d });
-                    }
                 },
+                "columns": [
+                    { "name": "Name" },
+                    { "name": "Email" },
+                    { "name": "Phone" },
+                    { "name": "Address" }
+                ],
                 "columnDefs": [
                     {
                         "orderable": false,

@@ -21,7 +21,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy, int take, int skip, string sortBy, bool sortDir); 
+        (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy, int take, int skip, string sortBy, string sortDir); 
         #endregion
     }
 
@@ -87,14 +87,15 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        public (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy = null, int take = 1, int skip = 1, string sortBy = null, bool sortDir = false)
+        public (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
         {
             Expression<Func<Customer, bool>> filter = null;
             if (searchBy != null)
             {
-                filter = x => x.Name.Contains(searchBy);
+                filter = x => x.Name.Contains(searchBy) || x.Email.Contains(searchBy) 
+                || x.Mobile.Contains(searchBy) || x.Address.Contains(searchBy);
             }
-            var result = _customerRepostory.LoadAll(filter, null, string.Empty, skip, 10);
+            var result = _customerRepostory.LoadAll(filter, null, start, length, sortBy, sortDir);
 
             List<CustomerDto> customers = new List<CustomerDto>();
             foreach (Customer course in result.data)
