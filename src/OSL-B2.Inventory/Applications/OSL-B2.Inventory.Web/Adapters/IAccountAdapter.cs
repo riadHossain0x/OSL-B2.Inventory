@@ -17,6 +17,7 @@ namespace OSL_B2.Inventory.Web.Adapters
         Task<SignInStatus> PasswordSignInAsync(string email, string password, bool rememberMe, bool shouldLockout);
         Task<ApplicationUser> FindByNameAsync(string email);
         ApplicationUser FindByName(string email);
+        ApplicationUser FindById(long id);
         Task<long> GetUserIdAsync();
         Task<bool> IsEmailConfirmedAsync(long userId);
         Task<IdentityResult> ConfirmEmailAsync(long userId, string token);

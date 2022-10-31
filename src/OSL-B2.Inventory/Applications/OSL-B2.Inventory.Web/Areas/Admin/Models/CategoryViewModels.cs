@@ -47,4 +47,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
             return category;
         }
     }
+
+    public class CategoryDetailsViewModel
+    {
+        public string Name { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+    }
 }

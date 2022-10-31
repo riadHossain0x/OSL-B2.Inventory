@@ -30,6 +30,22 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             var model = _categoryService.LoadAllCategories().Select(x => new CategoryListViewModel { Id = x.Id, Name = x.Name });
             return View(model);
         }
+
+        public ActionResult Details(long id)
+        {
+            var category = _categoryService.GetCategory(id);
+
+            var model = new CategoryDetailsViewModel
+            {
+                Name = category.Name,
+                CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
+                CreatedDate = category.CreatedDate,
+                ModifiedBy = _accountAdapter.FindById(category.ModifiedBy).Email,
+                ModifiedDate = category.ModifiedDate
+            };
+
+            return View(model);
+        }
         #endregion
 
         #region Operations

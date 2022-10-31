@@ -74,6 +74,11 @@ namespace OSL_B2.Inventory.Web.Adapters
             return _userManager.FindByName(email);
         }
 
+        public ApplicationUser FindById(long id)
+        {
+            return _userManager.FindById(id);
+        }
+
         public async Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
         {
             return await _authenticationManager.GetExternalLoginInfoAsync();

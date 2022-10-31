@@ -92,6 +92,11 @@ namespace OSL_B2.Inventory.Service
         #region Single instances
         public CategoryDto GetCategory(long id)
         {
+            var count = _categoryRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
+
+            if (count == 0)
+                throw new InvalidOperationException("There is no category found.");
+
             var entity = _categoryRepository.GetById(id);
             var entityDto = Mapper.Map<CategoryDto>(entity);
             return entityDto;
