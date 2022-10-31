@@ -23,6 +23,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
             var category = Mapper.Map<CategoryDto>(this);
             category.CreatedBy = userId;
             category.CreatedDate = DateTime.Now;
+            category.ModifiedBy = userId;
+            category.ModifiedDate = DateTime.Now;
             return category;
         }
     }
