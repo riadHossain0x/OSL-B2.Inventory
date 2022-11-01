@@ -18,7 +18,6 @@ namespace OSL_B2.Inventory.Repository
 
         #region Single instances
         Customer GetById(long id);
-        Customer GetById(long id, string includeProperties = null);
         #endregion
 
         #region Operations
@@ -86,17 +85,11 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Single instances
-        public Customer GetById(long id) => _context.Customers.Find(id);
 
-        public Customer GetById(long id, string includeProperties = null)
+        public Customer GetById(long id)
         {
             IQueryable<Customer> query = _context.Customers;
-            query = query.Where(x => x.Id == id);
-
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
+            query = query.Where(x => x.Id == id && x.IsActive != Status.Inactive);
 
             return query.ToList().FirstOrDefault();
         }

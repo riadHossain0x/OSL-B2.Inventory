@@ -15,10 +15,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         public CategoryDto GetCategory(long userId)
         {
             var category = Mapper.Map<CategoryDto>(this);
-            category.CreatedBy = userId;
-            category.CreatedDate = DateTime.Now;
-            category.ModifiedBy = userId;
-            category.ModifiedDate = DateTime.Now;
+            category.CreatedBy = category.ModifiedBy = userId;
+            category.CreatedDate = category.ModifiedDate = DateTime.Now;
             return category;
         }
     }

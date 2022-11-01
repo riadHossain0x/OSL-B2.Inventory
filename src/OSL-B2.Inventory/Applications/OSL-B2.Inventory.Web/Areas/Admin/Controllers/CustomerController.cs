@@ -79,10 +79,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 var customer = _customerService.GetCustomer(id);
 
-                var model = new CategoryDetailsViewModel
+                var model = new CustomerDetailsViewModel
                 {
                     Id = customer.Id,
                     Name = customer.Name,
+                    Email = customer.Email,
+                    Mobile = customer.Mobile,
+                    Address = customer.Address,
                     CreatedBy = _accountAdapter.FindById(customer.CreatedBy).Email,
                     CreatedDate = customer.CreatedDate,
                     ModifiedBy = _accountAdapter.FindById(customer.ModifiedBy).Email,

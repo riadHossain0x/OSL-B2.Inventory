@@ -34,8 +34,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         internal CustomerDto GetCustomer(long id)
         {
             var customer = Mapper.Map<CustomerDto>(this);
-            customer.CreatedBy = id;
-            customer.CreatedDate = DateTime.Now;
+            customer.CreatedBy = customer.ModifiedBy = id;
+            customer.CreatedDate = customer.ModifiedDate = DateTime.Now;
             return customer;
         }
     }
@@ -76,6 +76,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
     public class CustomerDetailsViewModel
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
