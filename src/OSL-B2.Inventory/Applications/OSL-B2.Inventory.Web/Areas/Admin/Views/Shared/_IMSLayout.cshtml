@@ -31,11 +31,18 @@
     <link rel="stylesheet" href="~/Content/adminlte/css/adminlte.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="~/Content/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-
     <!-- summernote -->
     <link rel="stylesheet" href="~/Content/adminlte/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
     <style>
         .main-sidebar {
             background-color: #4C65BF !important
@@ -147,6 +154,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <section class="content">
+                <div id="responseMessage" hidden></div>
                 @Html.Partial("_ResponsePartial")
                 @RenderBody()
             </section>
@@ -188,6 +196,8 @@
     <script src="~/Content/adminlte/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Content/adminlte/js/demo.js"></script>
+    <!-- Alertify -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         $(".nav-sidebar").on("click", ".nav-link", function (e) {
             //e.preventDefault();
@@ -196,5 +206,5 @@
         });
     </script>
 </body>
-</html>
+    </html>
 

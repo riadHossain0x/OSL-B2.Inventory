@@ -3,7 +3,10 @@
 @if(TempData.Peek<ResponseModel>("ResponseMessage") != null)
 {
     var response = TempData.Get<ResponseModel>("ResponseMessage");
-    <div class="alert alert-@(response.Type.ToString().ToLower())" role="alert">
+    <div class="alert alert-@(response.Type.ToString().ToLower()) alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            &times;
+        </button>
         @response.Message
     </div>
 }

@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.Ajax.Utilities;
 using OSL_B2.Inventory.Web.Extensions;
 using OSL_B2.Inventory.Web.Models;
 using System;
@@ -27,6 +28,11 @@ namespace OSL_B2.Inventory.Web.Controllers
                 Type = type
             });
         } 
+
+        public object ViewResponse(string message, string code, ResponseTypes type)
+        {
+            return new { Message = message, Type =  type.ToString().ToLower() };
+        }
         #endregion
     }
 }

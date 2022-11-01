@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using OSL_B2.Inventory.Web.Adapters;
+using System.Web.Services.Description;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
@@ -97,27 +98,24 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         #region Operations
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(long id)
+        public JsonResult Delete(long id)
         {
             try
             {
                 _categoryService.RemoveCategory(id);
 
-                ViewResponse("Category successfully deleted.", ResponseTypes.Success);
+                return Json(ViewResponse("Category successfully deleted.", string.Empty, ResponseTypes.Success));
             }
             catch (InnerElementException ie)
             {
-                ViewResponse(ie.Message, ResponseTypes.Danger);
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message, ex);
 
-                ViewResponse(ex.Message, ResponseTypes.Danger);
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
             }
-
-            return RedirectToAction(nameof(Index), new { area = "Admin" });
         }
 
         public ActionResult Create()
