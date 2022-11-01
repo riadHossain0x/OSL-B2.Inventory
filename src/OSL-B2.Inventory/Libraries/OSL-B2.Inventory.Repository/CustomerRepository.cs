@@ -13,12 +13,12 @@ namespace OSL_B2.Inventory.Repository
     {
         #region Load instances
         (IList<Customer> data, int total, int totalDisplay) LoadAll(Expression<Func<Customer, bool>> filter = null,
-            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null); 
+            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
 
         #region Single instances
         Customer GetById(long id);
-        Customer GetById(long id, string includeProperties = null); 
+        Customer GetById(long id, string includeProperties = null);
         #endregion
 
         #region Operations
@@ -43,7 +43,7 @@ namespace OSL_B2.Inventory.Repository
         public CustomerRepository(IMSDbContext context)
         {
             _context = context;
-        } 
+        }
         #endregion
 
         #region Load instances
@@ -51,17 +51,16 @@ namespace OSL_B2.Inventory.Repository
             string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
         {
             IQueryable<Customer> query = _context.Customers;
+            query = query.Where(x => x.IsActive == Status.Active);
+
             var total = query.Count();
             var totalDisplay = query.Count();
 
             if (filter != null)
             {
                 query = query.Where(filter);
+                totalDisplay = query.Count();
             }
-
-            query = query.Where(x => x.IsActive == Status.Active);
-
-            totalDisplay = query.Count();
 
             //sorting
             switch (sortBy)

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using OSL_B2.Inventory.Web.Adapters;
+using OSL_B2.Inventory.Service.Exceptions;
+using AutoMapper;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
@@ -39,6 +41,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 var data = _customerService.LoadAllCustomers(model.SearchText, model.Length, model.Start, model.SortColumn,
                     model.SortDirection);
 
+                var count = 1;
+
                 return Json(new
                 {
                     draw = Request["draw"],
@@ -47,10 +51,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     data = (from record in data.records
                             select new string[]
                             {
+                                count++.ToString(),
                                 record.Name,
                                 record.Email,
                                 record.Mobile,
                                 record.Address,
+                                record.ModifiedBy.ToString(),
+                                record.ModifiedDate.ToString(),
+                                record.CreatedBy.ToString(),
+                                record.CreatedDate.ToString(),
                                 record.Id.ToString()
                             }
                         ).ToArray()
@@ -62,6 +71,33 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             }
 
             return default(JsonResult);
+        }
+
+        public ActionResult Details(long id)
+        {
+            try
+            {
+                var customer = _customerService.GetCustomer(id);
+
+                var model = new CategoryDetailsViewModel
+                {
+                    Id = customer.Id,
+                    Name = customer.Name,
+                    CreatedBy = _accountAdapter.FindById(customer.CreatedBy).Email,
+                    CreatedDate = customer.CreatedDate,
+                    ModifiedBy = _accountAdapter.FindById(customer.ModifiedBy).Email,
+                    ModifiedDate = customer.ModifiedDate
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
         #endregion
 
@@ -97,7 +133,75 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 }
             }
             return View(model);
-        } 
+        }
+
+        [HttpPost]
+        public JsonResult Delete(long id)
+        {
+            try
+            {
+                _customerService.RemoveCustomer(id);
+
+                return Json(ViewResponse("Customer successfully deleted.", string.Empty, ResponseTypes.Success));
+            }
+            catch (InnerElementException ie)
+            {
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
+        }
+
+        public ActionResult Edit(long id)
+        {
+            try
+            {
+                var customer = _customerService.GetCustomer(id);
+
+                var model = Mapper.Map<CustomerEditViewModel>(customer);
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CustomerEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = _accountAdapter.FindByName(User.Identity.Name);
+                    var customer = model.GetCustomer(user.Id);
+
+                    _customerService.EditCustomer(customer);
+
+                    ViewResponse("Successfully updated customer.", ResponseTypes.Success);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message, ex);
+
+                    ViewResponse(ex.Message, ResponseTypes.Danger);
+                }
+            }
+            return View(model);
+        }
         #endregion
     }
 }

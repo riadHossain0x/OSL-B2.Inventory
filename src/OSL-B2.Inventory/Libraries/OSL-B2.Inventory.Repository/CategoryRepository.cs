@@ -20,7 +20,7 @@ namespace OSL_B2.Inventory.Repository
 
         #region Single instances
         Category GetById(long id);
-        Category GetById(long id, string includeProperty = null); 
+        Category GetById(long id, string includeProperty = null);
         #endregion
 
         #region Operations
@@ -68,10 +68,8 @@ namespace OSL_B2.Inventory.Repository
             if (filter != null)
             {
                 query = query.Where(filter);
+                totalDisplay = query.Count();
             }
-
-
-            totalDisplay = query.Count();
 
             //sorting
             switch (sortBy)

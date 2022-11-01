@@ -17,11 +17,11 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Single instances
-        Customer GetCustomer(long id);
+        CustomerDto GetCustomer(long id);
         #endregion
 
         #region Load instances
-        (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy, int take, int skip, string sortBy, string sortDir); 
+        (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
     }
 
@@ -39,10 +39,10 @@ namespace OSL_B2.Inventory.Service
         #region Operations
         public void AddCustomer(CustomerDto customer)
         {
-            var count = _customerRepostory.GetCount(x => x.Name == customer.Name && x.IsActive == Status.Active);
+            var count = _customerRepostory.GetCount(x => x.Mobile == customer.Mobile && x.IsActive == Status.Active);
 
             if (count > 0)
-                throw new InvalidOperationException("There is a customer with same name already exist.");
+                throw new InvalidOperationException("There is a customer with same mobile number already exist.");
 
             var entity = Mapper.Map<Customer>(customer);
 
@@ -55,7 +55,7 @@ namespace OSL_B2.Inventory.Service
             if (entity == null)
                 throw new InvalidOperationException("There is no customer found.");
 
-            var count = _customerRepostory.GetCount(x => x.Name == entity.Name && x.IsActive == Status.Active && x.Id != entity.Id);
+            var count = _customerRepostory.GetCount(x => x.Mobile == entity.Mobile && x.IsActive == Status.Active && x.Id != entity.Id);
             if (count > 0)
                 throw new InvalidOperationException("There is a customer with same name already exist.");
 
@@ -78,10 +78,10 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Single instances
-        public Customer GetCustomer(long id)
+        public CustomerDto GetCustomer(long id)
         {
             var entity = _customerRepostory.GetById(id);
-            var entityDto = Mapper.Map<Customer>(entity);
+            var entityDto = Mapper.Map<CustomerDto>(entity);
             return entityDto;
         }
         #endregion

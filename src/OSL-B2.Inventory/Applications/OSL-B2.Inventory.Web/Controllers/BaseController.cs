@@ -20,18 +20,18 @@ namespace OSL_B2.Inventory.Web.Controllers
         }
 
         #region Helpers
-        public void ViewResponse(string message, ResponseTypes type)
+        protected void ViewResponse(string message, ResponseTypes type)
         {
             TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
             {
                 Message = message,
                 Type = type
             });
-        } 
+        }
 
-        public object ViewResponse(string message, string code, ResponseTypes type)
+        protected object ViewResponse(string message, string code, ResponseTypes type)
         {
-            return new { Message = message, Type =  type.ToString().ToLower() };
+            return new { Message = message, Code = code, Type =  type.ToString().ToLower() };
         }
         #endregion
     }

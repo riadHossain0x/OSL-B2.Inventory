@@ -31,22 +31,25 @@
             <thead>
                 <tr>
                     <th>
+                        ID
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
                         Status
                     </th>
                     <th>
-                        ModifiedBy
+                        Modified By
                     </th>
                     <th>
-                        ModifiedDate
+                        Modified Date
                     </th>
                     <th>
-                        CreatedBy
+                        Created By
                     </th>
                     <th>
-                        CreatedDate
+                        Created Date
                     </th>
                     <th style="width:15%">
                         Actions
@@ -83,6 +86,7 @@
                     "datatype": "json",
                 },
                 "columns": [
+                    { "name": "ID" },
                     { "name": "Name" },
                     { "name": "Status" },
                     { "name": "ModifiedBy" },
@@ -93,7 +97,7 @@
                 "columnDefs": [
                     {
                         "orderable": false,
-                        "targets": 6,
+                        "targets": 7,
                         "render": function (data, type, row) {
                             return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/category/edit/${data}'">
                                                     <i class="fas fa-pencil-alt">
@@ -110,7 +114,8 @@
                                                     Delete
                                                 </button>`;
                         }
-                    }
+                    },
+                    { "orderable": false, "targets": [0, 4, 6] }
                 ]
             });
         });
@@ -125,8 +130,6 @@
                         type: 'POST',
                         data: { 'id': id },
                         success: function (data) {
-                            console.log(data.Message);
-                            console.log(data.Type);
                             var html = `<div class="alert alert-${data.Type} alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                                         </button>

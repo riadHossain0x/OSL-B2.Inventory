@@ -40,6 +40,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 var data = _categoryService.LoadAllCategories(model.SearchText, model.Length, model.Start, model.SortColumn, 
                     model.SortDirection);
 
+                var count = 1;
+
                 return Json(new
                 {
                     draw = Request["draw"],
@@ -48,6 +50,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     data = (from record in data.records
                             select new string[]
                             {
+                                count++.ToString(),
                                 record.Name,
                                 record.IsActive.ToString(),
                                 record.ModifiedBy.ToString(),
@@ -72,7 +75,6 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             try
             {
                 var category = _categoryService.GetCategory(id);
-                var modifiedBy = _accountAdapter.FindById(category.ModifiedBy);
 
                 var model = new CategoryDetailsViewModel
                 {
@@ -80,7 +82,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     Name = category.Name,
                     CreatedBy = _accountAdapter.FindById(category.CreatedBy).Email,
                     CreatedDate = category.CreatedDate,
-                    ModifiedBy = (modifiedBy != null) ? modifiedBy.Email : string.Empty,
+                    ModifiedBy = _accountAdapter.FindById(category.ModifiedBy).Email,
                     ModifiedDate = category.ModifiedDate
                 };
 
@@ -92,7 +94,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 ViewResponse(ex.Message, ResponseTypes.Danger);
             }
 
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction(nameof(Index));
         }
         #endregion
 
