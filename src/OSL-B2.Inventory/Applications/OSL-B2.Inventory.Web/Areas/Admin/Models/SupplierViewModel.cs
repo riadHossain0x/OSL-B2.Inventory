@@ -42,6 +42,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
     public class SupplierEditViewModel
     {
+        public long Id { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "Customer name must be less then 50 charecter.")]
         [Display(Name = "Supplier Name")]

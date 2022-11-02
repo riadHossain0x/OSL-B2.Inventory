@@ -145,7 +145,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 _customerService.RemoveCustomer(id);
 
-                return Json(ViewResponse("Customer successfully deleted.", string.Empty, ResponseTypes.Success));
+                return Json(ViewResponse("Customer successfully deleted!", string.Empty, ResponseTypes.Success));
             }
             catch (InnerElementException ie)
             {
@@ -192,7 +192,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                     _customerService.EditCustomer(customer);
 
-                    ViewResponse("Successfully updated customer.", ResponseTypes.Success);
+                    ViewResponse("Customer successfully updated!", ResponseTypes.Success);
 
                     return RedirectToAction(nameof(Index));
                 }

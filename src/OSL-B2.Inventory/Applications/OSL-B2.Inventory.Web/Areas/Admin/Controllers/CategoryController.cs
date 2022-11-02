@@ -106,7 +106,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             {
                 _categoryService.RemoveCategory(id);
 
-                return Json(ViewResponse("Category successfully deleted.", string.Empty, ResponseTypes.Success));
+                return Json(ViewResponse("Category successfully deleted!", string.Empty, ResponseTypes.Success));
             }
             catch (InnerElementException ie)
             {
@@ -187,7 +187,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                     _categoryService.EditCategory(category);
 
-                    ViewResponse("Successfully updated category.", ResponseTypes.Success);
+                    ViewResponse("Successfully updated category!", ResponseTypes.Success);
 
                     return RedirectToAction(nameof(Index));
                 }

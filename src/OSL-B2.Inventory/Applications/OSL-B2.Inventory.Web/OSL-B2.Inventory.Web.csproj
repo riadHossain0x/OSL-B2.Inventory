@@ -1968,6 +1968,8 @@
     <Content Include="Areas\Admin\Views\Customer\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

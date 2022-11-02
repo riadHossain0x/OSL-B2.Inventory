@@ -1,8 +1,8 @@
 ﻿@using System.Dynamic
-@model OSL_B2.Inventory.Web.Areas.Admin.Models.SupplierCreateViewModel
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.SupplierEditViewModel
 @{
-    ViewData["Title"] = "New Supplier";
-    ViewBag.PageNav = "Create";
+    ViewData["Title"] = "Edit Supplier";
+    ViewBag.PageNav = "Edit";
 
     dynamic MidNav = new ExpandoObject();
     MidNav.Title = "Supplier";
@@ -15,22 +15,24 @@
         <div class="row">
             <div class="col-6">
                 <div class="float-left">
-                    <h3 class="card-title">Create Customer Form</h3>
+                    <h3 class="card-title">Edit Customer Form</h3>
                 </div>
             </div>
             <div class="col-6">
                 <div class="float-right">
-                    <a href="/Admin/Supplier" class="btn btn-primary btn-sm">Manage Supplier</a>
+                    <a href="/Admin/Customer" class="btn btn-primary btn-sm">Manage Customer</a>
                 </div>
             </div>
         </div>
     </div>
-
-    @using (Html.BeginForm("Create", "Supplier", new { area = "Admin" }, FormMethod.Post))
+    @using (Html.BeginForm("Edit", "Supplier", new { area = "Admin" }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
         <div class="card-body">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreatedBy)
+            @Html.HiddenFor(model => model.CreatedDate)
             <div class="form-group row">
                 <div class="col-md-2">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
@@ -56,7 +58,7 @@
                     @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    @Html.TextAreaFor(model => model.Address, 5, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                    @Html.TextAreaFor(model => model.Address, 5, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%" })
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,7 +68,7 @@
                     @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                    @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { style= "width: 100%; max-width: 100%" })
                     @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
                     <div class="pt-2">
                         <input type="submit" value="Save" class="btn btn-primary" />
@@ -76,7 +78,3 @@
         </div>
     }
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-

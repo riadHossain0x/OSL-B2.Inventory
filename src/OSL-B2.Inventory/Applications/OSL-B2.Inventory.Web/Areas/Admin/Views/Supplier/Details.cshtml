@@ -1,0 +1,111 @@
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.SupplierDetailsViewModel
+@{
+    ViewData["Title"] = "Supplier Details";
+    ViewBag.PageNav = "Details";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Supplier";
+    MidNav.Link = "/Admin/Supplier/";
+    ViewBag.MidNav = MidNav;
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Category Details Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Category" class="btn btn-primary btn-sm">Manage Category</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card-body">
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.Name) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.Name)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.Mobile) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.Mobile)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.Address) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.Address)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.ModifiedBy) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.ModifiedBy)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.ModifiedDate) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.ModifiedDate)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.CreatedBy) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.CreatedBy)
+                    </span>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.CreatedDate) :
+                </div>
+                <div class="col-md-8">
+                    <span class="font-weight-bold">
+                        @Html.DisplayFor(model => model.CreatedDate)
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2">
+                    <a class="btn btn-info" href="/Admin/Supplier/Edit/@Model.Id">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
