@@ -119,13 +119,7 @@
         }
 
         $("#btnSubmit").on("click", function () {
-            if ($('#imageFile').val() == "") {
-                $('#spanfile').html("Please upload file");
-                return false;
-            }
-            else {
-                return checkfile();
-            }
+            return checkfile();
         });
 
         function checkfile() {

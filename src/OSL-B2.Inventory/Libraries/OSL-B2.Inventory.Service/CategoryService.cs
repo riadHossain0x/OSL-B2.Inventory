@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using log4net;
 using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Service.Dtos;
@@ -30,11 +31,14 @@ namespace OSL_B2.Inventory.Service
     public class CategoryService : ICategoryService
     {
         #region Initialization
+        public readonly ILog Logger;
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
+            Logger = LogManager.GetLogger("Service");
+            Logger.Error("Hello");
         }
         #endregion
 
