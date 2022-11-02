@@ -56,9 +56,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                                 record.Email,
                                 record.Mobile,
                                 record.Address,
-                                record.ModifiedBy.ToString(),
+                                _accountAdapter.FindById(record.ModifiedBy).Email,
                                 record.ModifiedDate.ToString(),
-                                record.CreatedBy.ToString(),
+                                _accountAdapter.FindById(record.CreatedBy).Email,
                                 record.CreatedDate.ToString(),
                                 record.Id.ToString()
                             }

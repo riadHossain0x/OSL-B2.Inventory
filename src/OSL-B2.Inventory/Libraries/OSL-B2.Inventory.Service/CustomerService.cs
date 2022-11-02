@@ -28,26 +28,26 @@ namespace OSL_B2.Inventory.Service
     public class CustomerService : ICustomerService
     {
         #region Initialization
-        private readonly ICustomerRepository _customerRepostory;
+        private readonly ICustomerRepository _customerRepository;
 
         public CustomerService(ICustomerRepository customerRepostory)
         {
-            _customerRepostory = customerRepostory;
+            _customerRepository = customerRepostory;
         }
         #endregion
 
         #region Operations
         public void AddCustomer(CustomerDto customer)
         {
-            var count = _customerRepostory.GetCount(x => x.Mobile == customer.Mobile && x.IsActive == Status.Active);
+            var count = _customerRepository.GetCount(x => x.Mobile == customer.Mobile && x.IsActive == Status.Active);
 
             if (count > 0)
                 throw new InvalidOperationException("There is a customer with same mobile number already exist.");
 
             var entity = Mapper.Map<Customer>(customer);
 
-            _customerRepostory.Add(entity);
-            _customerRepostory.SaveChanages();
+            _customerRepository.Add(entity);
+            _customerRepository.SaveChanages();
         }
 
         public void EditCustomer(CustomerDto entity)
@@ -55,37 +55,37 @@ namespace OSL_B2.Inventory.Service
             if (entity == null)
                 throw new InvalidOperationException("There is no customer found.");
 
-            var count = _customerRepostory.GetCount(x => x.Mobile == entity.Mobile && x.IsActive == Status.Active && x.Id != entity.Id);
+            var count = _customerRepository.GetCount(x => x.Mobile == entity.Mobile && x.IsActive == Status.Active && x.Id != entity.Id);
             if (count > 0)
                 throw new InvalidOperationException("There is a customer with same name already exist.");
 
             var customer = Mapper.Map<Customer>(entity);
-            _customerRepostory.Edit(customer);
-            _customerRepostory.SaveChanages();
+            _customerRepository.Edit(customer);
+            _customerRepository.SaveChanages();
         }
 
         public void RemoveCustomer(long id)
         {
-            var entity = _customerRepostory.GetById(id);
+            var entity = _customerRepository.GetById(id);
 
             if (entity == null)
                 throw new InvalidOperationException("There is no customer found.");
 
             entity.IsActive = Status.Inactive;
-            _customerRepostory.Edit(entity);
-            _customerRepostory.SaveChanages();
+            _customerRepository.Edit(entity);
+            _customerRepository.SaveChanages();
         }
         #endregion
 
         #region Single instances
         public CustomerDto GetCustomer(long id)
         {
-            var count = _customerRepostory.GetCount(x => x.Id == id && x.IsActive == Status.Active);
+            var count = _customerRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
 
             if (count == 0)
                 throw new InvalidOperationException("There is no category found.");
 
-            var entity = _customerRepostory.GetById(id);
+            var entity = _customerRepository.GetById(id);
             var entityDto = Mapper.Map<CustomerDto>(entity);
             return entityDto;
         }
@@ -100,7 +100,7 @@ namespace OSL_B2.Inventory.Service
                 filter = x => x.Name.Contains(searchBy) || x.Email.Contains(searchBy) 
                 || x.Mobile.Contains(searchBy) || x.Address.Contains(searchBy);
             }
-            var result = _customerRepostory.LoadAll(filter, null, start, length, sortBy, sortDir);
+            var result = _customerRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
 
             List<CustomerDto> customers = new List<CustomerDto>();
             foreach (Customer course in result.data)

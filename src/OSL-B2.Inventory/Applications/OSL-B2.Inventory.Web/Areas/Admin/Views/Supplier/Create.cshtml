@@ -1,0 +1,78 @@
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.SupplierCreateViewModel
+@{
+    ViewData["Title"] = "New Supplier";
+    ViewBag.PageNav = "Create";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Supplier";
+    MidNav.Link = "/Admin/Supplier/";
+    ViewBag.MidNav = MidNav;
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Create Customer Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Customer" class="btn btn-primary btn-sm">Manage Customer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Create", "Supplier", new { area = "Admin" }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextAreaFor(model => model.Address, 5, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                    <div class="pt-2">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
