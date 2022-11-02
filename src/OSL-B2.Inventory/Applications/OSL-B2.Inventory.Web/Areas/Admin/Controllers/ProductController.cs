@@ -41,5 +41,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult Create(ProductCreateViewModel model)
+        {
+            return View();
+        }
     }
 }
