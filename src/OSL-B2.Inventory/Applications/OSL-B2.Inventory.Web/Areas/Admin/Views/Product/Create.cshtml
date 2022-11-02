@@ -58,8 +58,8 @@
                     @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    <input type="file" name="ImageFile" class = "form-control"  required/>
-                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    <input type="file" id="imageFile" name="ImageFile" class="form-control" required />
+                    <span class="text-danger" id="spanfile"></span>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
                     @Html.EditorFor(model => model.CriticalQuantity, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CriticalQuantity, "", new { @class = "text-danger" })
                     <div class="pt-2">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
@@ -89,3 +89,81 @@
     }
 
 </div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //get file size
+        function GetFileSize(fileid) {
+            try {
+                fileSize = document.getElementById(fileid).files[0].size;
+                fileSize = fileSize / 1048576;
+                return fileSize;
+            }
+            catch (e) {
+                console.log("Error is :" + e);
+            }
+        }
+
+        //get file path from client system
+        function getNameFromPath(strFilepath) {
+            var objRE = new RegExp(/([^\/\\]+)$/);
+            var strName = objRE.exec(strFilepath);
+
+            if (strName == null) {
+                return null;
+            }
+            else {
+                return strName[0];
+            }
+        }
+
+        $("#btnSubmit").on("click", function () {
+            if ($('#imageFile').val() == "") {
+                $('#spanfile').html("Please upload file");
+                return false;
+            }
+            else {
+                return checkfile();
+            }
+        });
+
+        function checkfile() {
+            var file = getNameFromPath($("#imageFile").val());
+            if (file != null) {
+                var extension = file.substr((file.lastIndexOf('.') + 1));
+                // alert(extension);
+                switch (extension) {
+                    case 'jpg':
+                    case 'png':
+                    case 'gif':
+                    case 'jpeg':
+                        flag = true;
+                        break;
+                    default:
+                        flag = false;
+                }
+            }
+            if (flag == false) {
+                $("#spanfile").text("You can upload only jpg, jpeg, png, gif extension file");
+                return false;
+            }
+            else {
+                var size = GetFileSize('imageFile');
+                if (size > 5) {
+                    $("#spanfile").text("You can upload file up to 5 MB");
+                    return false;
+                }
+                else {
+                    $("#spanfile").text("");
+                }
+            }
+        }
+
+        $(function () {
+            $("#imageFile").change(function () {
+                checkfile();
+            });
+        });
+    </script>
+}

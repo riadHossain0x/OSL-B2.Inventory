@@ -45,6 +45,10 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(ProductCreateViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View();
         }
     }
