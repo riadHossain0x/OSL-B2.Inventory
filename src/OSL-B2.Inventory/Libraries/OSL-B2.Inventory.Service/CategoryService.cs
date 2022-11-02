@@ -18,6 +18,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
+        IList<CategoryDto> LoadAllCategories();
         (int total, int totalDisplay, IList<CategoryDto> records) LoadAllCategories(string searchBy, int length, int start, string sortBy, string sortDir);
         #endregion
 
@@ -56,6 +57,20 @@ namespace OSL_B2.Inventory.Service
                 }
 
                 return (result.total, result.totalDisplay, customers);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public IList<CategoryDto> LoadAllCategories()
+        {
+            try
+            {
+                var entities = _categoryRepository.LoadAll();
+                return Mapper.Map<List<CategoryDto>>(entities);
             }
             catch (Exception ex)
             {
@@ -152,7 +167,8 @@ namespace OSL_B2.Inventory.Service
 
                 throw;
             }
-        } 
+        }
+
         #endregion
 
     }
