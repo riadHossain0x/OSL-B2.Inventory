@@ -78,7 +78,7 @@ namespace OSL_B2.Inventory.Repository
                     break;
             }
 
-            var result = query.OrderBy(x => x.Name).Skip(pageIndex).Take(pageSize);
+            var result = query.Skip(pageIndex).Take(pageSize);
 
             return (result.ToList(), total, totalDisplay);
         }

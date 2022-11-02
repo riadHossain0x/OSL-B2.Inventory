@@ -25,46 +25,56 @@
         </div>
     </div>
     <div class="card-body">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ModifiedBy)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ModifiedDate)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CreatedBy)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CreatedDate)
-            </dd>
-
-        </dl>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Name) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Name)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </span>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2">
                 <a class="btn btn-info" href="/Admin/Category/Edit/@Model.Id">
