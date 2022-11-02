@@ -13,6 +13,8 @@ namespace WholeSale.Web.Profiles
             Mapper.CreateMap<CategoryEditViewModel, CategoryDto>().ReverseMap();
             Mapper.CreateMap<CustomerCreateViewModel, CustomerDto>().ReverseMap();
             Mapper.CreateMap<CustomerEditViewModel, CustomerDto>().ReverseMap();
+            Mapper.CreateMap<SupplierCreateViewModel, SupplierDto>().ReverseMap();
+            Mapper.CreateMap<SupplierEditViewModel, SupplierDto>().ReverseMap();
         }
     }
 }
