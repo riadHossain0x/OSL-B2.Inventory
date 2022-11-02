@@ -1,8 +1,10 @@
 ﻿using OSL_B2.Inventory.Service;
+using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -18,13 +20,55 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             _supplierService = supplierService;
             _accountAdapter = accountAdapter;
-        } 
+        }
         #endregion
 
+        #region Manage
         public ActionResult Index()
         {
             return View();
         }
+
+        public JsonResult GetSuppliers()
+        {
+            try
+            {
+                var model = new DataTablesAjaxRequestModel(Request);
+
+                var data = _supplierService.LoadAllSuppliers(model.SearchText, model.Length, model.Start, model.SortColumn,
+                    model.SortDirection);
+
+                var count = 1;
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
+                                count++.ToString(),
+                                record.Name,
+                                record.Mobile,
+                                record.Address,
+                                _accountAdapter.FindById(record.ModifiedBy).Email,
+                                record.ModifiedDate.ToString(),
+                                _accountAdapter.FindById(record.CreatedBy).Email,
+                                record.CreatedDate.ToString(),
+                                record.Id.ToString()
+                            }
+                        ).ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+
+            return default(JsonResult);
+        } 
+        #endregion
 
         #region Operations
         public ActionResult Create()
@@ -58,6 +102,27 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(long id)
+        {
+            try
+            {
+                _supplierService.RemoveSupplier(id);
+
+                return Json(ViewResponse("Supplier successfully deleted.", string.Empty, ResponseTypes.Success));
+            }
+            catch (InnerElementException ie)
+            {
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
         }
         #endregion
     }

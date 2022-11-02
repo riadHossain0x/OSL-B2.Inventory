@@ -89,10 +89,10 @@
                     { "name": "ID" },
                     { "name": "Name" },
                     { "name": "Status" },
-                    { "name": "ModifiedBy" },
-                    { "name": "ModifiedDate" },
-                    { "name": "CreatedBy" },
-                    { "name": "CreatedDate" }
+                    { "name": "Modified By" },
+                    { "name": "Modified Date" },
+                    { "name": "Created By" },
+                    { "name": "Created Date" }
                 ],
                 "columnDefs": [
                     {
@@ -116,7 +116,8 @@
                         }
                     },
                     { "orderable": false, "targets": [0, 4, 6] }
-                ]
+                ],
+                "order": [1, 'asc']
             });
         });
     </script>

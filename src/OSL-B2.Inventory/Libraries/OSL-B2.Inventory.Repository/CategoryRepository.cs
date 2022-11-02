@@ -72,7 +72,18 @@ namespace OSL_B2.Inventory.Repository
             }
 
             //sorting
-            query = sortDir == "asc" ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+            switch (sortBy)
+            {
+                case "Name":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+                    break;
+                case "Created By":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.CreatedBy) : query.OrderByDescending(c => c.CreatedBy);
+                    break;
+                case "Modified By":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.ModifiedBy) : query.OrderByDescending(c => c.ModifiedBy);
+                    break;
+            }
 
             var result = query.Skip(pageIndex).Take(pageSize);
 
