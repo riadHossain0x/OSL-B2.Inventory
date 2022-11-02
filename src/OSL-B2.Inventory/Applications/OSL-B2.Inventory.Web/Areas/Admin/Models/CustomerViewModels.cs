@@ -18,17 +18,17 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         [EmailAddress]
         [MaxLength(100, ErrorMessage = "Email must be less then 100 charecter.")]
-        [Display(Name = "Email")]
+        [Display(Name = "Customer Email")]
         public string Email { get; set; }
 
         [Required]
         [Phone]
         [MaxLength(15, ErrorMessage = "Mobile number must be less then 15 charecter.")]
-        [Display(Name = "Mobile Number")]
+        [Display(Name = "Customer Mobile")]
         public string Mobile { get; set; }
 
         [MaxLength(256, ErrorMessage = "Address must be less then 256 charecter.")]
-        [Display(Name = "Address")]
+        [Display(Name = "Customer Address")]
         public string Address { get; set; }
 
         internal CustomerDto GetCustomer(long id)
@@ -50,17 +50,17 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         [EmailAddress]
         [MaxLength(100, ErrorMessage = "Email must be less then 100 charecter.")]
-        [Display(Name = "Email")]
+        [Display(Name = "Customer Email")]
         public string Email { get; set; }
 
         [Required]
         [Phone]
         [MaxLength(15, ErrorMessage = "Mobile number must be less then 15 charecter.")]
-        [Display(Name = "Mobile Number")]
+        [Display(Name = "Customer Mobile")]
         public string Mobile { get; set; }
 
         [MaxLength(256, ErrorMessage = "Address must be less then 256 charecter.")]
-        [Display(Name = "Address")]
+        [Display(Name = "Customer Address")]
         public string Address { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

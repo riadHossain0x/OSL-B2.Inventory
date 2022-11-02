@@ -20,15 +20,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Required]
         [Phone]
         [MaxLength(15, ErrorMessage = "Mobile number must be less then 15 charecter.")]
-        [Display(Name = "Mobile Number")]
+        [Display(Name = "Supplier Mobile")]
         public string Mobile { get; set; }
 
         [MaxLength(256, ErrorMessage = "Address must be less then 256 charecter.")]
-        [Display(Name = "Address")]
+        [Display(Name = "Supplier Address")]
         public string Address { get; set; }
 
         [MaxLength(256, ErrorMessage = "Details must be less then 256 charecter.")]
-        [Display(Name = "Details")]
+        [Display(Name = "Supplier Details")]
         public string Details { get; set; }
 
         public SupplierDto GetSupplier(long id)
@@ -51,15 +51,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Required]
         [Phone]
         [MaxLength(15, ErrorMessage = "Mobile number must be less then 15 charecter.")]
-        [Display(Name = "Mobile Number")]
+        [Display(Name = "Supplier Mobile")]
         public string Mobile { get; set; }
 
         [MaxLength(256, ErrorMessage = "Address must be less then 256 charecter.")]
-        [Display(Name = "Address")]
+        [Display(Name = "Supplier Address")]
         public string Address { get; set; }
 
         [MaxLength(256, ErrorMessage = "Details must be less then 256 charecter.")]
-        [Display(Name = "Details")]
+        [Display(Name = "Supplier Details")]
         public string Details { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
