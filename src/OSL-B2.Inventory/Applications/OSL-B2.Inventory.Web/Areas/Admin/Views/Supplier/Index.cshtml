@@ -31,6 +31,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Address</th>
+                    <th>Details</th>
                     <th>Modified By</th>
                     <th>Modified Date</th>
                     <th>Created By</th>
@@ -70,6 +71,7 @@
                     { "name": "Name" },
                     { "name": "Phone" },
                     { "name": "Address" },
+                    { "name": "Details" },
                     { "name": "Modified By" },
                     { "name": "Modified Date" },
                     { "name": "Created By" },
@@ -79,7 +81,7 @@
                 "columnDefs": [
                     {
                         "orderable": false,
-                        "targets": 8,
+                        "targets": 9,
                         "render": function (data, type, row) {
                             return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/supplier/edit/${data}'">
                                                 <i class="fas fa-pencil-alt">
@@ -97,7 +99,7 @@
                                             </button>`;
                         }
                     },
-                    { "orderable": false, "targets": [0, 5, 7] }
+                    { "orderable": false, "targets": [0, 6, 8] }
                 ],
 
                 "order": [1, 'asc']
