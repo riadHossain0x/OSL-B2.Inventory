@@ -119,7 +119,13 @@
         }
 
         $("#btnSubmit").on("click", function () {
-            return checkfile();
+            if ($('#imageFile').val() == "") {
+                $("#spanfile").html("The Image field is required.");
+                return false;
+            }
+            else {
+                return checkfile();
+            }
         });
 
         function checkfile() {

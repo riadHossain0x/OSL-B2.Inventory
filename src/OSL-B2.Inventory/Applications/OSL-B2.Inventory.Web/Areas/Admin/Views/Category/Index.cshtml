@@ -131,11 +131,12 @@
                         type: 'POST',
                         data: { 'id': id },
                         success: function (data) {
-                            var html = `<div class="alert alert-${data.Type} alert-dismissible" role="alert">
+                            var html = `<div id="alertMessage" class="alert alert-${data.Type} alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                                         </button>
                                                                     ${data.Message}
                                                                 </div>`;
+                            $("#alertMessage").remove();
                             $(html).insertAfter('#responseMessage');
                             dt.ajax.reload();
                         }

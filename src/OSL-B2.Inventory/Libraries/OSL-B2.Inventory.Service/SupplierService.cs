@@ -138,13 +138,13 @@ namespace OSL_B2.Inventory.Service
                 }
                 var result = _supplierRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
 
-                List<SupplierDto> customers = new List<SupplierDto>();
-                foreach (Supplier course in result.data)
+                List<SupplierDto> suppliers = new List<SupplierDto>();
+                foreach (Supplier supplier in result.data)
                 {
-                    customers.Add(Mapper.Map<SupplierDto>(course));
+                    suppliers.Add(Mapper.Map<SupplierDto>(supplier));
                 }
 
-                return (result.total, result.totalDisplay, customers);
+                return (result.total, result.totalDisplay, suppliers);
             }
             catch (Exception ex)
             {
