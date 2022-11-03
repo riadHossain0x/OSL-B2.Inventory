@@ -16,11 +16,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
     public class ProductController : AdminBaseController<ProductController>
     {
         #region Initialization
+        private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IAccountAdapter _accountAdapter;
 
-        public ProductController(ICategoryService categoryService, IAccountAdapter accountAdapter)
+        public ProductController(IProductService productService ,ICategoryService categoryService, IAccountAdapter accountAdapter)
         {
+            _productService = productService;
             _categoryService = categoryService;
             _accountAdapter = accountAdapter;
         }
@@ -62,6 +64,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                     var user = _accountAdapter.FindByName(User.Identity.Name);
                     var product = model.GetProduct(user.Id);
+
+                    _productService.AddProduct(product);
 
                     return RedirectToAction(nameof(Index));
                 }
