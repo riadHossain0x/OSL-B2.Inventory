@@ -76,13 +76,29 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
     public class SupplierDetailsViewModel
     {
         public long Id { get; set; }
+
+        [Display(Name = "Supplier Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Supplier Mobile")]
         public string Mobile { get; set; }
+
+        [Display(Name = "Supplier Address")]
         public string Address { get; set; }
+
+        [Display(Name = "Supplier Details")]
         public string Details { get; set; }
+
+        [Display(Name = "Modified By")]
         public string ModifiedBy { get; set; }
+
+        [Display(Name = "Modified Date")]
         public DateTime ModifiedDate { get; set; }
+
+        [Display(Name = "Created By")]
         public string CreatedBy { get; set; }
+
+        [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -45,10 +45,20 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
     public class CategoryDetailsViewModel
     {
         public long Id { get; set; }
+
+        [Display(Name = "Category Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Modified By")]
         public string ModifiedBy { get; set; }
+
+        [Display(Name = "Modified Date")]
         public DateTime ModifiedDate { get; set; }
+
+        [Display(Name = "Created By")]
         public string CreatedBy { get; set; }
+
+        [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
     }
 }

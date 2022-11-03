@@ -79,4 +79,44 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
             return product;
         }
     }
+
+    public class ProductDetailsViewModel
+    {
+        public long Id { get; set; }
+        [Display(Name = "Product Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Image")]
+        public string Image { get; set; }
+
+        [Display(Name = "Category")]
+        public string Category{ get; set; }
+
+        [Display(Name = "Product Details")]
+        public string Details { get; set; }
+
+        [Display(Name = "Critical Quantity")]
+        public int Critical_Qty { get; set; }
+
+        [Display(Name = "Product Quantity")]
+        public int Quantity { get; set; }
+
+        [Display(Name = "Buying Price")]
+        public decimal BuyingPrice { get; set; }
+
+        [Display(Name = "Sale Price")]
+        public decimal SalePrice { get; set; }
+
+        [Display(Name = "Modified By")]
+        public string ModifiedBy { get; set; }
+
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; }
+
+        [Display(Name = "Created By")]
+        public string CreatedBy { get; set; }
+
+        [Display(Name = "Created Date")]
+        public DateTime CreatedDate { get; set; }
+    }
 }

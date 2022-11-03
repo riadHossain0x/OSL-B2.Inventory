@@ -22,6 +22,7 @@ namespace OSL_B2.Inventory.Service
 
         #region Single instances
         ProductDto GetProduct(long id);
+        ProductDto GetProduct(long id, string includeProperty);
         #endregion
 
         #region Load instances
@@ -118,6 +119,26 @@ namespace OSL_B2.Inventory.Service
                     throw new InvalidOperationException("There is no product found.");
 
                 var entity = _productRepository.GetById(id);
+                var entityDto = Mapper.Map<ProductDto>(entity);
+                return entityDto;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public ProductDto GetProduct(long id, string includeProperty)
+        {
+            try
+            {
+                var count = _productRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
+
+                if (count == 0)
+                    throw new InvalidOperationException("There is no product found.");
+
+                var entity = _productRepository.GetById(id, includeProperty);
                 var entityDto = Mapper.Map<ProductDto>(entity);
                 return entityDto;
             }

@@ -73,6 +73,39 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
             return default(JsonResult);
         }
+
+        public ActionResult Details(long id)
+        {
+            try
+            {
+                var product = _productService.GetProduct(id, "Category");
+
+                var model = new ProductDetailsViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Image = product.Image,
+                    Category = product.Category.Name,
+                    Details = product.Details,
+                    Critical_Qty = product.Critical_Qty,
+                    Quantity = product.Quantity,
+                    SalePrice = product.SalePrice,
+                    CreatedBy = _accountAdapter.FindById(product.CreatedBy).Email,
+                    CreatedDate = product.CreatedDate,
+                    ModifiedBy = _accountAdapter.FindById(product.ModifiedBy).Email,
+                    ModifiedDate = product.ModifiedDate
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
         #endregion
 
         #region Operations

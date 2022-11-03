@@ -77,13 +77,29 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
     public class CustomerDetailsViewModel
     {
         public long Id { get; set; }
+
+        [Display(Name = "Customer Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Customer Email")]
         public string Email { get; set; }
+
+        [Display(Name = "Customer Mobile")]
         public string Mobile { get; set; }
+
+        [Display(Name = "Customer Address")]
         public string Address { get; set; }
+
+        [Display(Name = "Modified By")]
         public string ModifiedBy { get; set; }
+
+        [Display(Name = "Modified Date")]
         public DateTime ModifiedDate { get; set; }
+
+        [Display(Name = "Created By")]
         public string CreatedBy { get; set; }
+
+        [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
     }
 }

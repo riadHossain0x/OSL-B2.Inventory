@@ -1,0 +1,159 @@
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.ProductDetailsViewModel
+@{
+    ViewData["Title"] = "Product Details";
+    ViewBag.PageNav = "Details";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Product";
+    MidNav.Link = "/Admin/Product/";
+    ViewBag.MidNav = MidNav;
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Category Details Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Product" class="btn btn-primary btn-sm">Manage Product</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Name) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Name)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Image) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Image)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Category) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Category)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Details) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Details)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Critical_Qty) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Critical_Qty)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Quantity) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.Quantity)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.BuyingPrice) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.BuyingPrice)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SalePrice) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.SalePrice)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <a class="btn btn-info" href="/Admin/Product/Edit/@Model.Id">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
