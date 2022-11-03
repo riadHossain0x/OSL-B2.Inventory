@@ -56,8 +56,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     var fileOperation = new FileOperation(model.ImageFile);
                     if (fileOperation.Validate())
                     {
-                        fileOperation.SaveFile(Server.MapPath(ConfigurationManager.AppSettings["UserImagePath"].ToString()));
+                        var path = Server.MapPath(ConfigurationManager.AppSettings["ProductImagePath"].ToString());
+                        model.Image = fileOperation.SaveFile(path);
                     }
+
+                    var user = _accountAdapter.FindByName(User.Identity.Name);
+                    var product = model.GetProduct(user.Id);
 
                     return RedirectToAction(nameof(Index));
                 }

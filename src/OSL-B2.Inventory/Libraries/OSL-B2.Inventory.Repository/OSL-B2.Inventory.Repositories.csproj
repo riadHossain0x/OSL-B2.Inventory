@@ -87,6 +87,7 @@
       <DependentUpon>202210250433315_datetimefix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryModule.cs" />
     <Compile Include="SupplierRepository.cs" />

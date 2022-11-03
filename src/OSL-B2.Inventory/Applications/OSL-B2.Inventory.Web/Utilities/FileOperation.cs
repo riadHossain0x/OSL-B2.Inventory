@@ -51,17 +51,17 @@ namespace OSL_B2.Inventory.Web.Utilities
 
             string fileExt = Path.GetExtension(_file.FileName);
 
-            string fileName = string.Format($"{DateTime.Now.ToString("yyyyMMdd")}-{Guid.NewGuid()}");
+            string fileName = string.Format($"{DateTime.Now.ToString("yyyyMMdd")}-{Guid.NewGuid()}.{fileExt}");
 
             if (!Directory.Exists(uploadPath))
             {
                 Directory.CreateDirectory(uploadPath);
             }
 
-            var image = uploadPath + fileName;
-            _file.SaveAs(image);
+            var imagePath = uploadPath + fileName;
+            _file.SaveAs(imagePath);
 
-            return image;
+            return fileName;
         }
     }
 }

@@ -10,46 +10,45 @@ using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Repository
 {
-    public interface ISupplierRepository
+    public interface IProductRepository
     {
         #region Load instances
-        (IList<Supplier> data, int total, int totalDisplay) LoadAll(Expression<Func<Supplier, bool>> filter = null,
+        (IList<Product> data, int total, int totalDisplay) LoadAll(Expression<Func<Product, bool>> filter = null,
             string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
 
         #region Single instances
-        Supplier GetById(long id);
+        Product GetById(long id);
         #endregion
 
         #region Operations
-        void Add(Supplier entity);
-        void Edit(Supplier entity);
-        void Remove(Supplier entity);
+        void Add(Product entity);
+        void Edit(Product entity);
+        void Remove(Product entity);
         void SaveChanages();
         Task SaveChanagesAsync();
         #endregion
 
         #region Others
-        int GetCount(Expression<Func<Supplier, bool>> filter = null);
+        int GetCount(Expression<Func<Product, bool>> filter = null);
         #endregion
     }
-
-    public class SupplierRepository : ISupplierRepository
+    public class ProductRepository : IProductRepository
     {
         #region Initialization
         private readonly IMSDbContext _context;
 
-        public SupplierRepository(IMSDbContext context)
+        public ProductRepository(IMSDbContext context)
         {
             _context = context;
         }
         #endregion
 
         #region Load instances
-        public (IList<Supplier> data, int total, int totalDisplay) LoadAll(Expression<Func<Supplier, bool>> filter = null,
+        public (IList<Product> data, int total, int totalDisplay) LoadAll(Expression<Func<Product, bool>> filter = null,
             string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
         {
-            IQueryable<Supplier> query = _context.Suppliers;
+            IQueryable<Product> query = _context.Products;
             query = query.Where(x => x.IsActive == Status.Active);
 
             var total = query.Count();
@@ -67,11 +66,11 @@ namespace OSL_B2.Inventory.Repository
                 case "Name":
                     query = sortDir == "asc" ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
                     break;
-                case "Phone":
-                    query = sortDir == "asc" ? query.OrderBy(c => c.Mobile) : query.OrderByDescending(c => c.Mobile);
+                case "Category":
+                    query = sortBy == "asc" ? query.OrderBy(c => c.Category.Name) : query.OrderByDescending(c => c.Category.Name);
                     break;
-                case "Address":
-                    query = sortDir == "asc" ? query.OrderBy(c => c.Address) : query.OrderByDescending(c => c.Address);
+                case "Details":
+                    query = sortBy == "asc" ? query.OrderBy(c => c.Details) : query.OrderByDescending(c => c.Details);
                     break;
                 case "Created By":
                     query = sortDir == "asc" ? query.OrderBy(c => c.CreatedBy) : query.OrderByDescending(c => c.CreatedBy);
@@ -88,9 +87,9 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Single instances
-        public Supplier GetById(long id)
+        public Product GetById(long id)
         {
-            IQueryable<Supplier> query = _context.Suppliers;
+            IQueryable<Product> query = _context.Products;
             query = query.Where(x => x.Id == id && x.IsActive != Status.Inactive);
 
             return query.ToList().FirstOrDefault();
@@ -98,21 +97,21 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Operations
-        public void Add(Supplier entity)
+        public void Add(Product entity)
         {
             if (entity != null)
-                _context.Suppliers.Add(entity);
+                _context.Products.Add(entity);
         }
 
-        public void Edit(Supplier entity)
+        public void Edit(Product entity)
         {
             if (_context.Entry(entity).State == EntityState.Detached)
             {
-                _context.Suppliers.Attach(entity);
+                _context.Products.Attach(entity);
             }
             _context.Entry(entity).State = EntityState.Modified;
         }
-        public void Remove(Supplier entity) => _context.Suppliers.Remove(entity);
+        public void Remove(Product entity) => _context.Products.Remove(entity);
 
         public void SaveChanages() => _context.SaveChanges();
 
@@ -120,11 +119,11 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Others
-        public int GetCount(Expression<Func<Supplier, bool>> filter = null)
+        public int GetCount(Expression<Func<Product, bool>> filter = null)
         {
             var count = 0;
 
-            IQueryable<Supplier> query = _context.Suppliers;
+            IQueryable<Product> query = _context.Products;
 
             if (filter != null)
                 query = query.Where(filter);

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using OSL_B2.Inventory.Service.Dtos;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
@@ -27,6 +30,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         public string Details { get; set; }
         public int CriticalQuantity { get; set; }
 
-        
+        public ProductDto GetProduct(long id)
+        {
+            var product = Mapper.Map<ProductDto>(this);
+            product.CreatedBy = product.ModifiedBy = id;
+            product.CreatedDate = product.ModifiedDate = DateTime.Now;
+            return product;
+        }
     }
 }
