@@ -51,6 +51,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                             select new string[]
                             {
                                 count++.ToString(),
+                                string.Concat(ConfigurationManager.AppSettings["ProductImagePath"].ToString(),
+                                            record.Image),
                                 record.Name,
                                 record.Category.Name,
                                 record.Details,

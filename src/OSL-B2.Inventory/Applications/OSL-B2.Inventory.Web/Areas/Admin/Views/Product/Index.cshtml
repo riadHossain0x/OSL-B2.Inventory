@@ -29,6 +29,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Details</th>
@@ -69,6 +70,7 @@
 
                 "columns": [
                     { "name": "ID" },
+                    { "name": "Image" },
                     { "name": "Name" },
                     { "name": "Category" },
                     { "name": "Details" },
@@ -81,7 +83,7 @@
                 "columnDefs": [
                     {
                         "orderable": false,
-                        "targets": 8,
+                        "targets": 9,
                         "render": function (data, type, row) {
                             return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/product/edit/${data}'">
                                                 <i class="fas fa-pencil-alt">
@@ -99,10 +101,18 @@
                                             </button>`;
                         }
                     },
-                    { "orderable": false, "targets": [0, 5, 7] }
+                    {
+                        "orderable": false,
+                        "targets": 1,
+                        "render": function (data, type, row) {
+                            return `<img src='${row[1]}' width="50" height="50" />`;
+                        }
+                    },
+                   
+                    { "orderable": false, "targets": [0, 6, 8] }
                 ],
 
-                "order": [1, 'asc']
+                "order": [2, 'asc']
             });
         });
     </script>
