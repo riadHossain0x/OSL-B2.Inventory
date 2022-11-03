@@ -139,9 +139,9 @@ namespace OSL_B2.Inventory.Service
                 var result = _customerRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
 
                 List<CustomerDto> customers = new List<CustomerDto>();
-                foreach (Customer course in result.data)
+                foreach (Customer customer in result.data)
                 {
-                    customers.Add(Mapper.Map<CustomerDto>(course));
+                    customers.Add(Mapper.Map<CustomerDto>(customer));
                 }
 
                 return (result.total, result.totalDisplay, customers);

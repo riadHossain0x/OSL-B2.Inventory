@@ -14,7 +14,7 @@ namespace OSL_B2.Inventory.Repository
     {
         #region Load instances
         (IList<Product> data, int total, int totalDisplay) LoadAll(Expression<Func<Product, bool>> filter = null,
-            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
+            string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
 
         #region Single instances
@@ -46,7 +46,7 @@ namespace OSL_B2.Inventory.Repository
 
         #region Load instances
         public (IList<Product> data, int total, int totalDisplay) LoadAll(Expression<Func<Product, bool>> filter = null,
-            string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
+            string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
         {
             IQueryable<Product> query = _context.Products;
             query = query.Where(x => x.IsActive == Status.Active);
@@ -58,6 +58,12 @@ namespace OSL_B2.Inventory.Repository
             {
                 query = query.Where(filter);
                 totalDisplay = query.Count();
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
             }
 
             //sorting

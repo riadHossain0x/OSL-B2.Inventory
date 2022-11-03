@@ -4,11 +4,8 @@ using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
 using OSL_B2.Inventory.Web.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
@@ -28,11 +25,54 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Manage
         public ActionResult Index()
         {
             return View();
         }
+        
+        public JsonResult GetProducts()
+        {
+            try
+            {
+                var model = new DataTablesAjaxRequestModel(Request);
 
+                var data = _productService.LoadAllProducts(model.SearchText, model.Length, model.Start, model.SortColumn,
+                    model.SortDirection);
+
+                var count = 1;
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
+                                count++.ToString(),
+                                record.Name,
+                                record.Category.Name,
+                                record.Details,
+                                _accountAdapter.FindById(record.ModifiedBy).Email,
+                                record.ModifiedDate.ToString(),
+                                _accountAdapter.FindById(record.CreatedBy).Email,
+                                record.CreatedDate.ToString(),
+                                record.Id.ToString()
+                            }
+                        ).ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+
+            return default(JsonResult);
+        }
+        #endregion
+
+        #region Operations
         public ActionResult Create()
         {
             var model = new ProductCreateViewModel();
@@ -85,6 +125,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             model.Categories = categories;
 
             return View(model);
-        }
+        } 
+        #endregion
     }
 }

@@ -52,13 +52,13 @@ namespace OSL_B2.Inventory.Service
                 }
                 var result = _categoryRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
 
-                List<CategoryDto> customers = new List<CategoryDto>();
-                foreach (Category course in result.data)
+                List<CategoryDto> categories = new List<CategoryDto>();
+                foreach (Category category in result.data)
                 {
-                    customers.Add(Mapper.Map<CategoryDto>(course));
+                    categories.Add(Mapper.Map<CategoryDto>(category));
                 }
 
-                return (result.total, result.totalDisplay, customers);
+                return (result.total, result.totalDisplay, categories);
             }
             catch (Exception ex)
             {

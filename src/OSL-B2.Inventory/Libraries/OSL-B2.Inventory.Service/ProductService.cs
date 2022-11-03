@@ -20,7 +20,7 @@ namespace OSL_B2.Inventory.Service
         void RemoveProduct(long id);
         #endregion
         #region Load instances
-        (int total, int totalDisplay, IList<ProductDto> records) LoadAllSuppliers(string searchBy, int take, int skip, string sortBy, string sortDir);
+        (int total, int totalDisplay, IList<ProductDto> records) LoadAllProducts(string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
     }
     public class ProductService : IProductService
@@ -103,7 +103,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        public (int total, int totalDisplay, IList<ProductDto> records) LoadAllSuppliers(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
+        public (int total, int totalDisplay, IList<ProductDto> records) LoadAllProducts(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace OSL_B2.Inventory.Service
                 {
                     filter = x => x.Name.Contains(searchBy) || x.Name.Contains(searchBy) || x.Category.Name.Contains(searchBy);
                 }
-                var result = _productRepository.LoadAll(filter, null, start, length, sortBy, sortDir);
+                var result = _productRepository.LoadAll(filter, "Category", start, length, sortBy, sortDir);
 
                 List<ProductDto> products = new List<ProductDto>();
                 foreach (Product product in result.data)
