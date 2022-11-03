@@ -28,7 +28,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [MaxLength(256, ErrorMessage = "Details must be less then 256 charecter.")]
         [Display(Name = "Product Details")]
         public string Details { get; set; }
-        public int CriticalQuantity { get; set; }
+
+        [Display(Name = "Critical Quantity")]
+        public int Critical_Qty { get; set; }
 
         public ProductDto GetProduct(long id)
         {
@@ -60,7 +62,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [MaxLength(256, ErrorMessage = "Details must be less then 256 charecter.")]
         [Display(Name = "Product Details")]
         public string Details { get; set; }
-        public int CriticalQuantity { get; set; }
+
+        [Display(Name = "Critical Quantity")]
+        public int Critical_Qty { get; set; }
         public int Quantity { get; set; }
         public decimal BuyingPrice { get; set; }
         public decimal SalePrice { get; set; }

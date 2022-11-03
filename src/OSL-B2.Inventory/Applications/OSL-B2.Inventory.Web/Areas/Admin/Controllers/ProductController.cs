@@ -201,6 +201,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     var product = model.GetProduct(user.Id);
 
                     _productService.EditProduct(product);
+
                     ViewResponse("Product successfully updated!", ResponseTypes.Success);
 
                     return RedirectToAction(nameof(Index));

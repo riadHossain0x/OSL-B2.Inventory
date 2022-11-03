@@ -58,7 +58,7 @@
                     @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    <input type="file" id="imageFile" name="ImageFile" class="form-control" required />
+                    <input type="file" id="imageFile" name="FileImage" class="form-control" required />
                     <span class="text-danger" id="spanfile"></span>
                 </div>
             </div>
@@ -75,11 +75,11 @@
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    @Html.LabelFor(model => model.CriticalQuantity, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.Critical_Qty, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.CriticalQuantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CriticalQuantity, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Critical_Qty, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Critical_Qty, "", new { @class = "text-danger" })
                     <div class="pt-2">
                         <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" />
                     </div>

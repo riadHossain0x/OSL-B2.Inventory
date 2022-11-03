@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    @using (Html.BeginForm("Edit", "Product", new { area = "Admin" }, FormMethod.Post))
+    @using (Html.BeginForm("Edit", "Product", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -90,11 +90,11 @@
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    @Html.LabelFor(model => model.CriticalQuantity, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.Critical_Qty, htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.CriticalQuantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CriticalQuantity, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Critical_Qty, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Critical_Qty, "", new { @class = "text-danger" })
                     <div class="pt-2">
                         <input id="btnSubmit" type="submit" value="Save" class="btn btn-primary" />
                     </div>
