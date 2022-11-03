@@ -15,7 +15,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         public HttpPostedFileBase ImageFile { get; set; }
 
         [Display(Name = "Image")]
-        public string ImagePath { get; set; }
+        public string Image { get; set; }
 
         [Required]
         [Display(Name = "Category")]

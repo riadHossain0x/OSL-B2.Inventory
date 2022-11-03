@@ -24,21 +24,19 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Single instances
-        CategoryDto GetCategory(long id); 
+        CategoryDto GetCategory(long id);
         #endregion
     }
 
     public class CategoryService : ICategoryService
     {
         #region Initialization
-        public readonly ILog Logger;
+        public readonly ILog Logger = LogManager.GetLogger("Service");
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
-            Logger = LogManager.GetLogger("Service");
-            Logger.Error("Hello");
         }
         #endregion
 
@@ -64,7 +62,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -78,7 +76,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -101,7 +99,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -123,7 +121,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -146,7 +144,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -168,7 +166,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }

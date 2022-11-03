@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using log4net;
 using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Service.Dtos;
@@ -28,6 +29,7 @@ namespace OSL_B2.Inventory.Service
     public class CustomerService : ICustomerService
     {
         #region Initialization
+        public readonly ILog Logger = LogManager.GetLogger("Service");
         private readonly ICustomerRepository _customerRepository;
 
         public CustomerService(ICustomerRepository customerRepostory)
@@ -53,7 +55,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -75,7 +77,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -95,7 +97,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -117,7 +119,7 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
         }
@@ -146,10 +148,10 @@ namespace OSL_B2.Inventory.Service
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex.Message, ex);
                 throw;
             }
-        } 
+        }
         #endregion
     }
 }
