@@ -19,6 +19,7 @@ namespace OSL_B2.Inventory.Repository
 
         #region Single instances
         Product GetById(long id);
+        Product GetById(long id, string includeProperty);
         #endregion
 
         #region Operations
@@ -97,6 +98,14 @@ namespace OSL_B2.Inventory.Repository
         {
             IQueryable<Product> query = _context.Products;
             query = query.Where(x => x.Id == id && x.IsActive != Status.Inactive);
+
+            return query.ToList().FirstOrDefault();
+        }
+
+        public Product GetById(long id, string includeProperty)
+        {
+            IQueryable<Product> query = _context.Products;
+            query = query.Where(x => x.Id == id && x.IsActive != Status.Inactive).Include(includeProperty);
 
             return query.ToList().FirstOrDefault();
         }

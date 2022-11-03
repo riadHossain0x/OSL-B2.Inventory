@@ -111,7 +111,7 @@ namespace OSL_B2.Inventory.Service
                 var count = _customerRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
 
                 if (count == 0)
-                    throw new InvalidOperationException("There is no category found.");
+                    throw new InvalidOperationException("There is no customer found.");
 
                 var entity = _customerRepository.GetById(id);
                 var entityDto = Mapper.Map<CustomerDto>(entity);

@@ -1,4 +1,6 @@
-﻿using OSL_B2.Inventory.Service;
+﻿using AutoMapper;
+using OSL_B2.Inventory.Service;
+using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
@@ -51,8 +53,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                             select new string[]
                             {
                                 count++.ToString(),
-                                string.Concat(ConfigurationManager.AppSettings["ProductImagePath"].ToString(),
-                                            record.Image),
+                                record.Image,
                                 record.Name,
                                 record.Category.Name,
                                 record.Details,
@@ -127,7 +128,92 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             model.Categories = categories;
 
             return View(model);
-        } 
+        }
+
+        [HttpPost]
+        public JsonResult Delete(long id)
+        {
+            try
+            {
+                _productService.RemoveProduct(id);
+
+                return Json(ViewResponse("Product successfully deleted!", string.Empty, ResponseTypes.Success));
+            }
+            catch (InnerElementException ie)
+            {
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
+        }
+
+        public ActionResult Edit(long id)
+        {
+            try
+            {
+                var product = _productService.GetProduct(id);
+
+                var model = Mapper.Map<ProductEditViewModel>(product);
+
+                var categories = _categoryService.LoadAllCategories().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+
+                model.Categories = categories;
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ProductEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if(model.ImageFile != null)
+                    {
+                        var fileOperation = new FileOperation(model.ImageFile);
+                        if (fileOperation.Validate())
+                        {
+                            var path = Server.MapPath(ConfigurationManager.AppSettings["ProductImagePath"].ToString());
+                            model.Image = fileOperation.SaveFile(path);
+                        }
+                    }
+
+                    var user = _accountAdapter.FindByName(User.Identity.Name);
+                    var product = model.GetProduct(user.Id);
+
+                    _productService.EditProduct(product);
+                    ViewResponse("Product successfully updated!", ResponseTypes.Success);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message, ex);
+
+                    ViewResponse(ex.Message, ResponseTypes.Danger);
+                }
+            }
+            return View(model);
+        }
         #endregion
     }
 }

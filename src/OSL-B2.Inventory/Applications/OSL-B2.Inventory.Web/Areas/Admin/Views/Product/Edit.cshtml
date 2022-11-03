@@ -1,0 +1,188 @@
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.ProductEditViewModel
+@{
+    ViewData["Title"] = "Edit Product";
+    ViewBag.PageNav = "Edit";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Product";
+    MidNav.Link = "/Admin/Product/";
+    ViewBag.MidNav = MidNav;
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Edit Product Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Product" class="btn btn-primary btn-sm">Manage Product</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("Edit", "Product", new { area = "Admin" }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card-body">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Image)
+            @Html.HiddenFor(model => model.CreatedBy)
+            @Html.HiddenFor(model => model.CreatedDate)
+            @Html.HiddenFor(model => model.Quantity)
+            @Html.HiddenFor(model => model.BuyingPrice)
+            @Html.HiddenFor(model => model.SalePrice)
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2 text-bold">
+                    Image Preview
+                </div>
+                <div class="col-md-4">
+                    <img id="output" src="@Model.Image" width="250" height="250" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    <input type="file" id="imageFile" name="ImageFile" class="form-control" onchange="loadFile(event)" />
+                    <span class="text-danger" id="spanfile"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "Value", "Text"),
+                                                            htmlAttributes: new { @class = "form-control", id = "category" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.CriticalQuantity, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.CriticalQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CriticalQuantity, "", new { @class = "text-danger" })
+                    <div class="pt-2">
+                        <input id="btnSubmit" type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        //get file size
+        function GetFileSize(fileid) {
+            try {
+                fileSize = document.getElementById(fileid).files[0].size;
+                fileSize = fileSize / 1048576;
+                return fileSize;
+            }
+            catch (e) {
+                console.log("Error is :" + e);
+            }
+        }
+
+        //get file path from client system
+        function getNameFromPath(strFilepath) {
+            var objRE = new RegExp(/([^\/\\]+)$/);
+            var strName = objRE.exec(strFilepath);
+
+            if (strName == null) {
+                return null;
+            }
+            else {
+                return strName[0];
+            }
+        }
+
+        $("#btnSubmit").on("click", function () {
+            return checkfile();
+        });
+
+        function checkfile() {
+            var file = getNameFromPath($("#imageFile").val());
+            if (file != null) {
+                var extension = file.substr((file.lastIndexOf('.') + 1));
+                // alert(extension);
+                switch (extension) {
+                    case 'jpg':
+                    case 'png':
+                    case 'gif':
+                    case 'jpeg':
+                        flag = true;
+                        break;
+                    default:
+                        flag = false;
+                }
+            }
+            if (flag == false) {
+                $("#spanfile").text("You can upload only jpg, jpeg, png, gif extension file");
+                return false;
+            }
+            else {
+                var size = GetFileSize('imageFile');
+                if (size > 5) {
+                    $("#spanfile").text("You can upload file up to 5 MB");
+                    return false;
+                }
+                else {
+                    $("#spanfile").text("");
+                }
+            }
+        }
+
+        $(function () {
+            $("#imageFile").change(function () {
+                checkfile();
+            });
+        });
+    </script>
+
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+}

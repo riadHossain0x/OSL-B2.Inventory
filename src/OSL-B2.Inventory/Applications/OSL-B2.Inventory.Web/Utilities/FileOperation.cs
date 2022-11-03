@@ -61,7 +61,7 @@ namespace OSL_B2.Inventory.Web.Utilities
             var imagePath = uploadPath + fileName;
             _file.SaveAs(imagePath);
 
-            return fileName;
+            return string.Concat(ConfigurationManager.AppSettings["ProductImagePath"].ToString(), fileName);
         }
     }
 }

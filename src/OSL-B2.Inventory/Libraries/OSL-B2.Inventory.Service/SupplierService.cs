@@ -112,7 +112,7 @@ namespace OSL_B2.Inventory.Service
                 var count = _supplierRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
 
                 if (count == 0)
-                    throw new InvalidOperationException("There is no category found.");
+                    throw new InvalidOperationException("There is no supplier found.");
 
                 var entity = _supplierRepository.GetById(id);
                 var entityDto = Mapper.Map<SupplierDto>(entity);

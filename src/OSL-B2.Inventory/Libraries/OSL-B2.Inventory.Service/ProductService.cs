@@ -19,6 +19,11 @@ namespace OSL_B2.Inventory.Service
         void EditProduct(ProductDto entity);
         void RemoveProduct(long id);
         #endregion
+
+        #region Single instances
+        ProductDto GetProduct(long id);
+        #endregion
+
         #region Load instances
         (int total, int totalDisplay, IList<ProductDto> records) LoadAllProducts(string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
@@ -93,6 +98,28 @@ namespace OSL_B2.Inventory.Service
                 entity.IsActive = Status.Inactive;
                 _productRepository.Edit(entity);
                 _productRepository.SaveChanages();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+        #endregion
+
+        #region Single instances
+        public ProductDto GetProduct(long id)
+        {
+            try
+            {
+                var count = _productRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
+
+                if (count == 0)
+                    throw new InvalidOperationException("There is no product found.");
+
+                var entity = _productRepository.GetById(id);
+                var entityDto = Mapper.Map<ProductDto>(entity);
+                return entityDto;
             }
             catch (Exception ex)
             {
