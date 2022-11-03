@@ -56,7 +56,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                                 record.Image,
                                 record.Name,
                                 record.Category.Name,
-                                record.Details,
+                                record.Details.Length < 13 ? record.Details : string.Concat(record.Details.Substring(0, 10), "..."),
                                 _accountAdapter.FindById(record.ModifiedBy).Email,
                                 record.ModifiedDate.ToString(),
                                 _accountAdapter.FindById(record.CreatedBy).Email,
@@ -89,6 +89,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     Details = product.Details,
                     Critical_Qty = product.Critical_Qty,
                     Quantity = product.Quantity,
+                    BuyingPrice = product.BuyingPrice,
                     SalePrice = product.SalePrice,
                     CreatedBy = _accountAdapter.FindById(product.CreatedBy).Email,
                     CreatedDate = product.CreatedDate,
@@ -246,6 +247,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     ViewResponse(ex.Message, ResponseTypes.Danger);
                 }
             }
+
+            var categories = _categoryService.LoadAllCategories().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            model.Categories = categories;
+
             return View(model);
         }
         #endregion

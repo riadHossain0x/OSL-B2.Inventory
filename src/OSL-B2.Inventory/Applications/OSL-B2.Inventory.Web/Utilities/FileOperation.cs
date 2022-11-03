@@ -25,7 +25,7 @@ namespace OSL_B2.Inventory.Web.Utilities
         public bool Validate()
         {
             if (_file == null)
-                throw new ArgumentNullException("File not found!");
+                throw new InvalidOperationException("File not found!");
 
             var fileLength = _file.ContentLength;
             var maxLength = 1024 * 1024 * 5; // 5Mb
