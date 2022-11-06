@@ -29,109 +29,117 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="card-body">
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.PurchaseNo, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.PurchaseNo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PurchaseNo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.GrandTotal, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.GrandTotal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.SupplierId, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.SupplierId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.ProductId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
-                    <div class="pt-2">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </div>
-            </div>
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.PurchaseNo, htmlAttributes: new { @class = "control-label" })
+            <i class="text-danger">*</i>
         </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.PurchaseNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PurchaseNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label" })
+            <i class="text-danger">*</i>
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-10">
+            <table id="table" class="table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Supplier</th>
+                        <th class="text-center">Category</th>
+                        <th class="text-center">Proudct</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Rate</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="text-center">
+                            <button class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-right">Grand Total:</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-10 text-right pt-2">
+            <input type="submit" value="Purchase" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
     }
 </div>
+@section Scripts
+{
+    <script>
+        var render = "";
+        $(document).ready(function () {
+            render = `<tr>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="SupplierId" name="SupplierId" type="number" value="">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="CategoryId" name="CategoryId" type="number" value="">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="CategoryId" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="ProductId" name="ProductId" type="number" value="">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity" name="Quantity" type="number" value="">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td style="width:15%">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" type="text" value="" readonly>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                                Delete
+                                           </button>
+                                        </td>
+                                    </tr>`;
+            $("#table").append(render);
+        });
+    </script>
+}
