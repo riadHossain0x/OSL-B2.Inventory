@@ -56,7 +56,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                                 record.Image,
                                 record.Name,
                                 record.Category.Name,
-                                record.Details.Length < 13 ? record.Details : string.Concat(record.Details.Substring(0, 10), "..."),
+                                (record.Details != null) ? record.Details.Length < 13 ? record.Details : string.Concat(record.Details.Substring(0, 10), "...") : record.Details,
                                 _accountAdapter.FindById(record.ModifiedBy).Email,
                                 record.ModifiedDate.ToString(),
                                 _accountAdapter.FindById(record.CreatedBy).Email,

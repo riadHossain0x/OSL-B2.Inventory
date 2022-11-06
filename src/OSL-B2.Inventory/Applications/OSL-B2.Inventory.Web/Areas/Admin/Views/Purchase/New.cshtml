@@ -142,7 +142,7 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select onchange="GetProducts(this);" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                  <select onchange="GetProducts(this, 'product-{1}');" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
                                       <option value="null">Select Category</option>
                                       @if(ViewBag.Categories != null)
                                       {
@@ -155,7 +155,7 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product" name="ProductId" aria-describedby="product-error" aria-invalid="false">
+                                  <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{2}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
                                   </select>
                               </td>
                               <td style="width:12%">
@@ -177,12 +177,12 @@
                                  </button>
                               </td>
                           </tr>`;
-            $("#table").append(format(render, count++));
+            $("#table").append(format(render, count++, count, count));
         });
 
         // add new row in table
         $("#btnAdd").on("click", function () {
-            $("#table").append(format(render, count++));
+            $("#table").append(format(render, count++, count, count));
         });
 
         // delete current row
@@ -201,7 +201,6 @@
                 if ($(this).val() == 'null') {
                     $("#spanSupplier").html("The Supplier field is required.");
                     $("#spanCategory").html("");
-                    $("#spanProduct").html("");
                     error++;
                 }
             });
@@ -211,15 +210,6 @@
                 if ($(this).val() == 'null') {
                     $("#spanCategory").html("The Category field is required.");
                     $("#spanSupplier").html("");
-                    $("#spanProduct").html("");
-                    error++;
-                }
-            });
-            $("[id=product]").each(function () {
-                if ($(this).val() == 'null') {
-                    $("#spanProduct").html("The Product field is required.");
-                    $("#spanSupplier").html("");
-                    $("#spanCategory").html("");
                     error++;
                 }
             });
@@ -229,25 +219,24 @@
 
             $("#spanSupplier").html("");
             $("#spanCategory").html("");
-            $("#spanProduct").html("");
         });
 
         // Dropdown events
-        function GetProducts(event) {
+        function GetProducts(event, element) {
             var value = event.value;
             $.ajax({
                 url: '/admin/purchase/GetProducts',
                 type: 'POST',
                 data: { 'categoryId': value },
                 success: function (data) {
-                    //$('#product').empty();
+                    $('#product').empty();
                     $.each(data, function (i, item) {
-                        var close = $(this).closest("td");
-                        console.log(close);
-                        //$('#product').append($('<option>', {
-                        //    value: item.value,
-                        //    text: item.text
-                        //}));
+                        //var close = $(this).closest("td");
+                        //console.log(close);
+                        $('#' + element).append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
                     });
                 }
             });

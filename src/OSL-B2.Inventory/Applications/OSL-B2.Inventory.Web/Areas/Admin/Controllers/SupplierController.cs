@@ -53,7 +53,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                                 record.Name,
                                 record.Mobile,
                                 record.Address,
-                                record.Details.Length < 10 ? record.Details : string.Concat(record.Details.Substring(0, 10), "..."), 
+                                record.Details != null ? record.Details.Length < 10 ? record.Details : string.Concat(record.Details.Substring(0, 10), "...") : record.Details, 
                                 _accountAdapter.FindById(record.ModifiedBy).Email,
                                 record.ModifiedDate.ToString(),
                                 _accountAdapter.FindById(record.CreatedBy).Email,
