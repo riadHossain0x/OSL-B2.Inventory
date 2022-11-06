@@ -235,18 +235,19 @@
         // Dropdown events
         function GetProducts(event) {
             var value = event.value;
-            console.log(value);
             $.ajax({
                 url: '/admin/purchase/GetProducts',
                 type: 'POST',
                 data: { 'categoryId': value },
                 success: function (data) {
-                    $('#product').empty();
+                    //$('#product').empty();
                     $.each(data, function (i, item) {
-                        $('#product').append($('<option>', {
-                            value: item.value,
-                            text: item.text
-                        }));
+                        var close = $(this).closest("td");
+                        console.log(close);
+                        //$('#product').append($('<option>', {
+                        //    value: item.value,
+                        //    text: item.text
+                        //}));
                     });
                 }
             });
