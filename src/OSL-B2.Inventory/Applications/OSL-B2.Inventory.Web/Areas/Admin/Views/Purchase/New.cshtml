@@ -77,11 +77,52 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr id="section-1">
+                                <td style="width:15%">
+                                    <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
+                                        <option value="">Select Supplier</option>
+                                        <option value="14">Riad</option>
+                                    </select>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
+                                </td>
+                                <td style="width:15%">
+                                    <select class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                        <option value="">Select Category</option>
+                                        <option value="1">Pen</option>
+                                    </select>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                </td>
+                                <td style="width:15%">
+                                    <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product" name="ProductId" aria-describedby="product-error" aria-invalid="false">
+                                        <option value="">Select Product</option>
+                                        <option value="1">Pen</option>
+                                    </select>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                </td>
+                                <td style="width:12%">
+                                    <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity" name="Quantity" type="number" min="0" value="0">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                </td>
+                                <td style="width:12%">
+                                    <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="0.00">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                </td>
+                                <td style="width:12%">
+                                    <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" type="text" value="0.00" readonly>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="btnDelete" class="btn btn-danger btn-sm" onclick="rowDelete('section-1')">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th class="text-center">
-                                    <button class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
+                                    <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
                                 </th>
                                 <th></th>
                                 <th></th>
@@ -111,8 +152,14 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         var render = "";
+        var count = 1;
         $(document).ready(function () {
-            render = `<tr>
+            
+            //$("#table").append(render);
+        });
+
+        $("#btnAdd").on("click", function () {
+            render = `<tr id="section-${++count}">
                                             <td style="width:15%">
                                                 <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
                                                     // loop will be there
@@ -150,7 +197,7 @@
                                                 <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
                                             </td>
                                             <td class="text-center">
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button type="button" id="btnDelete" class="btn btn-danger btn-sm" onclick="rowDelete('section-${count}')">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                </button>
@@ -158,5 +205,15 @@
                                         </tr>`;
             $("#table").append(render);
         });
+
+        $("#table btnDelete").on("click", function () {
+            console.log(this);
+            $(this).remove();
+            return false;
+        });
+
+        function rowDelete(section) {
+            console.log(section);
+        }
     </script>
 }

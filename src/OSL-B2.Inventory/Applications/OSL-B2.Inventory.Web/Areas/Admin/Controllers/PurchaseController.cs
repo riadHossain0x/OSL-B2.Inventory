@@ -1,4 +1,5 @@
-﻿using OSL_B2.Inventory.Web.Adapters;
+﻿using OSL_B2.Inventory.Service;
+using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
     {
         #region Initialization
         private readonly IAccountAdapter _accountAdapter;
+        private readonly ISupplierService _supplierService;
+        private readonly ICategoryService _categoryService;
 
-        public PurchaseController(IAccountAdapter accountAdapter)
+        public PurchaseController(ISupplierService supplierService, ICategoryService categoryService,
+            IAccountAdapter accountAdapter)
         {
+            _supplierService = supplierService;
+            _categoryService = categoryService;
             _accountAdapter = accountAdapter;
         } 
         #endregion
