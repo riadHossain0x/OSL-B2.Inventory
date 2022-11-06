@@ -112,7 +112,7 @@
                                     <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" id="btnDelete" class="btn btn-danger btn-sm" onclick="rowDelete('section-1')">
+                                    <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                         Delete
                                     </button>
@@ -197,7 +197,7 @@
                                                 <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" id="btnDelete" class="btn btn-danger btn-sm" onclick="rowDelete('section-${count}')">
+                                                <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                </button>
@@ -206,14 +206,12 @@
             $("#table").append(render);
         });
 
-        $("#table btnDelete").on("click", function () {
-            console.log(this);
-            $(this).remove();
+        $("#table").on("click", "#btnDelete", function () {
+            var rowCount = $("#table tr").length;
+            if(rowCount > 3)
+                $(this).closest("tr").remove();
             return false;
         });
 
-        function rowDelete(section) {
-            console.log(section);
-        }
     </script>
 }
