@@ -207,10 +207,12 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Models\CategoryViewModels.cs" />
     <Compile Include="Areas\Admin\Models\CustomerViewModels.cs" />
     <Compile Include="Areas\Admin\Models\ProductViewModels.cs" />
+    <Compile Include="Areas\Admin\Models\PurchaseViewModels.cs" />
     <Compile Include="Areas\Admin\Models\SupplierViewModel.cs" />
     <Compile Include="Attributes\AuthorizationCheckerAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1977,6 +1979,7 @@
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Purchase\New.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image.validate.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
