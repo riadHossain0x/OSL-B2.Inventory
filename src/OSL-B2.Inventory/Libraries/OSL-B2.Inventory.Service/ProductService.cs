@@ -27,6 +27,7 @@ namespace OSL_B2.Inventory.Service
 
         #region Load instances
         (int total, int totalDisplay, IList<ProductDto> records) LoadAllProducts(string searchBy, int take, int skip, string sortBy, string sortDir);
+        IList<ProductDto> LoadAllProducts(long categoryId);
         #endregion
     }
     public class ProductService : IProductService
@@ -169,6 +170,20 @@ namespace OSL_B2.Inventory.Service
                 }
 
                 return (result.total, result.totalDisplay, products);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public IList<ProductDto> LoadAllProducts(long categoryId)
+        {
+            try
+            {
+                var products = _productRepository.LoadByCategory(categoryId);
+                return Mapper.Map<List<ProductDto>>(products);
             }
             catch (Exception ex)
             {

@@ -16,12 +16,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         private readonly IAccountAdapter _accountAdapter;
         private readonly ISupplierService _supplierService;
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
         public PurchaseController(ISupplierService supplierService, ICategoryService categoryService,
-            IAccountAdapter accountAdapter)
+            IProductService productService, IAccountAdapter accountAdapter)
         {
             _supplierService = supplierService;
             _categoryService = categoryService;
+            _productService = productService;
             _accountAdapter = accountAdapter;
         } 
         #endregion
@@ -61,6 +63,22 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 return View(model);
             }
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetProducts(long categoryId)
+        {
+            try
+            {
+                var products = _productService.LoadAllProducts(categoryId).Select(x => new {value = x.Id, text = x.Name});
+                return Json(products);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
         }
     }
 }

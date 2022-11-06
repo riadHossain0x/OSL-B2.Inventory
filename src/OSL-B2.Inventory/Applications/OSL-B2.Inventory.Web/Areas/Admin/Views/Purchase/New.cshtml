@@ -142,7 +142,7 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                  <select onchange="GetProducts(this);" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
                                       <option value="null">Select Category</option>
                                       @if(ViewBag.Categories != null)
                                       {
@@ -156,9 +156,6 @@
                               <td style="width:15%">
                                   <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
                                   <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product" name="ProductId" aria-describedby="product-error" aria-invalid="false">
-                                      // loop will be there
-                                      <option value="null">Select Product</option>
-                                      <option value="1">Pen</option>
                                   </select>
                               </td>
                               <td style="width:12%">
@@ -183,10 +180,12 @@
             $("#table").append(format(render, count++));
         });
 
+        // add new row in table
         $("#btnAdd").on("click", function () {
             $("#table").append(format(render, count++));
         });
 
+        // delete current row
         $("#table").on("click", "#btnDelete", function () {
             var rowCount = $("#table tr").length;
             if (rowCount > 3)
@@ -194,6 +193,7 @@
             return false;
         });
 
+        // validation
         $("#btnSubmit").on("click", function () {
 
             var error = 0;
@@ -231,6 +231,26 @@
             $("#spanCategory").html("");
             $("#spanProduct").html("");
         });
+
+        // Dropdown events
+        function GetProducts(event) {
+            var value = event.value;
+            console.log(value);
+            $.ajax({
+                url: '/admin/purchase/GetProducts',
+                type: 'POST',
+                data: { 'categoryId': value },
+                success: function (data) {
+                    $('#product').empty();
+                    $.each(data, function (i, item) {
+                        $('#product').append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        }
 
     </script>
 }

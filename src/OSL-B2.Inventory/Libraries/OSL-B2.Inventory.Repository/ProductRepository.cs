@@ -32,6 +32,7 @@ namespace OSL_B2.Inventory.Repository
 
         #region Others
         int GetCount(Expression<Func<Product, bool>> filter = null);
+        IList<Product> LoadByCategory(long categoryId);
         #endregion
     }
     public class ProductRepository : IProductRepository
@@ -90,6 +91,14 @@ namespace OSL_B2.Inventory.Repository
             var result = query.Skip(pageIndex).Take(pageSize);
 
             return (result.ToList(), total, totalDisplay);
+        }
+
+        public IList<Product> LoadByCategory(long categoryId)
+        {
+            IQueryable<Product> query = _context.Products;
+            query = query.Where(x => x.IsActive == Status.Active && x.CategoryId == categoryId);
+
+            return query.ToList();
         }
         #endregion
 
