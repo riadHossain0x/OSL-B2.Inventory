@@ -47,7 +47,7 @@
                     <i class="text-danger">*</i>
                 </div>
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.PurchaseDate, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -127,59 +127,59 @@
         var count = 0;
         $(document).ready(function () {
             render = `<tr id="section-{0}">
-                                                    <td style="width:15%">
-                                                        <span id="spanSupplier" class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
-                                                        <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
-                                                            <option value="null">Select Supplier</option>
-                                                            @if(ViewBag.Suppliers != null)
-                                                            {
-                                                                foreach (var supplier in ViewBag.Suppliers)
-                                                                {
-                                                                    <option value="@supplier.Id">@supplier.Name</option>
-                                                                }
-                                                            }
-                                                        </select>
-                                                    </td>
-                                                    <td style="width:15%">
-                                                        <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                                        <select class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
-                                                            <option value="null">Select Category</option>
-                                                            @if(ViewBag.Categories != null)
-                                                            {
-                                                                foreach(var category in ViewBag.Categories)
-                                                                {
-                                                                    <option value="@category.Id">@category.Name</option>
-                                                                }
-                                                            }
-                                                        </select>
-                                                    </td>
-                                                    <td style="width:15%">
-                                                        <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                                        <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product" name="ProductId" aria-describedby="product-error" aria-invalid="false">
-                                                            // loop will be there
-                                                            <option value="null">Select Product</option>
-                                                            <option value="1">Pen</option>
-                                                        </select>
-                                                    </td>
-                                                    <td style="width:12%">
-                                                        <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
-                                                        <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity" name="Quantity" type="number" min="0" value="0">
-                                                    </td>
-                                                    <td style="width:12%">
-                                                        <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
-                                                        <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="0.00">
-                                                    </td>
-                                                    <td style="width:12%">
-                                                        <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                                                        <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" type="text" value="0.00" readonly>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
-                                                       </button>
-                                                    </td>
-                                                </tr>`;
+                              <td style="width:15%">
+                                  <span id="spanSupplier" class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
+                                  <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
+                                      <option value="null">Select Supplier</option>
+                                      @if(ViewBag.Suppliers != null)
+                                      {
+                                          foreach (var supplier in ViewBag.Suppliers)
+                                          {
+                                              <option value="@supplier.Id">@supplier.Name</option>
+                                          }
+                                      }
+                                  </select>
+                              </td>
+                              <td style="width:15%">
+                                  <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                  <select class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                      <option value="null">Select Category</option>
+                                      @if(ViewBag.Categories != null)
+                                      {
+                                          foreach(var category in ViewBag.Categories)
+                                          {
+                                              <option value="@category.Id">@category.Name</option>
+                                          }
+                                      }
+                                  </select>
+                              </td>
+                              <td style="width:15%">
+                                  <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                  <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product" name="ProductId" aria-describedby="product-error" aria-invalid="false">
+                                      // loop will be there
+                                      <option value="null">Select Product</option>
+                                      <option value="1">Pen</option>
+                                  </select>
+                              </td>
+                              <td style="width:12%">
+                                  <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity" name="Quantity" type="number" min="0" value="0">
+                              </td>
+                              <td style="width:12%">
+                                  <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="0.00">
+                              </td>
+                              <td style="width:12%">
+                                  <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" type="text" value="0.00" readonly>
+                              </td>
+                              <td class="text-center">
+                                  <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
+                                                      <i class="fas fa-trash"></i>
+                                                      Delete
+                                 </button>
+                              </td>
+                          </tr>`;
             $("#table").append(format(render, count++));
         });
 
@@ -226,7 +226,25 @@
 
             if (error > 0)
                 return false;
+
+            $("#spanSupplier").html("");
+            $("#spanCategory").html("");
+            $("#spanProduct").html("");
         });
 
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#PurchaseDate').datepicker({
+                dateFormat: "dd/mm/yy",
+                showStatus: true,
+                showWeeks: true,
+                currentText: 'Now',
+                autoSize: true,
+                gotoCurrent: true,
+                showAnim: 'blind',
+                highlightWeek: true
+            });
+        });
     </script>
 }

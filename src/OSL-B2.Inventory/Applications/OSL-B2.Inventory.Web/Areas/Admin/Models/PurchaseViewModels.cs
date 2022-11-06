@@ -17,6 +17,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         public string PurchaseNo { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Purchase Date")]
         public DateTime PurchaseDate { get; set; }
 
