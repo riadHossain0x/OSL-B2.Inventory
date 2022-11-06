@@ -15,6 +15,7 @@ namespace OSL_B2.Inventory.Repository
         #region Load instances
         (IList<Supplier> data, int total, int totalDisplay) LoadAll(Expression<Func<Supplier, bool>> filter = null,
             string orderBy = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
+        IList<Supplier> LoadAll();
         #endregion
 
         #region Single instances
@@ -84,6 +85,13 @@ namespace OSL_B2.Inventory.Repository
             var result = query.Skip(pageIndex).Take(pageSize);
 
             return (result.ToList(), total, totalDisplay);
+        }
+
+        public IList<Supplier> LoadAll()
+        {
+            IQueryable<Supplier> query = _context.Suppliers;
+            query = query.Where(x => x.IsActive == Status.Active);
+            return query.ToList();
         }
         #endregion
 

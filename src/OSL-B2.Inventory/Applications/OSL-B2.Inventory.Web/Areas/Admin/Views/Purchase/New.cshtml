@@ -130,17 +130,27 @@
                                                     <td style="width:15%">
                                                         <span id="spanSupplier" class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
                                                         <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
-                                                            // loop will be there
                                                             <option value="null">Select Supplier</option>
-                                                            <option value="14">Riad</option>
+                                                            @if(ViewBag.Suppliers != null)
+                                                            {
+                                                                foreach (var supplier in ViewBag.Suppliers)
+                                                                {
+                                                                    <option value="@supplier.Id">@supplier.Name</option>
+                                                                }
+                                                            }
                                                         </select>
                                                     </td>
                                                     <td style="width:15%">
                                                         <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
                                                         <select class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
-                                                            // loop will be there
                                                             <option value="null">Select Category</option>
-                                                            <option value="1">Pen</option>
+                                                            @if(ViewBag.Categories != null)
+                                                            {
+                                                                foreach(var category in ViewBag.Categories)
+                                                                {
+                                                                    <option value="@category.Id">@category.Name</option>
+                                                                }
+                                                            }
                                                         </select>
                                                     </td>
                                                     <td style="width:15%">

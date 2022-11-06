@@ -23,6 +23,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
+        IList<SupplierDto> LoadAllSuppliers();
         (int total, int totalDisplay, IList<SupplierDto> records) LoadAllSuppliers(string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
     }
@@ -145,6 +146,20 @@ namespace OSL_B2.Inventory.Service
                 }
 
                 return (result.total, result.totalDisplay, suppliers);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public IList<SupplierDto> LoadAllSuppliers()
+        {
+            try
+            {
+                var suppliers = _supplierRepository.LoadAll();
+                return Mapper.Map<List<SupplierDto>>(suppliers);
             }
             catch (Exception ex)
             {

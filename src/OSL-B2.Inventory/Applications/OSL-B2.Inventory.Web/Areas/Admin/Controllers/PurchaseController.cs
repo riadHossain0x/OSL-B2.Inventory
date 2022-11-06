@@ -1,6 +1,7 @@
 ﻿using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
+using OSL_B2.Inventory.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,24 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public ActionResult New()
         {
-            return View();
+            try
+            {
+                var categories = _categoryService.LoadAllCategories();
+                ViewBag.Categories = categories;
+
+                var suppliers = _supplierService.LoadAllSuppliers();
+                ViewBag.Suppliers = suppliers;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [HttpPost]
