@@ -31,33 +31,33 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         // Purchase Details
         [Required]
         [Display(Name = "Supplier")]
-        public long SupplierId { get; set; }
-        public List<SelectListItem> Suppliers { get; set; }
+        public List<long> SupplierId { get; set; }
+        //public List<SelectListItem> Suppliers { get; set; }
 
         [Required]
         [Display(Name = "Category")]
-        public long CategoryId { get; set; }
-        public List<SelectListItem> Categories { get; set; }
+        public List<long> CategoryId { get; set; }
+        //public List<SelectListItem> Categories { get; set; }
 
         [Required]
         [Display(Name = "Product")]
-        public long ProductId { get; set; }
-        public List<SelectListItem> Products { get; set; }
+        public List<long> ProductId { get; set; }
+        //public List<SelectListItem> Products { get; set; }
 
         [Required]
         [Display(Name = "Quantity")]
-        public int Quantity { get; set; }
+        public List<int> Quantity { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(19, 2)")]
         [Display(Name = "Price")]
-        public decimal Price { get; set; }
+        public List<decimal> Price { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(19, 2)")]
         [Display(Name = "Total")]
-        public decimal Total { get; set; }
+        public List<decimal> Total { get; set; }
     }
 }

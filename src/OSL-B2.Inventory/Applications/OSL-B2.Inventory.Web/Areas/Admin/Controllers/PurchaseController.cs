@@ -1,4 +1,5 @@
 ﻿using OSL_B2.Inventory.Web.Adapters;
+using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public ActionResult New()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult New(PurchaseCreateViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
             return View();
         }
     }
