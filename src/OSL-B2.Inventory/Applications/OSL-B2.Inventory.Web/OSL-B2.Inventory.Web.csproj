@@ -215,6 +215,7 @@
     <Compile Include="Areas\Admin\Models\PurchaseViewModels.cs" />
     <Compile Include="Areas\Admin\Models\SupplierViewModel.cs" />
     <Compile Include="Attributes\AuthorizationCheckerAttribute.cs" />
+    <Compile Include="Attributes\ValidateEachItemAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="DbContexts\ApplicationDbContext.cs" />

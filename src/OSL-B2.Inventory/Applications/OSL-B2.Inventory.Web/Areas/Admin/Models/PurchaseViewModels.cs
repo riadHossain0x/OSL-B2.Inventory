@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSL_B2.Inventory.Web.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,16 +31,19 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         // Purchase Details
         [Required]
+        //[ValidateEachItem]
         [Display(Name = "Supplier")]
         public List<long> SupplierId { get; set; }
         //public List<SelectListItem> Suppliers { get; set; }
 
         [Required]
+       // [ValidateEachItem]
         [Display(Name = "Category")]
         public List<long> CategoryId { get; set; }
         //public List<SelectListItem> Categories { get; set; }
 
         [Required]
+        //[ValidateEachItem]
         [Display(Name = "Product")]
         public List<long> ProductId { get; set; }
         //public List<SelectListItem> Products { get; set; }
