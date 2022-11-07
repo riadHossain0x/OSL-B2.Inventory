@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Service.Dtos;
+using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
@@ -30,9 +31,10 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             _categoryService = categoryService;
             _productService = productService;
             _accountAdapter = accountAdapter;
-        } 
+        }
         #endregion
 
+        #region Manage
         public ActionResult Index()
         {
             return View();
@@ -75,7 +77,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 Logger.Error(ex.Message, ex);
             }
             return default(JsonResult);
-        }
+        } 
+        #endregion
 
         #region Operations
         public ActionResult New()
@@ -157,7 +160,28 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                 return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
             }
-        } 
+        }
+
+        [HttpPost]
+        public JsonResult Delete(long id)
+        {
+            try
+            {
+                _purchaseService.RemovePurchase(id);
+
+                return Json(ViewResponse("Purchase successfully deleted!", string.Empty, ResponseTypes.Success));
+            }
+            catch (InnerElementException ie)
+            {
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
+        }
         #endregion
     }
 }
