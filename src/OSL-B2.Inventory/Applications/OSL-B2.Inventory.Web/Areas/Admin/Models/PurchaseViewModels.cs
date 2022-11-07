@@ -71,4 +71,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Display(Name = "Total")]
         public List<decimal> Total { get; set; }
     }
+
+    public class StockUpdate
+    {
+        public long ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal SalePrice { get; set; }
+    }
 }

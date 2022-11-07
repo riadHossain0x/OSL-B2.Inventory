@@ -111,6 +111,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 try
                 {
                     var purchaseDetails = new List<PurchaseDetailDto>();
+                    var stocks = new List<StockUpdate>();
+
                     for (int i = 0; i < model.Total.Count; i++)
                     {
                         purchaseDetails.Add(new PurchaseDetailDto
@@ -120,6 +122,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                             Quantity = model.Quantity[i],
                             Price = model.Price[i],
                             Total = model.Total[i],
+                        });
+
+                        stocks.Add(new StockUpdate
+                        {
+                            ProductId = model.ProductId[i],
+                            Quantity = model.Quantity[i],
+                            SalePrice = model.SalePrice[i],
                         });
                     }
 
@@ -143,6 +152,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
+
+            ViewResponse("Failed to process request, please check you inputs.", ResponseTypes.Danger);
+
+            var categories = _categoryService.LoadAllCategories();
+            ViewBag.Categories = categories;
+
+            var suppliers = _supplierService.LoadAllSuppliers();
+            ViewBag.Suppliers = suppliers;
+
             return View();
         }
 

@@ -169,8 +169,8 @@
                                   <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
-                                  <span class="field-validation-valid text-danger" data-valmsg-for="SalePrice" data-valmsg-replace="true"></span>
-                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Sale Price must be a number." data-val-required="The Sale Price field is required." id="Price-{0}" name="SalePrice" type="text" value="0.00">
+                                  <span id="spanSalePrice" class="field-validation-valid text-danger" data-valmsg-for="SalePrice" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right salePrice" data-val="true" data-val-number="The field Sale Price must be a number." data-val-required="The Sale Price field is required." id="Price-{0}" name="SalePrice" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
                                   <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
@@ -204,11 +204,23 @@
 
             var error = 0;
 
+            $(".salePrice").each(function () {
+                if ($(this).val() == '0' || $(this).val() == '0.00') {
+                    $("#spanSalePrice").html("The Sale Price field is required")
+                    $("#spanTotal").html("");
+                    $("#spanProduct").html("");
+                    $("#spanCategory").html("");
+                    $("#spanSupplier").html("");
+                    error++;
+                }
+            });
+
             $(".total").each(function () {
                 if ($(this).val() == '0' || $(this).val() == '0.00') {
                     $("#spanTotal").html("The Total field is required");
                     $("#spanProduct").html("");
                     $("#spanCategory").html("");
+                    $("#spanSalePrice").html("")
                     $("#spanSupplier").html("");
                     error++;
                 }
@@ -219,6 +231,7 @@
                     $("#spanProduct").html("The Product field is required.");
                     $("#spanCategory").html("");
                     $("#spanSupplier").html("");
+                    $("#spanSalePrice").html("")
                     $("#spanTotal").html("");
                     error++;
                 }
@@ -229,6 +242,7 @@
                     $("#spanCategory").html("The Category field is required.");
                     $("#spanSupplier").html("");
                     $("#spanProduct").html("");
+                    $("#spanSalePrice").html("")
                     $("#spanTotal").html("");
                     error++;
                 }
@@ -239,6 +253,7 @@
                     $("#spanSupplier").html("The Supplier field is required.");
                     $("#spanCategory").html("");
                     $("#spanProduct").html("");
+                    $("#spanSalePrice").html("")
                     $("#spanTotal").html("");
                     error++;
                 }
@@ -250,6 +265,7 @@
             $("#spanSupplier").html("");
             $("#spanCategory").html("");
             $("#spanProduct").html("");
+            $("#spanSalePrice").html("")
             $("#spanTotal").html("");
         });
 
