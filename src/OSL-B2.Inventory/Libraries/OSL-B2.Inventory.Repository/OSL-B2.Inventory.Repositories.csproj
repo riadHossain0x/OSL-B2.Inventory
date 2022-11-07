@@ -86,6 +86,10 @@
     <Compile Include="Migrations\202210250433315_datetimefix.designer.cs">
       <DependentUpon>202210250433315_datetimefix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211070550548_purchase.cs" />
+    <Compile Include="Migrations\202211070550548_purchase.designer.cs">
+      <DependentUpon>202211070550548_purchase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210250433315_datetimefix.resx">
       <DependentUpon>202210250433315_datetimefix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211070550548_purchase.resx">
+      <DependentUpon>202211070550548_purchase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

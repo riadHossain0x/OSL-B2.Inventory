@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 {
-    public class PurchaseCreateViewModels
+    public class PurchaseCreateViewModel
     {
         [Required]
         [MaxLength(15, ErrorMessage = "Purchase No. must be less then 15 charecter.")]
@@ -56,8 +56,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(19, 2)")]
-        [Display(Name = "Price")]
+        [Display(Name = "Buying Price")]
         public List<decimal> Price { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(19, 2)")]
+        [Display(Name = "Sale Price")]
+        public List<decimal> SalePrice { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]

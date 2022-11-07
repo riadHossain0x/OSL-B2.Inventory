@@ -1,4 +1,6 @@
-﻿using OSL_B2.Inventory.Service;
+﻿using AutoMapper;
+using OSL_B2.Inventory.Service;
+using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
@@ -56,10 +58,27 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(PurchaseCreateViewModels model)
+        public ActionResult New(PurchaseCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var purchaseDetails = new List<PurchaseDetailDto>();
+                for (int i = 0; i < model.Total.Count; i++)
+                {
+                    purchaseDetails.Add(new PurchaseDetailDto
+                    {
+                        SupplierId = model.SupplierId[i],
+                        ProductId = model.ProductId[i],
+                        Quantity = model.Quantity[i],
+                        Price = model.Price[i],
+                        Total = model.Total[i],
+                    });
+                }
+
+                var purchase = Mapper.Map<PurchaseDto>(model);
+                purchase.PurchaseDetails = purchaseDetails;
+
+
                 return View(model);
             }
             return View();

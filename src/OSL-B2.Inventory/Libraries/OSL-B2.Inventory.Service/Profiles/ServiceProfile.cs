@@ -12,6 +12,8 @@ namespace OSL_B2.Inventory.Service.Profiles
             Mapper.CreateMap<CustomerDto, Customer>().ReverseMap();
             Mapper.CreateMap<SupplierDto, Supplier>().ReverseMap();
             Mapper.CreateMap<ProductDto, Product>().ReverseMap();
+            Mapper.CreateMap<PurchaseDto, Purchase>().ReverseMap();
+            Mapper.CreateMap<PurchaseDetailDto, PurchaseDetail>().ReverseMap();
         }
     }
 }
