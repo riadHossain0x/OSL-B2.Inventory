@@ -8,6 +8,7 @@ using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -94,7 +95,10 @@ namespace OSL_B2.Inventory.Service
                             {
                                 var product = context.Products.Find(stock.ProductId);
                                 product.Quantity += stock.Quantity;
-                                product.BuyingPrice = stock.BuyingPrice;
+                                product.BuyingPrice = ((product.BuyingPrice * product.Quantity) + (stock.BuyingPrice * stock.Quantity)) / (product.Quantity + stock.Quantity);
+                                product.SalePrice = ((product.SalePrice * product.Quantity) + (stock.SalePrice * stock.Quantity)) / (product.Quantity + stock.Quantity);
+                                context.Products.AddOrUpdate(product);
+                                context.SaveChanges();
                             }
 
                             transaction.Commit();
