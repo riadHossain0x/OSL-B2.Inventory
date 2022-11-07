@@ -3,9 +3,11 @@ using log4net;
 using log4net.Repository.Hierarchy;
 using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
+using OSL_B2.Inventory.Repository.DbContexts;
 using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -20,7 +22,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Operations
-        void AddPurchase(PurchaseDto entity);
+        void AddPurchase(PurchaseDto entity, List<StockUpdateDto> stocks);
         void EditPurchase(PurchaseDto entity);
         void RemovePurchase(long id);
         #endregion
@@ -67,7 +69,7 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Operations
-        public void AddPurchase(PurchaseDto entity)
+        public void AddPurchase(PurchaseDto entity, List<StockUpdateDto> stocks)
         {
             try
             {
@@ -79,8 +81,38 @@ namespace OSL_B2.Inventory.Service
 
                 var purchase = Mapper.Map<Purchase>(entity);
 
-                _purchaseRepository.Add(purchase);
-                _purchaseRepository.SaveChanages();
+                using (var context = new IMSDbContext())
+                {
+                    using (DbContextTransaction transaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var purchaseEO = context.Purchases.Add(purchase);
+                            context.SaveChanges();
+
+                            foreach (var stock in stocks)
+                            {
+                                var product = context.Products.Find(stock.ProductId);
+                                product.Quantity += stock.Quantity;
+                                product.BuyingPrice = stock.BuyingPrice;
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+
+                            Logger.Error(ex.Message, ex);
+
+                            throw;
+                        }
+                    }
+                };
+
+
+                //_purchaseRepository.Add(purchase);
+                //_purchaseRepository.SaveChanages();
             }
             catch (Exception ex)
             {

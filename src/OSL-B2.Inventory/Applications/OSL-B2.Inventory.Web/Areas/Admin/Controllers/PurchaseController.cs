@@ -111,7 +111,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 try
                 {
                     var purchaseDetails = new List<PurchaseDetailDto>();
-                    var stocks = new List<StockUpdate>();
+                    var stocks = new List<StockUpdateDto>();
 
                     for (int i = 0; i < model.Total.Count; i++)
                     {
@@ -124,10 +124,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                             Total = model.Total[i],
                         });
 
-                        stocks.Add(new StockUpdate
+                        stocks.Add(new StockUpdateDto
                         {
                             ProductId = model.ProductId[i],
                             Quantity = model.Quantity[i],
+                            BuyingPrice = model.Price[i],
                             SalePrice = model.SalePrice[i],
                         });
                     }
@@ -138,7 +139,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     purchase.CreatedBy = purchase.ModifiedBy = user.Id;
                     purchase.CreatedDate = purchase.ModifiedDate = DateTime.Now;
 
-                    _purchaseService.AddPurchase(purchase);
+                    _purchaseService.AddPurchase(purchase, stocks);
 
                     ViewResponse("Successfully add a new purchase.", ResponseTypes.Success);
 

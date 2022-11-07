@@ -76,6 +76,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
     {
         public long ProductId { get; set; }
         public int Quantity { get; set; }
+        public decimal BuyingPrice { get; set; }
         public decimal SalePrice { get; set; }
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="Dtos\PurchaseDetailDto.cs" />
     <Compile Include="Dtos\SaleDto.cs" />
     <Compile Include="Dtos\SaleDetail.cs" />
+    <Compile Include="Dtos\StockUpdateDto.cs" />
     <Compile Include="Dtos\SupplierDto.cs" />
     <Compile Include="Exceptions\InnerElementException.cs" />
     <Compile Include="ProductService.cs" />
