@@ -62,7 +62,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-10">
+                <div class="col-12">
                     <table id="table" class="table-bordered">
                         <thead>
                             <tr>
@@ -71,6 +71,7 @@
                                 <th class="text-center">Product</th>
                                 <th class="text-center">Quantity</th>
                                 <th class="text-center">Rate</th>
+                                <th class="text-center">Sale Price</th>
                                 <th class="text-center">Total</th>
                                 <th class="text-center" style="width:8%">Action</th>
                             </tr>
@@ -82,6 +83,7 @@
                                 <th class="text-center">
                                     <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
                                 </th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -97,7 +99,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-10 text-right pt-2">
+                <div class="col-12 text-right pt-2">
                     <a href="/Admin/Purchase" class="btn btn-danger">Cancel</a>
                     <input id="btnSubmit" type="submit" value="Save" class="btn btn-primary" />
                 </div>
@@ -167,8 +169,12 @@
                                   <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
-                                  <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
+                                  <span class="field-validation-valid text-danger" data-valmsg-for="SalePrice" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Sale Price must be a number." data-val-required="The Sale Price field is required." id="Price-{0}" name="SalePrice" type="text" value="0.00">
+                              </td>
+                              <td style="width:12%">
+                                  <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                  <input class="form-control text-box single-line text-right total" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
                               </td>
                               <td class="text-center">
                                   <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
@@ -198,12 +204,22 @@
 
             var error = 0;
 
+            $(".total").each(function () {
+                if ($(this).val() == '0' || $(this).val() == '0.00') {
+                    $("#spanTotal").html("The Total field is required");
+                    $("#spanProduct").html("");
+                    $("#spanCategory").html("");
+                    $("#spanSupplier").html("");
+                    error++;
+                }
+            });
+
             $(".product").each(function () {
                 if ($(this).val() == 'null') {
-                    console.log("form product");
                     $("#spanProduct").html("The Product field is required.");
                     $("#spanCategory").html("");
                     $("#spanSupplier").html("");
+                    $("#spanTotal").html("");
                     error++;
                 }
             });
@@ -213,6 +229,7 @@
                     $("#spanCategory").html("The Category field is required.");
                     $("#spanSupplier").html("");
                     $("#spanProduct").html("");
+                    $("#spanTotal").html("");
                     error++;
                 }
             });
@@ -222,6 +239,7 @@
                     $("#spanSupplier").html("The Supplier field is required.");
                     $("#spanCategory").html("");
                     $("#spanProduct").html("");
+                    $("#spanTotal").html("");
                     error++;
                 }
             });
@@ -232,6 +250,7 @@
             $("#spanSupplier").html("");
             $("#spanCategory").html("");
             $("#spanProduct").html("");
+            $("#spanTotal").html("");
         });
 
         // Dropdown events
@@ -282,8 +301,6 @@
                     
             }
             $("#GrandTotal").val(grandTotal);
-            console.log('Grand Total: ' + grandTotal);
-
         }
     </script>
 }
