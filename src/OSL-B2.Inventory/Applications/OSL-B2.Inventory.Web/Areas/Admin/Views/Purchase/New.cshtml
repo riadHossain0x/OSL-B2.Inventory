@@ -160,15 +160,15 @@
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
-                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" min="0" value="0">
+                                  <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" min="0" value="0">
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
-                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
+                                  <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
+                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
                               </td>
                               <td class="text-center">
                                   <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
@@ -263,12 +263,27 @@
         }
 
         // Calculate total price (quantity * price)
-        function calculate(elementId) {
+        function calculateTotal(elementId) {
             var qtyValue = $("#Quantity-" + elementId).val();
             var rateValue = $("#Price-" + elementId).val();
 
             var total = rateValue * qtyValue;
-            var totalValue = $("#Total-" + elementId).val(total);
+            $("#Total-" + elementId).val(total);
+
+            calculateGrandTotal();
+        }
+        // Calculate grand total price
+        function calculateGrandTotal() {
+            var grandTotal = 0;
+            for (let i = 1; i <= count; i++) {
+                var totalValue = parseFloat($("#Total-" + i).val());
+                if (totalValue != null)
+                    grandTotal += totalValue;
+                    
+            }
+            $("#GrandTotal").val(grandTotal);
+            console.log('Grand Total: ' + grandTotal);
+
         }
     </script>
 }
