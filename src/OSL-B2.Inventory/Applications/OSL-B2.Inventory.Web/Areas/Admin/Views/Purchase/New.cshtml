@@ -29,80 +29,80 @@
     {
         @Html.AntiForgeryToken()
 
-<div class="card-body">
-    <div class="form-group row">
-        <div class="col-md-2">
-            @Html.LabelFor(model => model.PurchaseNo, htmlAttributes: new { @class = "control-label" })
-            <i class="text-danger">*</i>
-        </div>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.PurchaseNo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PurchaseNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.PurchaseNo, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.PurchaseNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PurchaseNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group row">
-        <div class="col-md-2">
-            @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label" })
-            <i class="text-danger">*</i>
-        </div>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
 
-    <div class="form-group row">
-        <div class="col-md-2">
-            @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
-        </div>
-        <div class="col-md-4">
-            @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextAreaFor(model => model.Details, 5, 40, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group row">
-        <div class="col-10">
-            <table id="table" class="table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">Supplier</th>
-                        <th class="text-center">Category</th>
-                        <th class="text-center">Product</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-center">Rate</th>
-                        <th class="text-center">Total</th>
-                        <th class="text-center" style="width:8%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th class="text-center">
-                            <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th class="text-right">Grand Total:</th>
-                        <th>
-                            <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Grand Total must be a number." data-val-required="The Grand Total field is required." id="GrandTotal" name="GrandTotal" type="text" value="0.00" readonly>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                        </th>
-                        <th style="width:8%"></th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="form-group row">
+                <div class="col-10">
+                    <table id="table" class="table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Supplier</th>
+                                <th class="text-center">Category</th>
+                                <th class="text-center">Product</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Rate</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center" style="width:8%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="text-center">
+                                    <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-right">Grand Total:</th>
+                                <th>
+                                    <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Grand Total must be a number." data-val-required="The Grand Total field is required." id="GrandTotal" name="GrandTotal" type="text" value="0.00" readonly>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                </th>
+                                <th style="width:8%"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-10 text-right pt-2">
+                    <a href="/Admin/Purchase" class="btn btn-danger">Cancel</a>
+                    <input id="btnSubmit" type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-10 text-right pt-2">
-            <a href="/Admin/Purchase" class="btn btn-danger">Cancel</a>
-            <input id="btnSubmit" type="submit" value="Save" class="btn btn-primary" />
-        </div>
-    </div>
-</div>
     }
 </div>
 @section Scripts
@@ -155,7 +155,7 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select class="form-control valid" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{2}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
+                                  <select class="form-control valid product" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{2}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
                                   </select>
                               </td>
                               <td style="width:12%">
@@ -197,19 +197,31 @@
         $("#btnSubmit").on("click", function () {
 
             var error = 0;
-            $("[id=supplier]").each(function () {
+
+            $(".product").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanSupplier").html("The Supplier field is required.");
+                    console.log("form product");
+                    $("#spanProduct").html("The Product field is required.");
                     $("#spanCategory").html("");
+                    $("#spanSupplier").html("");
                     error++;
                 }
             });
-            console.log(count);
 
             $("[id=category]").each(function () {
                 if ($(this).val() == 'null') {
                     $("#spanCategory").html("The Category field is required.");
                     $("#spanSupplier").html("");
+                    $("#spanProduct").html("");
+                    error++;
+                }
+            });
+
+            $("[id=supplier]").each(function () {
+                if ($(this).val() == 'null') {
+                    $("#spanSupplier").html("The Supplier field is required.");
+                    $("#spanCategory").html("");
+                    $("#spanProduct").html("");
                     error++;
                 }
             });
@@ -219,20 +231,28 @@
 
             $("#spanSupplier").html("");
             $("#spanCategory").html("");
+            $("#spanProduct").html("");
         });
 
         // Dropdown events
         function GetProducts(event, element) {
             var value = event.value;
+            if (value == 'null') {
+                $('#' + element).empty();
+                return false;
+            }
+
             $.ajax({
                 url: '/admin/purchase/GetProducts',
                 type: 'POST',
                 data: { 'categoryId': value },
                 success: function (data) {
-                    $('#product').empty();
+                    $('#' + element).empty();
+                    $('#' + element).append($('<option>', {
+                        value: 'null',
+                        text: 'Select Product'
+                    }));
                     $.each(data, function (i, item) {
-                        //var close = $(this).closest("td");
-                        //console.log(close);
                         $('#' + element).append($('<option>', {
                             value: item.value,
                             text: item.text
