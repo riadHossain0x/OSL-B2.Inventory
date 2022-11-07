@@ -6,6 +6,7 @@ using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Service.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace OSL_B2.Inventory.Service
@@ -135,7 +136,9 @@ namespace OSL_B2.Inventory.Service
                 if (entity == null)
                     throw new InvalidOperationException("There is no category found.");
 
-                if (entity.Products.Count > 0)
+                var count = entity.Products.Where(x => x.IsActive == Status.Active).Count();
+
+                if (count > 0)
                     throw new InnerElementException($"There are same products under '{entity.Name}' category. Please delete those product and try again.");
 
                 entity.IsActive = Status.Inactive;

@@ -13,6 +13,7 @@ namespace OSL_B2.Inventory.Repository
     public interface IProductRepository
     {
         #region Load instances
+        IList<Product> LoadByCategory(long categoryId);
         (IList<Product> data, int total, int totalDisplay) LoadAll(Expression<Func<Product, bool>> filter = null,
             string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
@@ -32,7 +33,6 @@ namespace OSL_B2.Inventory.Repository
 
         #region Others
         int GetCount(Expression<Func<Product, bool>> filter = null);
-        IList<Product> LoadByCategory(long categoryId);
         #endregion
     }
     public class ProductRepository : IProductRepository

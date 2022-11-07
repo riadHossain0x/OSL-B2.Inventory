@@ -110,6 +110,7 @@
     <Compile Include="ProductService.cs" />
     <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseService.cs" />
     <Compile Include="ServiceModule.cs" />
     <Compile Include="SupplierService.cs" />
   </ItemGroup>
