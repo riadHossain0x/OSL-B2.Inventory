@@ -295,9 +295,15 @@
         function calculateGrandTotal() {
             var grandTotal = 0;
             for (let i = 1; i <= count; i++) {
-                var totalValue = parseFloat($("#Total-" + i).val());
-                if (totalValue != null)
-                    grandTotal += totalValue;
+                if ($("#Total-" + i).length) {
+
+                    var totalValue = parseFloat($("#Total-" + i).val());
+
+                    if (totalValue !== null || totalValue !== "NaN") {
+                        console.log(totalValue);
+                        grandTotal += totalValue;
+                    }
+                }
                     
             }
             $("#GrandTotal").val(grandTotal);

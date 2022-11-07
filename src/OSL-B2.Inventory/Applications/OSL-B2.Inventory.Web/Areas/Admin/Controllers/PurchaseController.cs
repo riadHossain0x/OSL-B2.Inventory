@@ -7,6 +7,7 @@ using OSL_B2.Inventory.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,13 +17,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
     {
         #region Initialization
         private readonly IAccountAdapter _accountAdapter;
+        private readonly IPurchaseService _purchaseService;
         private readonly ISupplierService _supplierService;
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
 
-        public PurchaseController(ISupplierService supplierService, ICategoryService categoryService,
+        public PurchaseController(IPurchaseService purchaseService, ISupplierService supplierService, ICategoryService categoryService,
             IProductService productService, IAccountAdapter accountAdapter)
         {
+            _purchaseService = purchaseService;
             _supplierService = supplierService;
             _categoryService = categoryService;
             _productService = productService;
@@ -58,7 +61,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(PurchaseCreateViewModel model)
+        public async Task<ActionResult> New(PurchaseCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -75,11 +78,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     });
                 }
 
+                var user = await _accountAdapter.FindByNameAsync(User.Identity.Name);
                 var purchase = Mapper.Map<PurchaseDto>(model);
                 purchase.PurchaseDetails = purchaseDetails;
+                purchase.CreatedBy = purchase.ModifiedBy = user.Id;
+                purchase.CreatedDate = purchase.ModifiedDate = DateTime.Now;
 
+                _purchaseService.AddPurchase(purchase);
 
-                return View(model);
+                return RedirectToAction(nameof(Index));
             }
             return View();
         }
