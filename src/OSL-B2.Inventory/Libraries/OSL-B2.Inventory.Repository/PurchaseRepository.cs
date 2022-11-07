@@ -11,6 +11,11 @@ namespace OSL_B2.Inventory.Repository
 {
     public interface IPurchaseRepository
     {
+        #region Load instances
+        (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> filter = null,
+            string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
+        #endregion
+
         #region Operations
         void Add(Purchase entity);
         void Edit(Purchase entity);
@@ -37,7 +42,52 @@ namespace OSL_B2.Inventory.Repository
         public PurchaseRepository(IMSDbContext context)
         {
             _context = context;
-        } 
+        }
+        #endregion
+
+        #region Load instances
+        public (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> filter = null,
+            string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
+        {
+            IQueryable<Purchase> query = _context.Purchases;
+            query = query.Where(x => x.IsActive == Status.Active);
+
+            var total = query.Count();
+            var totalDisplay = query.Count();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+                totalDisplay = query.Count();
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            //sorting
+            switch (sortBy)
+            {
+                case "Purchase No.":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.PurchaseNo) : query.OrderByDescending(c => c.PurchaseNo);
+                    break;
+                case "Details":
+                    query = sortBy == "asc" ? query.OrderBy(c => c.Details) : query.OrderByDescending(c => c.Details);
+                    break;
+                case "Created By":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.CreatedBy) : query.OrderByDescending(c => c.CreatedBy);
+                    break;
+                case "Modified By":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.ModifiedBy) : query.OrderByDescending(c => c.ModifiedBy);
+                    break;
+            }
+
+            var result = query.Skip(pageIndex).Take(pageSize);
+
+            return (result.ToList(), total, totalDisplay);
+        }
         #endregion
 
         #region Operations

@@ -38,6 +38,46 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public JsonResult GetPurchases()
+        {
+            try
+            {
+                var model = new DataTablesAjaxRequestModel(Request);
+
+                var data = _purchaseService.LoadAllPurchases(model.SearchText, model.Length, model.Start, model.SortColumn,
+                    model.SortDirection);
+
+                var count = 1;
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
+                                count++.ToString(),
+                                record.PurchaseNo,
+                                record.PurchaseDate.ToShortDateString(),
+                                record.GrandTotal.ToString(),
+                                _accountAdapter.FindById(record.ModifiedBy).Email,
+                                record.ModifiedDate.ToString(),
+                                _accountAdapter.FindById(record.CreatedBy).Email,
+                                record.CreatedDate.ToString(),
+                                record.Id.ToString()
+                            }
+                        ).ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+            return default(JsonResult);
+        }
+
+        #region Operations
         public ActionResult New()
         {
             try
@@ -65,28 +105,40 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var purchaseDetails = new List<PurchaseDetailDto>();
-                for (int i = 0; i < model.Total.Count; i++)
+                try
                 {
-                    purchaseDetails.Add(new PurchaseDetailDto
+                    var purchaseDetails = new List<PurchaseDetailDto>();
+                    for (int i = 0; i < model.Total.Count; i++)
                     {
-                        SupplierId = model.SupplierId[i],
-                        ProductId = model.ProductId[i],
-                        Quantity = model.Quantity[i],
-                        Price = model.Price[i],
-                        Total = model.Total[i],
-                    });
+                        purchaseDetails.Add(new PurchaseDetailDto
+                        {
+                            SupplierId = model.SupplierId[i],
+                            ProductId = model.ProductId[i],
+                            Quantity = model.Quantity[i],
+                            Price = model.Price[i],
+                            Total = model.Total[i],
+                        });
+                    }
+
+                    var user = await _accountAdapter.FindByNameAsync(User.Identity.Name);
+                    var purchase = Mapper.Map<PurchaseDto>(model);
+                    purchase.PurchaseDetails = purchaseDetails;
+                    purchase.CreatedBy = purchase.ModifiedBy = user.Id;
+                    purchase.CreatedDate = purchase.ModifiedDate = DateTime.Now;
+
+                    _purchaseService.AddPurchase(purchase);
+
+                    ViewResponse("Successfully add a new purchase.", ResponseTypes.Success);
+
+                    return RedirectToAction(nameof(Index));
                 }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message, ex);
+                    ViewResponse(ex.Message, ResponseTypes.Danger);
 
-                var user = await _accountAdapter.FindByNameAsync(User.Identity.Name);
-                var purchase = Mapper.Map<PurchaseDto>(model);
-                purchase.PurchaseDetails = purchaseDetails;
-                purchase.CreatedBy = purchase.ModifiedBy = user.Id;
-                purchase.CreatedDate = purchase.ModifiedDate = DateTime.Now;
-
-                _purchaseService.AddPurchase(purchase);
-
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View();
         }
@@ -96,7 +148,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
-                var products = _productService.LoadAllProducts(categoryId).Select(x => new {value = x.Id, text = x.Name});
+                var products = _productService.LoadAllProducts(categoryId).Select(x => new { value = x.Id, text = x.Name });
                 return Json(products);
             }
             catch (Exception ex)
@@ -105,6 +157,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                 return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -7,6 +7,7 @@ using OSL_B2.Inventory.Service.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,10 @@ namespace OSL_B2.Inventory.Service
 {
     public interface IPurchaseService
     {
+        #region Load instances
+        (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(string searchBy, int take, int skip, string sortBy, string sortDir);
+        #endregion
+
         #region Operations
         void AddPurchase(PurchaseDto entity);
         void EditPurchase(PurchaseDto entity);
@@ -30,7 +35,35 @@ namespace OSL_B2.Inventory.Service
         public PurchaseService(IPurchaseRepository purchaseRepository)
         {
             _purchaseRepository = purchaseRepository;
-        } 
+        }
+        #endregion
+
+        #region Load instances
+        public (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
+        {
+            try
+            {
+                Expression<Func<Purchase, bool>> filter = null;
+                if (searchBy != null)
+                {
+                    filter = x => x.PurchaseNo.Contains(searchBy);
+                }
+                var result = _purchaseRepository.LoadAll(filter, string.Empty, start, length, sortBy, sortDir);
+
+                List<PurchaseDto> purchases = new List<PurchaseDto>();
+                foreach (Purchase purchase in result.data)
+                {
+                    purchases.Add(Mapper.Map<PurchaseDto>(purchase));
+                }
+
+                return (result.total, result.totalDisplay, purchases);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
         #endregion
 
         #region Operations

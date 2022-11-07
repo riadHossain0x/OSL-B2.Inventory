@@ -32,7 +32,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             return View();
         }
-        
+
+        [HttpPost]
         public JsonResult GetProducts()
         {
             try
@@ -143,6 +144,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                     var product = model.GetProduct(user.Id);
 
                     _productService.AddProduct(product);
+
+                    ViewResponse("Successfully added a new product.", ResponseTypes.Success);
 
                     return RedirectToAction(nameof(Index));
                 }
