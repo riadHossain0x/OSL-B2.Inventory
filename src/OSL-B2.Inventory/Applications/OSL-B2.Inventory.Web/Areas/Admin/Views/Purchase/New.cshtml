@@ -142,7 +142,7 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select onchange="GetProducts(this, 'product-{1}');" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                  <select onchange="GetProducts(this, 'product-{0}');" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
                                       <option value="null">Select Category</option>
                                       @if(ViewBag.Categories != null)
                                       {
@@ -155,20 +155,20 @@
                               </td>
                               <td style="width:15%">
                                   <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select class="form-control valid product" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{2}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
+                                  <select class="form-control valid product" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{0}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
                                   </select>
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
-                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity" name="Quantity" type="number" min="0" value="0">
+                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" min="0" value="0">
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
-                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="0.00">
+                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
                                   <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                                  <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" type="text" value="0.00" readonly>
+                                  <input onkeyup="calculate('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
                               </td>
                               <td class="text-center">
                                   <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
@@ -177,12 +177,12 @@
                                  </button>
                               </td>
                           </tr>`;
-            $("#table").append(format(render, count++, count, count));
+            $("#table").append(format(render, ++count));
         });
 
         // add new row in table
         $("#btnAdd").on("click", function () {
-            $("#table").append(format(render, count++, count, count));
+            $("#table").append(format(render, ++count));
         });
 
         // delete current row
@@ -262,5 +262,13 @@
             });
         }
 
+        // Calculate total price (quantity * price)
+        function calculate(elementId) {
+            var qtyValue = $("#Quantity-" + elementId).val();
+            var rateValue = $("#Price-" + elementId).val();
+
+            var total = rateValue * qtyValue;
+            var totalValue = $("#Total-" + elementId).val(total);
+        }
     </script>
 }
