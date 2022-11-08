@@ -35,19 +35,16 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         //[ValidateEachItem]
         [Display(Name = "Supplier")]
         public List<long> SupplierId { get; set; }
-        //public List<SelectListItem> Suppliers { get; set; }
 
         [Required]
        // [ValidateEachItem]
         [Display(Name = "Category")]
         public List<long> CategoryId { get; set; }
-        //public List<SelectListItem> Categories { get; set; }
 
         [Required]
         //[ValidateEachItem]
         [Display(Name = "Product")]
         public List<long> ProductId { get; set; }
-        //public List<SelectListItem> Products { get; set; }
 
         [Required]
         [Display(Name = "Quantity")]
@@ -72,11 +69,44 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         public List<decimal> Total { get; set; }
     }
 
-    public class StockUpdate
+    public class PurchaseDetailViewModel
     {
-        public long ProductId { get; set; }
-        public int Quantity { get; set; }
-        public decimal BuyingPrice { get; set; }
-        public decimal SalePrice { get; set; }
+        public long Id { get; set; }
+
+        [Display(Name = "Purchase No")]
+        public string PurchaseNo { get; set; }
+
+        [Display(Name = "Purchase Date")]
+        public DateTime PurchaseDate { get; set; }
+
+        [Display(Name = "Details")]
+        public string Details { get; set; }
+
+        [Display(Name = "Grand Total")]
+        public decimal GrandTotal { get; set; }
+
+        [Display(Name = "Modified By")]
+        public long ModifiedBy { get; set; }
+
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; }
+
+        [Display(Name = "Created By")]
+        public long CreatedBy { get; set; }
+
+        [Display(Name = "Created Date")]
+        public DateTime CreatedDate { get; set; }
+        public List<DetailsViewModel> PurchaseDetails { get; set; }
+
+        public class DetailsViewModel
+        {
+            public long Id { get; set; }
+            public long SupplierId { get; set; }
+            public long ProductId { get; set; }
+            public long PurchaseId { get; set; }
+            public int Quantity { get; set; }
+            public decimal Price { get; set; }
+            public decimal Total { get; set; }
+        }
     }
 }

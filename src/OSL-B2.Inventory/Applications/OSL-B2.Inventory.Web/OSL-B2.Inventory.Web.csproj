@@ -1982,6 +1982,7 @@
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Purchase\New.cshtml" />
     <Content Include="Areas\Admin\Views\Purchase\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Purchase\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image.validate.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

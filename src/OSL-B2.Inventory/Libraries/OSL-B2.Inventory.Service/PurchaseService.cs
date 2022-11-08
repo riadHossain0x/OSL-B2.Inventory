@@ -22,6 +22,10 @@ namespace OSL_B2.Inventory.Service
         (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
 
+        #region Single instances
+        PurchaseDto GetPurchase(long id, string includeProperty);
+        #endregion
+
         #region Operations
         void AddPurchase(PurchaseDto entity, List<StockUpdateDto> stocks);
         void EditPurchase(PurchaseDto entity);
@@ -60,6 +64,28 @@ namespace OSL_B2.Inventory.Service
                 }
 
                 return (result.total, result.totalDisplay, purchases);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+        #endregion
+
+        #region Single instances
+        public PurchaseDto GetPurchase(long id, string includeProperty)
+        {
+            try
+            {
+                var count = _purchaseRepository.GetCount(x => x.Id == id && x.IsActive == Status.Active);
+
+                if (count == 0)
+                    throw new InvalidOperationException("There is no purchase found.");
+
+                var entity = _purchaseRepository.GetById(id, includeProperty);
+                var entityDto = Mapper.Map<PurchaseDto>(entity);
+                return entityDto;
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OSL_B2.Inventory.Service.Dtos;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
+using static OSL_B2.Inventory.Web.Areas.Admin.Models.PurchaseDetailViewModel;
 
 namespace WholeSale.Web.Profiles
 {
@@ -17,6 +18,8 @@ namespace WholeSale.Web.Profiles
             Mapper.CreateMap<ProductCreateViewModel, ProductDto>().ReverseMap();
             Mapper.CreateMap<ProductEditViewModel, ProductDto>().ReverseMap();
             Mapper.CreateMap<PurchaseCreateViewModel, PurchaseDto>().ReverseMap();
+            Mapper.CreateMap<PurchaseDetailViewModel, PurchaseDto>().ReverseMap();
+            Mapper.CreateMap<DetailsViewModel, PurchaseDetailDto>().ReverseMap();
         }
     }
 }
