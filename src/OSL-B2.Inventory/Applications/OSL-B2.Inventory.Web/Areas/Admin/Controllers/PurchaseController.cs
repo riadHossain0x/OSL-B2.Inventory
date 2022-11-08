@@ -149,12 +149,9 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 {
                     Logger.Error(ex.Message, ex);
                     ViewResponse(ex.Message, ResponseTypes.Danger);
-
-                    return RedirectToAction(nameof(Index));
                 }
             }
-
-            ViewResponse("Failed to process request, please check you inputs.", ResponseTypes.Danger);
+            else { ViewResponse("Failed to process request, please check you inputs.", ResponseTypes.Danger); }    
 
             var categories = _categoryService.LoadAllCategories();
             ViewBag.Categories = categories;

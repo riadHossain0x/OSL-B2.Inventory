@@ -78,7 +78,7 @@ namespace OSL_B2.Inventory.Service
                                                                                             x.IsActive == Status.Active);
 
                 if (count > 0)
-                    throw new InvalidOperationException("There is a purchase with same Purchase Number already exist.");
+                    throw new InvalidOperationException("There is a purchase with same Purchase No already exist.");
 
                 var purchase = Mapper.Map<Purchase>(entity);
 
@@ -94,9 +94,9 @@ namespace OSL_B2.Inventory.Service
                             foreach (var stock in stocks)
                             {
                                 var product = context.Products.Find(stock.ProductId);
-                                product.Quantity += stock.Quantity;
                                 product.BuyingPrice = ((product.BuyingPrice * product.Quantity) + (stock.BuyingPrice * stock.Quantity)) / (product.Quantity + stock.Quantity);
                                 product.SalePrice = ((product.SalePrice * product.Quantity) + (stock.SalePrice * stock.Quantity)) / (product.Quantity + stock.Quantity);
+                                product.Quantity += stock.Quantity;
                                 context.Products.AddOrUpdate(product);
                                 context.SaveChanges();
                             }
@@ -113,10 +113,6 @@ namespace OSL_B2.Inventory.Service
                         }
                     }
                 };
-
-
-                //_purchaseRepository.Add(purchase);
-                //_purchaseRepository.SaveChanages();
             }
             catch (Exception ex)
             {
@@ -135,7 +131,7 @@ namespace OSL_B2.Inventory.Service
                 var count = _purchaseRepository.GetCount(x => x.PurchaseNo == entity.PurchaseNo && x.IsActive == Status.Active && 
                                                                                                         x.Id != entity.Id);
                 if (count > 0)
-                    throw new InvalidOperationException("There is a purchase with same Purchase Number already exist.");
+                    throw new InvalidOperationException("There is a purchase with same Purchase No already exist.");
 
                 var purchase = Mapper.Map<Purchase>(entity);
                 _purchaseRepository.Edit(purchase);
