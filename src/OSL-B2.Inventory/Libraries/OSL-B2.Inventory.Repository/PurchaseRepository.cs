@@ -12,7 +12,7 @@ namespace OSL_B2.Inventory.Repository
     public interface IPurchaseRepository
     {
         #region Load instances
-        (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> filter = null,
+        (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> datefilter = null, Expression<Func<Purchase, bool>> filter = null,
             string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null);
         #endregion
 
@@ -46,20 +46,24 @@ namespace OSL_B2.Inventory.Repository
         #endregion
 
         #region Load instances
-        public (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> filter = null,
+        public (IList<Purchase> data, int total, int totalDisplay) LoadAll(Expression<Func<Purchase, bool>> datefilter = null, Expression<Func<Purchase, bool>> filter = null,
             string includeProperties = null, int pageIndex = 1, int pageSize = 10, string sortBy = null, string sortDir = null)
         {
             IQueryable<Purchase> query = _context.Purchases;
             query = query.Where(x => x.IsActive == Status.Active);
 
             var total = query.Count();
-            var totalDisplay = query.Count();
 
             if (filter != null)
             {
                 query = query.Where(filter);
-                totalDisplay = query.Count();
             }
+            if (datefilter != null)
+            {
+                query = query.Where(datefilter);
+            }
+
+            var totalDisplay = query.Count();
 
             foreach (var includeProperty in includeProperties.Split
                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

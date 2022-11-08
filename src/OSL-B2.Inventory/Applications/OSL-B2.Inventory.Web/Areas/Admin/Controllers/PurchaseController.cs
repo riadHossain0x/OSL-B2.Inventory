@@ -44,9 +44,18 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                DateTime startDate = default;
+                DateTime endDate = default;
+
+                if (filter != null)
+                {
+                    var dates = filter.Split('-');
+                    startDate = DateTime.Parse(dates[0]);
+                    endDate = DateTime.Parse(dates[1]);
+                }
                 var model = new DataTablesAjaxRequestModel(Request);
 
-                var data = _purchaseService.LoadAllPurchases(model.SearchText, model.Length, model.Start, model.SortColumn,
+                var data = _purchaseService.LoadAllPurchases(startDate, endDate, model.SearchText, model.Length, model.Start, model.SortColumn,
                     model.SortDirection);
 
                 var count = 1;

@@ -171,11 +171,16 @@
                     setTimeout(function () {
                         var date = $("#reservation").val();
                         var filterDate = date.split(' ').join('');
-                        console.log(filterDate);
                         $('#table').DataTable().destroy();
                         dataTableFunc(filterDate);
                     }, 50);
                 });
+
+            $(".cancelBtn").on("click", function () {
+                $("#reservation").val("");
+                $('#table').DataTable().destroy();
+                dataTableFunc();
+            });
         });
     </script>
 }

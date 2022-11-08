@@ -19,7 +19,7 @@ namespace OSL_B2.Inventory.Service
     public interface IPurchaseService
     {
         #region Load instances
-        (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(string searchBy, int take, int skip, string sortBy, string sortDir);
+        (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(DateTime startDate, DateTime endDate, string searchBy, int take, int skip, string sortBy, string sortDir);
         #endregion
 
         #region Single instances
@@ -46,16 +46,22 @@ namespace OSL_B2.Inventory.Service
         #endregion
 
         #region Load instances
-        public (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
+        public (int total, int totalDisplay, IList<PurchaseDto> records) LoadAllPurchases(DateTime startDate, DateTime endDate, string searchBy = null, int length = 10, int start = 1, string sortBy = null, string sortDir = null)
         {
             try
             {
-                Expression<Func<Purchase, bool>> filter = null;
+                Expression<Func<Purchase, bool>> searchFilter = null;
+                Expression<Func<Purchase, bool>> dateFilter = null;
                 if (searchBy != null)
                 {
-                    filter = x => x.PurchaseNo.Contains(searchBy);
+                    searchFilter = x => x.PurchaseNo.Contains(searchBy);
                 }
-                var result = _purchaseRepository.LoadAll(filter, string.Empty, start, length, sortBy, sortDir);
+                if(startDate != default && endDate != default)
+                {
+                    dateFilter = (x => x.PurchaseDate >= startDate && x.PurchaseDate <= endDate);
+                }
+
+                var result = _purchaseRepository.LoadAll(dateFilter, searchFilter, string.Empty, start, length, sortBy, sortDir);
 
                 List<PurchaseDto> purchases = new List<PurchaseDto>();
                 foreach (Purchase purchase in result.data)
