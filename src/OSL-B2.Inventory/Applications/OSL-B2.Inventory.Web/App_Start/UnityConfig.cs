@@ -4,6 +4,7 @@ using Unity.Injection;
 using Unity.Mvc5;
 using OSL_B2.Inventory.Web.Areas.Admin.Controllers;
 using OSL_B2.Inventory.Service;
+using OSL_B2.Inventory.Web.Controllers;
 
 namespace OSL_B2.Inventory.Web
 {

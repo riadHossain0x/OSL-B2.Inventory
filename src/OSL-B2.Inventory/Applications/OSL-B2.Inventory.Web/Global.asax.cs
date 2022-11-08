@@ -19,5 +19,11 @@ namespace OSL_B2.Inventory.Web
             log4net.Config.XmlConfigurator.Configure();
             Mapper.Initialize(x => { x.AddProfile<WebProfile>(); x.AddProfile<ServiceProfile>(); });
         }
+
+        protected void Application_Error()
+        {
+            Server.ClearError();
+            Response.Redirect("/Error/Index");
+        }
     }
 }
