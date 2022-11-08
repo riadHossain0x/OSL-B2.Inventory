@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" />
     <link rel="stylesheet" href="~/Content/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <style>
+        div.dataTables_wrapper {
+            text-align: left;
+        }
+
+        div.dataTables_filter {
+            text-align: right;
+        }
+    </style>
 }
 <div class="card">
     <div class="card-header">
@@ -24,7 +35,17 @@
         </div>
     </div>
     <div class="card-body">
-        <table id="table" class="table table-bordered table-striped">
+        <div class="row float-sm-left pr-2">
+            <div class="col-12">
+                <a>Date: </a>
+            </div>
+        </div>
+        <div class="row float-sm-left">
+            <div class="col-12">
+                <input type="text" class="form-control form-control-sm" id="reservation">
+            </div>
+        </div>
+        <table id="table" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -43,6 +64,10 @@
 </div>
 @section Scripts
 {
+    <!-- InputMask -->
+    <script src="~/Content/adminlte/plugins/moment/moment.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/Content/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- DataTables  & Plugins -->
     <script src="~/Content/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Content/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -56,13 +81,19 @@
     <script>
         var dt = "";
         $(document).ready(function () {
-            dt = $('#table').DataTable({
+            dataTableFunc();
+        });
+        function dataTableFunc(filterDate) {
+            $('#table').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
                     "url": "/admin/purchase/GetPurchases",
                     "type": "POST",
                     "datatype": "json",
+                    "data": {
+                        'filter': filterDate
+                    }
                 },
 
                 "columns": [
@@ -103,7 +134,7 @@
 
                 "order": [1, 'asc']
             });
-        });
+        }
     </script>
     <script>
         $('#table').on('click', '.delete-modal', function (event) {
@@ -116,17 +147,35 @@
                         data: { 'id': id },
                         success: function (data) {
                             var html = `<div id="alertMessage" class="alert alert-${data.Type} alert-dismissible" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
-                                                </button>
-                                                                            ${data.Message}
-                                                                        </div>`;
+                                                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                                                                        </button>
+                                                                                                                    ${data.Message}
+                                                                                                                </div>`;
                             $("#alertMessage").remove();
                             $(html).insertAfter('#responseMessage');
-                            dt.ajax.reload();
+                            $('#table').DataTable().ajax.reload();
                         }
                     });
                 },
                 function () { });
+        });
+    </script>
+    <script>
+        //Date range picker
+        $(function () {
+            $('#reservation').daterangepicker({
+                    //singleDatePicker: true,
+                    //showDropdowns: true
+                },
+                function () {
+                    setTimeout(function () {
+                        var date = $("#reservation").val();
+                        var filterDate = date.split(' ').join('');
+                        console.log(filterDate);
+                        $('#table').DataTable().destroy();
+                        dataTableFunc(filterDate);
+                    }, 50);
+                });
         });
     </script>
 }

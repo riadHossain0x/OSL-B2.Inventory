@@ -40,7 +40,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult GetPurchases()
+        public JsonResult GetPurchases(string filter)
         {
             try
             {
