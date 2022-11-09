@@ -287,12 +287,18 @@
 
         // Calculate total price (quantity * price)
         function calculateTotal(elementId) {
+            if (!ValidateQty(elementId)) {
+                $("#spanQuantity").html("Qty must be less then Available Qty.");
+                return false;
+            }
+
             var qtyValue = $("#Quantity-" + elementId).val();
             var rateValue = $("#Price-" + elementId).val();
 
             var total = rateValue * qtyValue;
             $("#Total-" + elementId).val(total);
 
+            $("#spanQuantity").html("");
             calculateGrandTotal();
         }
 
@@ -324,6 +330,14 @@
             $("#Due").val(dueVal);
         }
 
+        function ValidateQty(elementId) {
+            var availableQty = $("#AvailableQty-" + elementId).val();
+            var currentQty = $("#Quantity-" + elementId).val();
+            if (+currentQty > +availableQty) {
+                return false;
+            }
+            return true;
+        }
     </script>
 
     <script type="text/javascript">
@@ -334,18 +348,6 @@
                     //allowClear: true,
                     /*  theme: "classic"*/
                 });
-
-            $("#PaidAmount").on("input", function () {
-                calculateDueAmount();
-            });
-
-            function ValidateQty() {
-                var availableQty = $("AvailableQty").val();
-                var currentQty = $("Quantity").val();
-                if (currentQty > availableQty) {
-                    $("#spanQuantity").html("The Quantity must be less then Available Quantity.");
-                }
-            }
         });
     </script>
 }
