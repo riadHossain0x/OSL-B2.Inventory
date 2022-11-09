@@ -84,11 +84,7 @@
                                 <th class="text-center">
                                     <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
                                 </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th class="text-right">Grand Total:</th>
+                                <th colspan="5" class="text-right">Grand Total:</th>
                                 <th>
                                     <input class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Grand Total must be a number." data-val-required="The Grand Total field is required." id="GrandTotal" name="GrandTotal" type="text" value="0.00" readonly>
                                     <span class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
@@ -112,19 +108,7 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
-        function format() {
-            var args = arguments;
-            if (args.length <= 1) {
-                return args;
-            }
-            var result = args[0];
-            for (var i = 1; i < args.length; i++) {
-                result = result.replace(new RegExp("\\{" + (i - 1) + "\\}", "g"), args[i]);
-            }
-            return result;
-        }
-    </script>
+    <script src="~/Content/js/site.js"></script>
     <script>
         var render = "";
         var count = 0;
@@ -146,7 +130,7 @@
                               <td style="width:15%">
                                   <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
                                   <select onchange="GetProducts(this, 'product-{0}');" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
-                                      <option value="null">Select Category</option>
+                                      <option value="null">Select a Category</option>
                                       @if(ViewBag.Categories != null)
                                       {
                                           foreach(var category in ViewBag.Categories)
@@ -285,7 +269,7 @@
                     $('#' + element).empty();
                     $('#' + element).append($('<option>', {
                         value: 'null',
-                        text: 'Select Product'
+                        text: 'Select a Product'
                     }));
                     $.each(data, function (i, item) {
                         $('#' + element).append($('<option>', {

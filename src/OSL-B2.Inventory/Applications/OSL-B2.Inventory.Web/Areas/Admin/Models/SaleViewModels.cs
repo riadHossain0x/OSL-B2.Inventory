@@ -7,7 +7,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 {
     public class SaleCreateViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "The Customer Name field is required.")]
         [Display(Name = "Customer Name")]
         public long CustomerId { get; set; }
         public List<SelectListItem> Customers { get; set; }
