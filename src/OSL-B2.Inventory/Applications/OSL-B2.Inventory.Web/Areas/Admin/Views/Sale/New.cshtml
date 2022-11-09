@@ -248,6 +248,7 @@
                     $("#spanTotal").html("The Total field is required");
                     $("#spanProduct").html("");
                     $("#spanCategory").html("");
+                    $("#spanCustomer").html("");
                     error++;
                 }
             });
@@ -272,6 +273,9 @@
 
             if ($("#customer").val() == '-1') {
                 $("#spanCustomer").html("The Customer field is required.")
+                $("#spanCategory").html("");
+                $("#spanProduct").html("");
+                $("#spanTotal").html("");
                 error++;
             }
 

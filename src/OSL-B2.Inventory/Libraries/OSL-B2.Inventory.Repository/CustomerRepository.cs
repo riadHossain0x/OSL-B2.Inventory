@@ -92,7 +92,10 @@ namespace OSL_B2.Inventory.Repository
 
         public IList<Customer> LoadAll()
         {
-            return _context.Customers.ToList();
+            IQueryable<Customer> query = _context.Customers;
+            var obj = query.Select(x => new { Id = x.Id, Name = x.Name});
+
+            return obj.ToList().Select(x => new Customer { Id = x.Id, Name = x.Name}).ToList();
         }
         #endregion
 

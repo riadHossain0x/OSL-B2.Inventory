@@ -34,6 +34,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 Value = x.Id.ToString(),
                 Text = x.Name
             }).ToList();
+            model.Customers.Insert(0, new SelectListItem { Value = "-1", Text = "Select a Customer" });
 
             var categories = _categoryService.LoadAllCategories();
             ViewBag.Categories = categories;
