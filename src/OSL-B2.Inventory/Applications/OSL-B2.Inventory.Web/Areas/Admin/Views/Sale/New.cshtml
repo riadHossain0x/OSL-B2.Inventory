@@ -78,23 +78,23 @@
                                 <th class="text-center" style="width:8%">Action</th>
                             </tr>
                         </thead>
-                       <tbody>
-                           <tr id="section-{0}">
-                               <th>Category-1</th>
-                               <th>Product-1</th>
-                               <th class="text-right" style="width:12%">1</th>
-                               <th class="text-right" style="width:12%">1.00</th>
-                               <th class="text-right" style="width:20%">
-                                   <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
-                                   <input class="form-control text-box single-line text-right total" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
-                               </th>
-                               <th class="text-center" style="width:8%">
-                                   <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
-                                       <i class="fas fa-trash"></i>
-                                   </button>
-                               </th>
-                           </tr>
-                       </tbody>
+                        <tbody>
+                            <tr id="section-{0}">
+                                <th style="width:25%">Category-1</th>
+                                <th style="width:25%">Product-1</th>
+                                <th class="text-right" style="width:12%">1</th>
+                                <th class="text-right" style="width:12%">1.00</th>
+                                <th class="text-right" style="width:20%">
+                                    <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                    <input class="form-control text-box single-line text-right total" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
+                                </th>
+                                <th class="text-center" style="width:8%">
+                                    <button type="button" id="btnDelete" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </tbody>
                         <tfoot>
                             <tr>
                                 <th colspan="4" class="text-right">@Html.DisplayNameFor(model => model.GrandTotal):</th>
@@ -104,7 +104,9 @@
                                 <th></th>
                             </tr>
                             <tr>
-                                <th></th>
+                                <th class="text-center">
+                                    <button type="button" id="btnAdd" class="btn btn-sm btn-info m-1" style="width:80%">Add New Item</button>
+                                </th>
                                 <th colspan="3" class="text-right">@Html.DisplayNameFor(model => model.PaidAmount):</th>
                                 <th>
                                     @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control text-right" } })
@@ -112,7 +114,16 @@
                                 <th></th>
                             </tr>
                             <tr>
-                                <th></th>
+                                <th>
+                                    <div class="text-center row">
+                                        <div class="col-md-6">
+                                            <button type="submit" id="btnSubmit" class="btn btn-sm btn-primary m-1" style="width:80%">Submit</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="btnFullPaid" class="btn btn-sm btn-warning m-1" style="width:80%">Full Paid</button>
+                                        </div>
+                                    </div>
+                                </th>
                                 <th colspan="3" class="text-right">@Html.DisplayNameFor(model => model.Due):</th>
                                 <th>
                                     @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control text-right" } })
@@ -130,6 +141,7 @@
 
 @section Scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -137,7 +149,7 @@
                 {
                     //placeholder: "Select a product",
                     //allowClear: true,
-                  /*  theme: "classic"*/
+                    /*  theme: "classic"*/
                 });
         });
     </script>
