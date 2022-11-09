@@ -338,6 +338,14 @@
             $("#PaidAmount").on("input", function () {
                 calculateDueAmount();
             });
+
+            function ValidateQty() {
+                var availableQty = $("AvailableQty").val();
+                var currentQty = $("Quantity").val();
+                if (currentQty > availableQty) {
+                    $("#spanQuantity").html("The Quantity must be less then Available Quantity.");
+                }
+            }
         });
     </script>
 }
