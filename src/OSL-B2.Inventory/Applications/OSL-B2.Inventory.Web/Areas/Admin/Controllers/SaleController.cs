@@ -2,6 +2,7 @@
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
@@ -10,11 +11,13 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
     {
         private readonly IAccountAdapter _accountAdapter;
         private readonly ICategoryService _categoryService;
+        private readonly ICustomerService _customerService;
 
-        public SaleController(IAccountAdapter accountAdapter, ICategoryService categoryService)
+        public SaleController(IAccountAdapter accountAdapter, ICategoryService categoryService, ICustomerService customerService)
         {
             _accountAdapter = accountAdapter;
             _categoryService = categoryService;
+            _customerService = customerService;
         }
 
         // GET: Admin/Sale
@@ -26,8 +29,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public ActionResult New()
         {
             var model = new SaleCreateViewModel();
-            model.Customers = new List<SelectListItem> { new SelectListItem { Value = "null", Text = "Select a Customer" }, 
-                new SelectListItem { Value = "1", Text = "Pen" } };
+            model.Customers = _customerService.LoadAllCustomers().Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).ToList();
 
             var categories = _categoryService.LoadAllCategories();
             ViewBag.Categories = categories;

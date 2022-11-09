@@ -23,6 +23,7 @@ namespace OSL_B2.Inventory.Service
 
         #region Load instances
         (int total, int totalDisplay, IList<CustomerDto> records) LoadAllCustomers(string searchBy, int take, int skip, string sortBy, string sortDir);
+        List<CustomerDto> LoadAllCustomers();
         #endregion
     }
 
@@ -145,6 +146,20 @@ namespace OSL_B2.Inventory.Service
                 }
 
                 return (result.total, result.totalDisplay, customers);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                throw;
+            }
+        }
+        
+        public List<CustomerDto> LoadAllCustomers()
+        {
+            try
+            {
+                var entities = _customerRepository.LoadAll();
+                return Mapper.Map<List<CustomerDto>>(entities);
             }
             catch (Exception ex)
             {

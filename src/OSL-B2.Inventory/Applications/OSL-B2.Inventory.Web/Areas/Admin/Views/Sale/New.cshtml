@@ -270,7 +270,7 @@
                 }
             });
 
-            if ($("#customer").val() == 'null') {
+            if ($("#customer").val() == '-1') {
                 $("#spanCustomer").html("The Customer field is required.")
                 error++;
             }
@@ -314,19 +314,14 @@
         }
     </script>
 
-    @*<script type="text/javascript">
+    <script type="text/javascript">
         $(function () {
-            select2Init();
+            $("#customer").select2(
+                {
+                    //placeholder: "Select a product",
+                    //allowClear: true,
+                    /*  theme: "classic"*/
+                });
         });
-        function select2Init() {
-            $("#customer, .category, .product").each(function () {
-                $(this).select2(
-                    {
-                        //placeholder: "Select a product",
-                        //allowClear: true,
-                        /*  theme: "classic"*/
-                    });
-            })
-        }
-    </script>*@
+    </script>
 }
