@@ -20,10 +20,10 @@ namespace OSL_B2.Inventory.Web
             Mapper.Initialize(x => { x.AddProfile<WebProfile>(); x.AddProfile<ServiceProfile>(); });
         }
 
-        protected void Application_Error()
-        {
-            Server.ClearError();
-            Response.Redirect("/Error/Index");
-        }
+        //protected void Application_Error()
+        //{
+        //    Server.ClearError();
+        //    Response.Redirect("/Error/Index");
+        //}
     }
 }

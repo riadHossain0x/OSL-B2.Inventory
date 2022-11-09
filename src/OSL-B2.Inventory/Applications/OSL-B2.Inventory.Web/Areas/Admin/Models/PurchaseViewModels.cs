@@ -23,12 +23,6 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         [MaxLength(256, ErrorMessage = "Purchase details must be less then 256 charecter.")]
         public string Details { get; set; }
-        
-        [Required]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(19, 2)")]
-        [Display(Name = "Grand Total")]
-        public decimal GrandTotal { get; set; }
 
         // Purchase Details
         [Required]
@@ -67,6 +61,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Column(TypeName = "decimal(19, 2)")]
         [Display(Name = "Total")]
         public List<decimal> Total { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(19, 2)")]
+        [Display(Name = "Grand Total")]
+        public decimal GrandTotal { get; set; }
     }
 
     public class PurchaseDetailViewModel

@@ -208,11 +208,13 @@
     <Compile Include="Areas\Admin\Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\PurchaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SaleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Models\CategoryViewModels.cs" />
     <Compile Include="Areas\Admin\Models\CustomerViewModels.cs" />
     <Compile Include="Areas\Admin\Models\ProductViewModels.cs" />
     <Compile Include="Areas\Admin\Models\PurchaseViewModels.cs" />
+    <Compile Include="Areas\Admin\Models\SaleViewModels.cs" />
     <Compile Include="Areas\Admin\Models\SupplierViewModel.cs" />
     <Compile Include="Attributes\AuthorizationCheckerAttribute.cs" />
     <Compile Include="Attributes\ValidateEachItemAttribute.cs" />
@@ -1984,6 +1986,7 @@
     <Content Include="Areas\Admin\Views\Purchase\New.cshtml" />
     <Content Include="Areas\Admin\Views\Purchase\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Purchase\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Sale\New.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image.validate.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

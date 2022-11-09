@@ -1,0 +1,119 @@
+﻿@using System.Dynamic
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.SaleCreateViewModel
+@{
+    ViewData["Title"] = "New Sale";
+    ViewBag.PageNav = "New";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Sale";
+    MidNav.Link = "/Admin/Sale/";
+    ViewBag.MidNav = MidNav;
+}
+@section Styles
+{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-selection__rendered {
+            line-height: 24px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 34px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+    </style>
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">New Sale Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Sale" class="btn btn-primary btn-sm">Manage Sale</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("New", "Sale", new { area = "Admin" }, FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.CustomerId, new SelectList(Model.Customers, "Value", "Text"),
+                                                                htmlAttributes: new { @class = "form-control", id = "category" })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label" })
+                    <i class="text-danger">*</i>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Category</th>
+                                <th class="text-center">Product</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center" style="width:15%">Total</th>
+                                <th class="text-center" style="width:8%">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" class="text-right">Grand Total:</th>
+                                <th>
+                                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control text-right", @disabled = "disabled" } })
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th colspan="3" class="text-right">Paid Amount:</th>
+                                <th>
+                                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control text-right", @disabled = "disabled" } })
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#category").select2(
+                {
+                    //placeholder: "Select a product",
+                    //allowClear: true,
+                  /*  theme: "classic"*/
+                });
+        });
+    </script>
+}
