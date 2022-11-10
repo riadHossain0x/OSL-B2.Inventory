@@ -93,9 +93,9 @@ namespace OSL_B2.Inventory.Repository
         public IList<Customer> LoadAll()
         {
             IQueryable<Customer> query = _context.Customers;
-            var obj = query.Select(x => new { Id = x.Id, Name = x.Name});
+            var obj = query.Select(x => new { Id = x.Id, Name = x.Name, Mobile = x.Mobile });
 
-            return obj.ToList().Select(x => new Customer { Id = x.Id, Name = x.Name}).ToList();
+            return obj.ToList().Select(x => new Customer { Id = x.Id, Name = x.Name, Mobile = x.Mobile}).ToList();
         }
         #endregion
 

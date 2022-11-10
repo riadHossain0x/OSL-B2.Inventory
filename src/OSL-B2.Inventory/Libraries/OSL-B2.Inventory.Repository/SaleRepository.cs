@@ -73,8 +73,14 @@ namespace OSL_B2.Inventory.Repository
             //sorting
             switch (sortBy)
             {
-                case "Purchase No.":
+                case "Customer Name":
                     query = sortDir == "asc" ? query.OrderBy(c => c.Customer.Name) : query.OrderByDescending(c => c.Customer.Name);
+                    break;
+                case "Total Amount":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.GrandTotal) : query.OrderByDescending(c => c.GrandTotal);
+                    break;
+                case "Discount Amount":
+                    query = sortDir == "asc" ? query.OrderBy(c => c.DiscountTotal) : query.OrderByDescending(c => c.DiscountTotal);
                     break;
                 case "Created By":
                     query = sortDir == "asc" ? query.OrderBy(c => c.CreatedBy) : query.OrderByDescending(c => c.CreatedBy);

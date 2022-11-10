@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OSL_B2.Inventory.Service;
 using OSL_B2.Inventory.Service.Dtos;
+using OSL_B2.Inventory.Service.Exceptions;
 using OSL_B2.Inventory.Web.Adapters;
 using OSL_B2.Inventory.Web.Areas.Admin.Models;
 using OSL_B2.Inventory.Web.Models;
@@ -14,6 +15,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
     public class SaleController : AdminBaseController<SaleController>
     {
+        #region Initialization
         private readonly IAccountAdapter _accountAdapter;
         private readonly ICategoryService _categoryService;
         private readonly ICustomerService _customerService;
@@ -26,7 +28,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             _categoryService = categoryService;
             _customerService = customerService;
             _saleService = saleService;
-        }
+        } 
+        #endregion
 
         // GET: Admin/Sale
         public ActionResult Index()
@@ -34,13 +37,63 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public JsonResult GetSales(string filter)
+        {
+            try
+            {
+                DateTime startDate = default;
+                DateTime endDate = default;
+
+                if (filter != null)
+                {
+                    var dates = filter.Split('-');
+                    startDate = DateTime.Parse(dates[0]);
+                    endDate = DateTime.Parse(dates[1]);
+                }
+                var model = new DataTablesAjaxRequestModel(Request);
+
+                var data = _saleService.LoadAllSales(startDate, endDate, model.SearchText, model.Length, model.Start, model.SortColumn,
+                    model.SortDirection);
+
+                var count = 1;
+
+                return Json(new
+                {
+                    draw = Request["draw"],
+                    recordsTotal = data.total,
+                    recordsFiltered = data.totalDisplay,
+                    data = (from record in data.records
+                            select new string[]
+                            {
+                                count++.ToString(),
+                                _customerService.GetCustomer(record.CustomerId).Name,
+                                record.SaleDate.ToShortDateString(),
+                                record.GrandTotal.ToString(),
+                                record.DiscountTotal.ToString(),
+                                _accountAdapter.FindById(record.ModifiedBy).Email,
+                                record.ModifiedDate.ToString(),
+                                _accountAdapter.FindById(record.CreatedBy).Email,
+                                record.CreatedDate.ToString(),
+                                record.Id.ToString()
+                            }
+                        ).ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+            }
+            return default(JsonResult);
+        }
+
+        #region Operations
         public ActionResult New()
         {
             var model = new SaleCreateViewModel();
             model.Customers = _customerService.LoadAllCustomers().Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
-                Text = x.Name
+                Text = string.Format($"{x.Name} - {x.Mobile}")
             }).ToList();
             model.Customers.Insert(0, new SelectListItem { Value = "-1", Text = "Select a Customer" });
 
@@ -112,5 +165,27 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public JsonResult Delete(long id)
+        {
+            try
+            {
+                _saleService.RemoveSale(id);
+
+                return Json(ViewResponse("Sale successfully deleted!", string.Empty, ResponseTypes.Success));
+            }
+            catch (InnerElementException ie)
+            {
+                return Json(ViewResponse(ie.Message, string.Empty, ResponseTypes.Danger));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+
+                return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
+            }
+        }
+        #endregion
     }
 }
