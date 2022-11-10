@@ -19,10 +19,12 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public ManageController()
         {
+            Menu(nameof(ManageController));
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+            Menu(nameof(ManageController));
             UserManager = userManager;
             SignInManager = signInManager;
         }

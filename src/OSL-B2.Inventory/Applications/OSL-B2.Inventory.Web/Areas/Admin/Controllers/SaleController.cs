@@ -24,6 +24,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public SaleController(IAccountAdapter accountAdapter, ICategoryService categoryService, ICustomerService customerService,
             ISaleService saleService)
         {
+            Menu(nameof(SaleController));
+
             _accountAdapter = accountAdapter;
             _categoryService = categoryService;
             _customerService = customerService;

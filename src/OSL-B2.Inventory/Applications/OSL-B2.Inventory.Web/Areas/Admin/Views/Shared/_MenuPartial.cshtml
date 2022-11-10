@@ -1,17 +1,58 @@
-﻿<nav class="mt-2">
+﻿@using OSL_B2.Inventory.Web.Areas.Admin.Controllers
+@{ 
+    var menuOpen = ViewData["Menu"];
+    var menuActive = ViewData["SubMenu"];
+
+    string saleOpen = string.Empty, categoryOpen = string.Empty, productOpen = string.Empty,
+        customerOpen = string.Empty, supplierOpen = string.Empty, purchaseOpen = string.Empty, repostsOpen = string.Empty;
+
+    string homeActive = string.Empty, settingsActive = string.Empty;
+
+    switch (menuOpen)
+    {
+        case nameof(SaleController):
+            saleOpen = "menu open menu-open";
+            break;
+        case nameof(CategoryController):
+            categoryOpen = "menu open menu-open";
+            break;
+        case nameof(ProductController):
+            productOpen = "menu open menu-open";
+            break;
+        case nameof(CustomerController):
+            customerOpen = "menu open menu-open";
+            break;
+        case nameof(SupplierController):
+            supplierOpen = "menu open menu-open";
+            break;
+        case nameof(PurchaseController):
+            purchaseOpen = "menu open menu-open";
+            break;
+        //case nameof(ReportController):
+        //    reports = "menu open menu-open";
+        //    break;
+        case nameof(ManageController):
+            settingsActive = "active";
+            break;
+        default:
+            homeActive = "active";
+            break;
+    }
+}
+<nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
         <li class="nav-item">
-            <a href="/Admin/Home/Index" class="nav-link active">
+            <a href="/Admin/Home/Index" class="nav-link @homeActive">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Dashboard
                 </p>
             </a>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @saleOpen">
+            <a href="#" class="nav-link @(saleOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-cart-plus"></i>
                 <p>
                     Sale
@@ -33,8 +74,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @categoryOpen">
+            <a href="#" class="nav-link @(categoryOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-plus-square"></i>
                 <p>
                     Category
@@ -56,8 +97,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @productOpen">
+            <a href="#" class="nav-link @(productOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-plus-square"></i>
                 <p>
                     Product
@@ -79,8 +120,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @customerOpen">
+            <a href="#" class="nav-link @(customerOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                     Customer
@@ -102,8 +143,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @supplierOpen">
+            <a href="#" class="nav-link @(supplierOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-user-tie"></i>
                 <p>
                     Supplier
@@ -125,8 +166,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @purchaseOpen">
+            <a href="#" class="nav-link @(purchaseOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-table"></i>
                 <p>
                     Purchase
@@ -148,8 +189,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+        <li class="nav-item has-treeview @repostsOpen">
+            <a href="#" class="nav-link @(repostsOpen!=string.Empty?"active":string.Empty)">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
                     Reports
@@ -184,7 +225,7 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a href="/Admin/Manage" class="nav-link">
+            <a href="/Admin/Manage" class="nav-link @settingsActive">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                     Settings

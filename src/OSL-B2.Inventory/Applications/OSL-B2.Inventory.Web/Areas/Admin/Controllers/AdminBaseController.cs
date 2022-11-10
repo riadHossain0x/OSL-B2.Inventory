@@ -14,5 +14,15 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             
         }
+
+        public void Menu(string name)
+        {
+            ViewData["Menu"] = name;
+        }
+
+        public void SubMenu(string name)
+        {
+            ViewData["SubMenu"] = name;
+        }
     }
 }

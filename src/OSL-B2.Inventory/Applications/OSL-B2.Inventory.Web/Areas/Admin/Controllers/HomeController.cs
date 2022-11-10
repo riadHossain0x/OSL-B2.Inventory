@@ -6,6 +6,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
     {
         public HomeController()
         {
+            Menu(nameof(HomeController));
         }
 
         public ActionResult Index()

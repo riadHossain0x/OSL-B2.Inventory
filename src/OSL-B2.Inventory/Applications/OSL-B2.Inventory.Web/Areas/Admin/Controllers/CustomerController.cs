@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 {
-    public class CustomerController : BaseController<CustomerController>
+    public class CustomerController : AdminBaseController<CustomerController>
     {
         #region initialization
         private readonly IAccountAdapter _accountAdapter;
@@ -20,6 +20,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public CustomerController(IAccountAdapter accountAdapter, ICustomerService customerService)
         {
+            Menu(nameof(CustomerController));
+
             _accountAdapter = accountAdapter;
             _customerService = customerService;
         } 

@@ -20,6 +20,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public CategoryController(ICategoryService categoryService, IAccountAdapter accountAdapter)
         {
+            Menu(nameof(CategoryController));
+
             _categoryService = categoryService;
             _accountAdapter = accountAdapter;
         } 

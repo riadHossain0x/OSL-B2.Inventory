@@ -19,6 +19,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public SupplierController(ISupplierService supplierService, IAccountAdapter accountAdapter)
         {
+            Menu(nameof(SupplierController));
+
             _supplierService = supplierService;
             _accountAdapter = accountAdapter;
         }

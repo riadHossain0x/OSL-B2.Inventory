@@ -21,6 +21,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public ProductController(IProductService productService ,ICategoryService categoryService, IAccountAdapter accountAdapter)
         {
+            Menu(nameof(PurchaseController));
+
             _productService = productService;
             _categoryService = categoryService;
             _accountAdapter = accountAdapter;

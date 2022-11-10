@@ -26,6 +26,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         public PurchaseController(IPurchaseService purchaseService, ISupplierService supplierService, ICategoryService categoryService,
             IProductService productService, IAccountAdapter accountAdapter)
         {
+            Menu(nameof(PurchaseController));
+
             _purchaseService = purchaseService;
             _supplierService = supplierService;
             _categoryService = categoryService;
