@@ -115,8 +115,8 @@
         $(document).ready(function () {
             render = `<tr id="section-{0}">
                               <td style="width:15%">
-                                  <span id="spanSupplier" class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
-                                  <select class="form-control valid" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
+                                  <span id="spanSupplier-{0}" class="field-validation-valid text-danger" data-valmsg-for="SupplierId" data-valmsg-replace="true"></span>
+                                  <select class="form-control valid supplier" data-val="true" data-val-number="The field Supplier must be a number." data-val-required="The Supplier field is required." id="supplier-{0}" name="SupplierId" aria-describedby="supplier-error" aria-invalid="false">
                                       <option value="null">Select Supplier</option>
                                       @if(ViewBag.Suppliers != null)
                                       {
@@ -128,8 +128,8 @@
                                   </select>
                               </td>
                               <td style="width:15%">
-                                  <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                  <select onchange="GetProducts(this, 'product-{0}');" class="form-control valid" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
+                                  <span id="spanCategory-{0}" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                  <select onchange="GetProducts(this, 'product-{0}');" class="form-control valid category" data-val="true" data-val-number="The field Category must be a number." data-val-required="The Category field is required." id="category-{0}" name="CategoryId" aria-describedby="category-error" aria-invalid="false">
                                       <option value="null">Select a Category</option>
                                       @if(ViewBag.Categories != null)
                                       {
@@ -141,24 +141,24 @@
                                   </select>
                               </td>
                               <td style="width:15%">
-                                  <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                  <span id="spanProduct-{0}" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
                                   <select class="form-control valid product" data-val="true" data-val-number="The field Product must be a number." data-val-required="The Product field is required." id="product-{0}" name="ProductId" aria-describedby="product-error" aria-invalid="false">
                                   </select>
                               </td>
                               <td style="width:12%">
-                                  <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                  <span id="spanQuantity-{0}" class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
                                   <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" min="0" value="0">
                               </td>
                               <td style="width:12%">
-                                  <span class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                  <span id="spanPrice-{0}" class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
                                   <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
-                                  <span id="spanSalePrice" class="field-validation-valid text-danger" data-valmsg-for="SalePrice" data-valmsg-replace="true"></span>
+                                  <span id="spanSalePrice-{0}" class="field-validation-valid text-danger" data-valmsg-for="SalePrice" data-valmsg-replace="true"></span>
                                   <input class="form-control text-box single-line text-right salePrice" data-val="true" data-val-number="The field Sale Price must be a number." data-val-required="The Sale Price field is required." id="Price-{0}" name="SalePrice" type="text" value="0.00">
                               </td>
                               <td style="width:12%">
-                                  <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                  <span id="spanTotal-{0}" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
                                   <input class="form-control text-box single-line text-right total" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" readonly>
                               </td>
                               <td class="text-center">
@@ -190,67 +190,77 @@
 
             $(".salePrice").each(function () {
                 if ($(this).val() == '0' || $(this).val() == '0.00') {
-                    $("#spanSalePrice").html("The Sale Price field is required")
-                    $("#spanTotal").html("");
-                    $("#spanProduct").html("");
-                    $("#spanCategory").html("");
-                    $("#spanSupplier").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanSalePrice-" + id).html("The Sale Price field is required")
+                    $("#spanTotal-" + id).html("");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanSupplier-" + id).html("");
                     error++;
                 }
             });
 
             $(".total").each(function () {
                 if ($(this).val() == '0' || $(this).val() == '0.00') {
-                    $("#spanTotal").html("The Total field is required");
-                    $("#spanProduct").html("");
-                    $("#spanCategory").html("");
-                    $("#spanSalePrice").html("")
-                    $("#spanSupplier").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanTotal-" + id).html("The Total field is required");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanSalePrice-" + id).html("")
+                    $("#spanSupplier-" + id).html("");
                     error++;
                 }
             });
 
             $(".product").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanProduct").html("The Product field is required.");
-                    $("#spanCategory").html("");
-                    $("#spanSupplier").html("");
-                    $("#spanSalePrice").html("")
-                    $("#spanTotal").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanProduct-" + id).html("The Product field is required.");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanSupplier-" + id).html("");
+                    $("#spanSalePrice-" + id).html("")
+                    $("#spanTotal-" + id).html("");
                     error++;
                 }
             });
 
-            $("[id=category]").each(function () {
+            $(".category").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanCategory").html("The Category field is required.");
-                    $("#spanSupplier").html("");
-                    $("#spanProduct").html("");
-                    $("#spanSalePrice").html("")
-                    $("#spanTotal").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanCategory-" + id).html("The Category field is required.");
+                    $("#spanSupplier-" + id).html("");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanSalePrice-" + id).html("")
+                    $("#spanTotal-" + id).html("");
                     error++;
                 }
             });
 
-            $("[id=supplier]").each(function () {
+            $(".supplier").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanSupplier").html("The Supplier field is required.");
-                    $("#spanCategory").html("");
-                    $("#spanProduct").html("");
-                    $("#spanSalePrice").html("")
-                    $("#spanTotal").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    console.log("Supplier");
+                    $("#spanSupplier-" + id).html("The Supplier field is required.");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanSalePrice-" + id).html("")
+                    $("#spanTotal-" + id).html("");
                     error++;
                 }
             });
 
             if (error > 0)
                 return false;
-
-            $("#spanSupplier").html("");
-            $("#spanCategory").html("");
-            $("#spanProduct").html("");
-            $("#spanSalePrice").html("")
-            $("#spanTotal").html("");
         });
 
         // Dropdown events

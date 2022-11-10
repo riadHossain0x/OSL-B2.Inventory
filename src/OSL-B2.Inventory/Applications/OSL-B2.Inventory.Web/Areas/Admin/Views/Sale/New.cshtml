@@ -260,7 +260,7 @@
                     $("#spanTotal-" + id).html("The Total field is required");
                     $("#spanProduct-" + id).html("");
                     $("#spanCategory-" + id).html("");
-                    $("#spanCustomer-" + id).html("");
+                    $("#spanCustomer").html("");
                     error++;
                 }
             });
@@ -273,6 +273,7 @@
                     $("#spanProduct-" + id).html("The Product field is required.");
                     $("#spanCategory-" + id).html("");
                     $("#spanTotal-" + id).html("");
+                    $("#spanCustomer").html("");
                     error++;
                 }
             });
@@ -285,18 +286,13 @@
                     $("#spanCategory-" + id).html("The Category field is required.");
                     $("#spanProduct-" + id).html("");
                     $("#spanTotal-" + id).html("");
+                    $("#spanCustomer").html("");
                     error++;
                 }
             });
 
             if ($("#customer").val() == '-1') {
-                var temp = $(this).attr('id').split("-");
-                var id = temp[1];
-
-                $("#spanCustomer-" + id).html("The Customer field is required.")
-                $("#spanCategory-" + id).html("");
-                $("#spanProduct-" + id).html("");
-                $("#spanTotal-" + id).html("");
+                $("#spanCustomer").html("The Customer field is required.")
                 error++;
             }
 
