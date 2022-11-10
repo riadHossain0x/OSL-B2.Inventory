@@ -15,7 +15,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date")]
-        public DateTime Date { get; set; }
+        public DateTime SaleDate { get; set; }
 
         [Required]
         [Display(Name = "Product")]
