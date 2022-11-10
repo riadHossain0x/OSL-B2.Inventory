@@ -157,7 +157,7 @@
                                     </select>
                                 </th>
                                 <th style="width:20%">
-                                    <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                    <span id="spanProduct-{0}" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
                                     <select onchange="GetProductDetails(this, '{0}');" class="form-control valid product" id="product-{0}" name="ProductId">
                                     </select>
                                 </th>
@@ -165,16 +165,16 @@
                                     <input class="form-control text-box single-line text-right AvailableQty" id="AvailableQty-{0}" type="text" value="0" min=0 disabled>
                                 </th>
                                 <th class="text-right" style="width:12%">
-                                    <span id="spanQuantity" class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                    <span id="spanQuantity-{0}" class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
                                     <input onchange="calculateTotal('{0}')" onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right Quantity" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" value="0" min=0>
                                 </th>
                                 <th class="text-right" style="width:12%">
-                                    <span id="spanPrice" class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                    <span id="spanPrice-{0}" class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
                                     <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right Price" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00" min=0>
                                     <input id="BuyingPrice-{0}" name="BuyingPrice" type="hidden">
                                 </th>
                                 <th class="text-right" style="width:15%">
-                                    <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
+                                    <span id="spanTotal-{0}" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
                                     <input class="form-control text-box single-line text-right total" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total-{0}" name="Total" type="text" value="0.00" min=0 readonly>
                                 </th>
                                 <th class="text-center" style="width:8%">
@@ -254,41 +254,49 @@
 
             $(".total").each(function () {
                 if ($(this).val() == '0' || $(this).val() == '0.00') {
-                    $("#spanTotal").html("The Total field is required");
-                    $("#spanProduct").html("");
-                    $("#spanCategory").html("");
-                    $("#spanCustomer").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanTotal-" + id).html("The Total field is required");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanCustomer-" + id).html("");
                     error++;
                 }
             });
 
             $(".product").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanProduct").html("The Product field is required.");
-                    $("#spanCategory").html("");
-                    $("#spanTotal").html("");
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanProduct-" + id).html("The Product field is required.");
+                    $("#spanCategory-" + id).html("");
+                    $("#spanTotal-" + id).html("");
                     error++;
                 }
             });
 
             $(".category").each(function () {
                 if ($(this).val() == 'null') {
-
                     var temp = $(this).attr('id').split("-");
                     var id = temp[1];
 
                     $("#spanCategory-" + id).html("The Category field is required.");
-                    $("#spanProduct").html("");
-                    $("#spanTotal").html("");
+                    $("#spanProduct-" + id).html("");
+                    $("#spanTotal-" + id).html("");
                     error++;
                 }
             });
 
             if ($("#customer").val() == '-1') {
-                $("#spanCustomer").html("The Customer field is required.")
-                $("#spanCategory").html("");
-                $("#spanProduct").html("");
-                $("#spanTotal").html("");
+                var temp = $(this).attr('id').split("-");
+                var id = temp[1];
+
+                $("#spanCustomer-" + id).html("The Customer field is required.")
+                $("#spanCategory-" + id).html("");
+                $("#spanProduct-" + id).html("");
+                $("#spanTotal-" + id).html("");
                 error++;
             }
 
@@ -302,18 +310,16 @@
                 
                 if (+avlQty < +qty) {
                     error++;
-                    $("#spanQuantity").html("The Qty must be less then available qty.");
+
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanQuantity-" + id).html("The Qty must be less then available qty.");
                 }
             });
 
             if (error > 0)
                 return false;
-
-            $("#spanCustomer").html("");
-            $("#spanCategory").html("");
-            $("#spanProduct").html("");
-            $("#spanQuantity").html("");
-            $("#spanTotal").html("");
         });
 
         // Calculate total price (quantity * price)
