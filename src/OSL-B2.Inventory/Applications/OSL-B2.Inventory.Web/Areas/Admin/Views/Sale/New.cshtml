@@ -276,19 +276,33 @@
                 error++;
             }
 
+            $(".Quantity").each(function () {
+                var qty = $(this).val();
+
+                var qtyId = $(this).attr('id');
+                var temp = qtyId.split("-");
+
+                var avlQty = $("#AvailableQty-" + temp[1]).val();
+                
+                if (+avlQty < +qty) {
+                    $("#spanQuantity").html("The Qty must be less then available qty.");
+                }
+                error++;
+            });
+
             if (error > 0)
                 return false;
 
             $("#spanCustomer").html("");
             $("#spanCategory").html("");
             $("#spanProduct").html("");
+            $("#spanQuantity").htm("");
             $("#spanTotal").html("");
         });
 
         // Calculate total price (quantity * price)
         function calculateTotal(elementId) {
             if (!ValidateQty(elementId)) {
-                $("#spanQuantity").html("Qty must be less then Available Qty.");
                 return false;
             }
 
@@ -298,7 +312,7 @@
             var total = rateValue * qtyValue;
             $("#Total-" + elementId).val(total);
 
-            $("#spanQuantity").html("");
+            //$("#spanQuantity").html("");
             calculateGrandTotal();
         }
 
