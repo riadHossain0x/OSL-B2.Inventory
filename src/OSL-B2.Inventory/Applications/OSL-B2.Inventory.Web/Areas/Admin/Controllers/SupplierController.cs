@@ -29,6 +29,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
+            SubMenu(nameof(Index));
+
             return View();
         }
 
@@ -77,6 +79,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var supplier = _supplierService.GetSupplier(id);
 
                 var model = new SupplierDetailsViewModel
@@ -107,6 +111,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Operations
         public ActionResult Create()
         {
+            SubMenu(nameof(Create));
+
             return View();
         }
 
@@ -114,6 +120,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(SupplierCreateViewModel model)
         {
+            SubMenu(nameof(Create));
+
             if (ModelState.IsValid)
             {
                 try
@@ -163,6 +171,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var supplier = _supplierService.GetSupplier(id);
 
                 var model = Mapper.Map<SupplierEditViewModel>(supplier);
@@ -183,6 +193,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SupplierEditViewModel model)
         {
+            SubMenu(nameof(Index));
+
             if (ModelState.IsValid)
             {
                 try

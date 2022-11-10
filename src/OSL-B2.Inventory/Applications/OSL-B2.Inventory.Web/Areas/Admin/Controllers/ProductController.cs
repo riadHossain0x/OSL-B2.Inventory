@@ -32,6 +32,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
+            SubMenu(nameof(Index));
+
             return View();
         }
 
@@ -81,6 +83,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var product = _productService.GetProduct(id, "Category");
 
                 var model = new ProductDetailsViewModel
@@ -115,22 +119,36 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Operations
         public ActionResult Create()
         {
-            var model = new ProductCreateViewModel();
-
-            var categories = _categoryService.LoadAllCategories().Select(x => new SelectListItem
+            try
             {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
+                SubMenu(nameof(Create));
 
-            model.Categories = categories;
+                var model = new ProductCreateViewModel();
 
-            return View(model);
+                var categories = _categoryService.LoadAllCategories().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+
+                model.Categories = categories;
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public ActionResult Create(ProductCreateViewModel model)
         {
+            SubMenu(nameof(Create));
+
             if (ModelState.IsValid)
             {
                 try
@@ -194,6 +212,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var product = _productService.GetProduct(id);
 
                 var model = Mapper.Map<ProductEditViewModel>(product);
@@ -222,6 +242,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductEditViewModel model)
         {
+            SubMenu(nameof(Index));
+
             if (ModelState.IsValid)
             {
                 try

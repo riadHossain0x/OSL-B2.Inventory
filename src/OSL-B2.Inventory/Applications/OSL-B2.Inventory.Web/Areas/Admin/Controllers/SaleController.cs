@@ -37,6 +37,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         // GET: Admin/Sale
         public ActionResult Index()
         {
+            SubMenu(nameof(Index));
+
             return View();
         }
 
@@ -87,12 +89,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 Logger.Error(ex.Message, ex);
             }
             return default(JsonResult);
-        } 
+        }
 
         public ActionResult Details(long id)
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var sale = _saleService.GetSale(id, "SaleDetails");
                 var model = Mapper.Map<SaleDetailViewModel>(sale);
                 return View(model);
@@ -109,24 +113,37 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Operations
         public ActionResult New()
         {
-            var model = new SaleCreateViewModel();
-            model.Customers = _customerService.LoadAllCustomers().Select(x => new SelectListItem
+            try
             {
-                Value = x.Id.ToString(),
-                Text = string.Format($"{x.Name} - {x.Mobile}")
-            }).ToList();
-            model.Customers.Insert(0, new SelectListItem { Value = "-1", Text = "Select a Customer" });
+                SubMenu(nameof(New));
 
-            var categories = _categoryService.LoadAllCategories();
-            ViewBag.Categories = categories;
+                var model = new SaleCreateViewModel();
+                model.Customers = _customerService.LoadAllCustomers().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = string.Format($"{x.Name} - {x.Mobile}")
+                }).ToList();
+                model.Customers.Insert(0, new SelectListItem { Value = "-1", Text = "Select a Customer" });
 
-            return View(model);
+                var categories = _categoryService.LoadAllCategories();
+                ViewBag.Categories = categories;
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> New(SaleCreateViewModel model)
         {
+            SubMenu(nameof(New));
+
             if (ModelState.IsValid)
             {
                 try

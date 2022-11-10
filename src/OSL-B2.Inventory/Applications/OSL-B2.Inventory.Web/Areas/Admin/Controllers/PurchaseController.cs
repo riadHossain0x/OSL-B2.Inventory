@@ -39,6 +39,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
+            SubMenu(nameof(Index));
+
             return View();
         }
 
@@ -94,6 +96,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var purchases = _purchaseService.GetPurchase(id, "PurchaseDetails");
                 var model = Mapper.Map<PurchaseDetailViewModel>(purchases);
                 return View(model);
@@ -112,6 +116,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(New));
+
                 var categories = _categoryService.LoadAllCategories();
                 ViewBag.Categories = categories;
 
@@ -133,6 +139,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult> New(PurchaseCreateViewModel model)
         {
+            SubMenu(nameof(New));
+
             if (ModelState.IsValid)
             {
                 try

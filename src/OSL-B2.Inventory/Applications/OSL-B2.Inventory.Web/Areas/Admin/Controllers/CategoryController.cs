@@ -30,6 +30,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         #region Manage
         public ActionResult Index()
         {
+            SubMenu(nameof(Index));
+
             return View();
         }
 
@@ -76,6 +78,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var category = _categoryService.GetCategory(id);
 
                 var model = new CategoryDetailsViewModel
@@ -124,6 +128,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            SubMenu(nameof(Create));
+
             return View();
         }
 
@@ -131,6 +137,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CategoryCreateViewModel model)
         {
+            SubMenu(nameof(Create));
+
             if (ModelState.IsValid)
             {
                 try
@@ -160,6 +168,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
+                SubMenu(nameof(Index));
+
                 var category = _categoryService.GetCategory(id);
 
                 var model = Mapper.Map<CategoryEditViewModel>(category);
@@ -180,6 +190,8 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CategoryEditViewModel model)
         {
+            SubMenu(nameof(Index));
+
             if (ModelState.IsValid)
             {
                 try

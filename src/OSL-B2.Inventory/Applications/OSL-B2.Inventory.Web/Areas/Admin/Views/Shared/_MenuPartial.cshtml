@@ -1,32 +1,41 @@
 ﻿@using OSL_B2.Inventory.Web.Areas.Admin.Controllers
 @{ 
     var menuOpen = ViewData["Menu"];
-    var menuActive = ViewData["SubMenu"];
+    var menuActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"] : string.Empty;
 
     string saleOpen = string.Empty, categoryOpen = string.Empty, productOpen = string.Empty,
-        customerOpen = string.Empty, supplierOpen = string.Empty, purchaseOpen = string.Empty, repostsOpen = string.Empty;
+        customerOpen = string.Empty, supplierOpen = string.Empty, purchaseOpen = string.Empty,
+        repostsOpen = string.Empty;
 
-    string homeActive = string.Empty, settingsActive = string.Empty;
+    string homeActive = string.Empty, saleActive = string.Empty, categoryActive = string.Empty,
+        productActive = string.Empty, customerActive = string.Empty, supplierActive = string.Empty,
+        purchaseActive = string.Empty, repostsActive = string.Empty, settingsActive = string.Empty;
 
     switch (menuOpen)
     {
         case nameof(SaleController):
             saleOpen = "menu open menu-open";
+            saleActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         case nameof(CategoryController):
             categoryOpen = "menu open menu-open";
+            categoryActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         case nameof(ProductController):
             productOpen = "menu open menu-open";
+            productActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         case nameof(CustomerController):
             customerOpen = "menu open menu-open";
+            customerActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         case nameof(SupplierController):
             supplierOpen = "menu open menu-open";
+            supplierActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         case nameof(PurchaseController):
             purchaseOpen = "menu open menu-open";
+            purchaseActive = ViewData["SubMenu"] != null ? ViewData["SubMenu"].ToString() : string.Empty;
             break;
         //case nameof(ReportController):
         //    reports = "menu open menu-open";
@@ -61,13 +70,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Sale/New" class="nav-link">
+                    <a href="/Admin/Sale/New" class="nav-link @(saleActive == "New" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Sale</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Sale" class="nav-link">
+                    <a href="/Admin/Sale" class="nav-link @(saleActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Sales</p>
                     </a>
@@ -84,13 +93,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Category/Create" class="nav-link">
+                    <a href="/Admin/Category/Create" class="nav-link @(categoryActive == "Create" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Category</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Category/" class="nav-link">
+                    <a href="/Admin/Category/" class="nav-link @(categoryActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Categories</p>
                     </a>
@@ -107,13 +116,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Product/Create" class="nav-link">
+                    <a href="/Admin/Product/Create" class="nav-link @(productActive == "Create" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Product</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Product" class="nav-link">
+                    <a href="/Admin/Product" class="nav-link @(productActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Products</p>
                     </a>
@@ -130,13 +139,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Customer/Create" class="nav-link">
+                    <a href="/Admin/Customer/Create" class="nav-link @(customerActive == "Create" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Customer</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Customer" class="nav-link">
+                    <a href="/Admin/Customer" class="nav-link @(customerActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Customers</p>
                     </a>
@@ -153,13 +162,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Supplier/Create" class="nav-link">
+                    <a href="/Admin/Supplier/Create" class="nav-link @(supplierActive == "Create" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Supplier</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Supplier" class="nav-link">
+                    <a href="/Admin/Supplier" class="nav-link @(supplierActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Suppliers</p>
                     </a>
@@ -176,13 +185,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/Admin/Purchase/New" class="nav-link">
+                    <a href="/Admin/Purchase/New" class="nav-link @(purchaseActive == "New" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>New Purchase</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Purchase" class="nav-link">
+                    <a href="/Admin/Purchase" class="nav-link @(purchaseActive == "Index" ? "active" : string.Empty)">
                         <i class="nav-icon fas fa-stream"></i>
                         <p>Manage Purchase</p>
                     </a>
