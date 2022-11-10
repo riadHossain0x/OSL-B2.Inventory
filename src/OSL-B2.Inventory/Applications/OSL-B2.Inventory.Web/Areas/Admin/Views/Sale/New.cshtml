@@ -86,7 +86,7 @@
                             <tr>
                                 <th colspan="5" class="text-right">@Html.DisplayNameFor(model => model.GrandTotal):</th>
                                 <th>
-                                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control text-right", @disabled = "disabled", @min = 0 } })
+                                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control text-right", @readonly = "true", @min = 0 } })
                                 </th>
                                 <th></th>
                             </tr>
@@ -113,7 +113,7 @@
                                 </th>
                                 <th colspan="4" class="text-right">@Html.DisplayNameFor(model => model.Due):</th>
                                 <th>
-                                    @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control text-right", id = "Due", @min = 0, @disabled = "disabled" } })
+                                    @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control text-right", id = "Due", @readonly = "true", @min = 0 } })
                                 </th>
                                 <th></th>
                             </tr>
@@ -247,6 +247,7 @@
                     $("#spanCategory").html("");
                     $("#spanCustomer").html("");
                     error++;
+                    console.log("Total");
                 }
             });
 
@@ -256,6 +257,7 @@
                     $("#spanCategory").html("");
                     $("#spanTotal").html("");
                     error++;
+                    console.log("Product");
                 }
             });
 
@@ -265,6 +267,7 @@
                     $("#spanProduct").html("");
                     $("#spanTotal").html("");
                     error++;
+                    console.log("Category");
                 }
             });
 
@@ -274,6 +277,7 @@
                 $("#spanProduct").html("");
                 $("#spanTotal").html("");
                 error++;
+                console.log("Customer");
             }
 
             $(".Quantity").each(function () {
@@ -285,10 +289,12 @@
                 var avlQty = $("#AvailableQty-" + temp[1]).val();
                 
                 if (+avlQty < +qty) {
+                    error++;
                     $("#spanQuantity").html("The Qty must be less then available qty.");
                 }
-                error++;
             });
+
+            console.log(error);
 
             if (error > 0)
                 return false;
@@ -296,7 +302,7 @@
             $("#spanCustomer").html("");
             $("#spanCategory").html("");
             $("#spanProduct").html("");
-            $("#spanQuantity").htm("");
+            $("#spanQuantity").html("");
             $("#spanTotal").html("");
         });
 
@@ -335,14 +341,24 @@
             // calculate due amount
             calculateDueAmount()
         }
+        // onchange event for PaidAmount field.
+        $("#PaidAmount").on("input", function () {
+            calculateDueAmount();
+        });
 
-        // Calculate due 'Paid Amount' onchange event
+        // Calculate due 'Paid Amount'
         function calculateDueAmount() {
             var paidVal = $("#PaidAmount").val();
             var grandTotal = $("#GrandTotal").val();
             var dueVal = grandTotal - paidVal;
             $("#Due").val(dueVal);
         }
+
+        $("#btnFullPaid").on("click", function () {
+            var total = $("#GrandTotal").val();
+            $("#PaidAmount").val(total);
+            calculateDueAmount();
+        });
 
         function ValidateQty(elementId) {
             var availableQty = $("#AvailableQty-" + elementId).val();
