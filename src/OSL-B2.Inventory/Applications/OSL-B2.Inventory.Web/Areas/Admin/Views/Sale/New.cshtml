@@ -144,8 +144,8 @@
         $(document).ready(function () {
             render = `<tr id="section-{0}">
                                 <th style="width:20%">
-                                    <span id="spanCategory" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                    <select onchange="GetProducts(this, 'product-{0}');" class="form-control category" id="category" name="CategoryId">
+                                    <span id="spanCategory-{0}" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+                                    <select onchange="GetProducts(this, 'product-{0}');" class="form-control category" id="category-{0}" name="CategoryId">
                                         <option value="null">Select a Category</option>
                                         @if(ViewBag.Categories != null)
                                         {
@@ -259,7 +259,6 @@
                     $("#spanCategory").html("");
                     $("#spanCustomer").html("");
                     error++;
-                    console.log("Total");
                 }
             });
 
@@ -269,17 +268,19 @@
                     $("#spanCategory").html("");
                     $("#spanTotal").html("");
                     error++;
-                    console.log("Product");
                 }
             });
 
-            $("[id=category]").each(function () {
+            $(".category").each(function () {
                 if ($(this).val() == 'null') {
-                    $("#spanCategory").html("The Category field is required.");
+
+                    var temp = $(this).attr('id').split("-");
+                    var id = temp[1];
+
+                    $("#spanCategory-" + id).html("The Category field is required.");
                     $("#spanProduct").html("");
                     $("#spanTotal").html("");
                     error++;
-                    console.log("Category");
                 }
             });
 
@@ -289,7 +290,6 @@
                 $("#spanProduct").html("");
                 $("#spanTotal").html("");
                 error++;
-                console.log("Customer");
             }
 
             $(".Quantity").each(function () {
@@ -305,8 +305,6 @@
                     $("#spanQuantity").html("The Qty must be less then available qty.");
                 }
             });
-
-            console.log(error);
 
             if (error > 0)
                 return false;
