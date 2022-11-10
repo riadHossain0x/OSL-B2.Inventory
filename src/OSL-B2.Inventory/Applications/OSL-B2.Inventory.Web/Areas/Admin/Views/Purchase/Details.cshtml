@@ -1,5 +1,6 @@
 ﻿@using System.Dynamic
 @using OSL_B2.Inventory.Service
+@using OSL_B2.Inventory.Web.Adapters
 @model OSL_B2.Inventory.Web.Areas.Admin.Models.PurchaseDetailViewModel
 @{
     ViewData["Title"] = "Purchase Details";
@@ -12,6 +13,7 @@
 
     var _supplierService = Factory.GetService<ISupplierService>();
     var _productService = Factory.GetService<IProductService>();
+    var _accountAdapter = Factory.GetService<IAccountAdapter>();
 }
 <div class="card card-primary">
     <div class="card-header">
@@ -65,7 +67,7 @@
             </div>
             <div class="col-md-8">
                 <span class="font-weight-bold">
-                    @Html.DisplayFor(model => model.ModifiedBy)
+                    @_accountAdapter.FindById(Model.ModifiedBy).Email
                 </span>
             </div>
         </div>
@@ -85,7 +87,7 @@
             </div>
             <div class="col-md-8">
                 <span class="font-weight-bold">
-                    @Html.DisplayFor(model => model.CreatedBy)
+                    @_accountAdapter.FindById(Model.CreatedBy).Email
                 </span>
             </div>
         </div>
