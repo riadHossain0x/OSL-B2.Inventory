@@ -37,6 +37,11 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         [Required]
         [DataType(DataType.Currency)]
+        [Display(Name = "Discount Total")]
+        public decimal DiscountTotal { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
         [Display(Name = "Grand Total")]
         public decimal GrandTotal { get; set; }
 
