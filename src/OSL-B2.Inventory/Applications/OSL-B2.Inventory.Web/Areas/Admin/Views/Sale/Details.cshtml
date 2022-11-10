@@ -1,0 +1,131 @@
+﻿@using System.Dynamic
+@using OSL_B2.Inventory.Service
+@using OSL_B2.Inventory.Web.Adapters
+@model OSL_B2.Inventory.Web.Areas.Admin.Models.SaleDetailViewModel
+@{
+    ViewData["Title"] = "Sale Details";
+    ViewBag.PageNav = "Details";
+
+    dynamic MidNav = new ExpandoObject();
+    MidNav.Title = "Sale";
+    MidNav.Link = "/Admin/Sale/";
+    ViewBag.MidNav = MidNav;
+
+    var _customerService = Factory.GetService<ICustomerService>();
+    var _productService = Factory.GetService<IProductService>();
+    var _accountAdapter = Factory.GetService<IAccountAdapter>();
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Purchase Details Form</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a href="/Admin/Sale" class="btn btn-primary btn-sm">Manage Sale</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CustomerId) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @_customerService.GetCustomer(Model.CustomerId).Name
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SaleDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.SaleDate)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @_accountAdapter.FindById(Model.ModifiedBy).Email
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ModifiedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedBy) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @_accountAdapter.FindById(Model.CreatedBy).Email
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreatedDate) :
+            </div>
+            <div class="col-md-8">
+                <span class="font-weight-bold">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-md-2">
+                Products :
+            </div>
+            <div class="col-8 pt-2">
+                <table id="table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Product</th>
+                            <th class="text-center" style="width:10%">Quantity</th>
+                            <th class="text-center" style="width:15%">Sale Price</th>
+                            <th class="text-center" style="width:15%">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detail in Model.SaleDetails)
+                        {
+                            <tr>
+                                <td>@_productService.GetProduct(detail.ProductId).Name</td>
+                                <td class="text-right">@detail.Quantity</td>
+                                <td class="text-right">@detail.SalePrice</td>
+                                <td class="text-right">@detail.Total</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.GrandTotal) :</th>
+                            <th class="text-right">@Html.DisplayFor(model => model.GrandTotal)</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

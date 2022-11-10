@@ -28,9 +28,10 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
             _categoryService = categoryService;
             _customerService = customerService;
             _saleService = saleService;
-        } 
+        }
         #endregion
 
+        #region Manage
         // GET: Admin/Sale
         public ActionResult Index()
         {
@@ -84,7 +85,24 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 Logger.Error(ex.Message, ex);
             }
             return default(JsonResult);
+        } 
+
+        public ActionResult Details(long id)
+        {
+            try
+            {
+                var sale = _saleService.GetSale(id, "SaleDetails");
+                var model = Mapper.Map<SaleDetailViewModel>(sale);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+            return RedirectToAction(nameof(Index));
         }
+        #endregion
 
         #region Operations
         public ActionResult New()

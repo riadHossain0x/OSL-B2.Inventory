@@ -86,7 +86,23 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
                 Logger.Error(ex.Message, ex);
             }
             return default(JsonResult);
-        } 
+        }
+
+        public ActionResult Details(long id)
+        {
+            try
+            {
+                var purchases = _purchaseService.GetPurchase(id, "PurchaseDetails");
+                var model = Mapper.Map<PurchaseDetailViewModel>(purchases);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                ViewResponse(ex.Message, ResponseTypes.Danger);
+            }
+            return RedirectToAction(nameof(Index));
+        }
         #endregion
 
         #region Operations
@@ -206,22 +222,6 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
 
                 return Json(ViewResponse(ex.Message, string.Empty, ResponseTypes.Danger));
             }
-        }
-
-        public ActionResult Details(long id)
-        {
-            try
-            {
-                var purchases = _purchaseService.GetPurchase(id, "PurchaseDetails");
-                var model = Mapper.Map<PurchaseDetailViewModel>(purchases);
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message, ex);
-                ViewResponse(ex.Message, ResponseTypes.Danger);
-            }
-            return RedirectToAction(nameof(Index));
         }
         #endregion
     }

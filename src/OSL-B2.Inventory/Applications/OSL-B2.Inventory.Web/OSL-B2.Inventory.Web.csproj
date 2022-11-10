@@ -1989,6 +1989,7 @@
     <Content Include="Areas\Admin\Views\Purchase\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Sale\New.cshtml" />
     <Content Include="Areas\Admin\Views\Sale\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sale\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\image.validate.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
