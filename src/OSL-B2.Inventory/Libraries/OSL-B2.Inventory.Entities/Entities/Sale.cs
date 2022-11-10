@@ -9,6 +9,7 @@ namespace OSL_B2.Inventory.Entities.Entities
         public Customer Customer { get; set; }
         public long CustomerId { get; set; }
         public DateTime SaleDate { get; set; }
+        public decimal DiscountTotal { get; set; }
         public decimal GrandTotal { get; set; }
         public List<SaleDetail> SaleDetails { get; set; }
     }

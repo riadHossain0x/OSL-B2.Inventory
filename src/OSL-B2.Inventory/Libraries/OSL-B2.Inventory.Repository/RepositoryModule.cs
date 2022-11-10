@@ -14,6 +14,7 @@ namespace OSL_B2.Inventory.Repository
             container.RegisterType<ISupplierRepository, SupplierRepository>();
             container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IPurchaseRepository, PurchaseRepository>();
+            container.RegisterType<ISaleRepository, SaleRepository>();
         }
     }
 }

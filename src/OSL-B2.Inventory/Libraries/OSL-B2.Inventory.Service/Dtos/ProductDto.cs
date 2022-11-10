@@ -16,7 +16,7 @@ namespace OSL_B2.Inventory.Service.Dtos
         public decimal SalePrice { get; set; }
         public CategoryDto Category { get; set; }
         public long CategoryId { get; set; }
-        public List<SaleDetail> SaleDetails { get; set; }
+        public List<SaleDetailDto> SaleDetails { get; set; }
         public List<PurchaseDetailDto> PurchaseDetails { get; set; }
     }
 }

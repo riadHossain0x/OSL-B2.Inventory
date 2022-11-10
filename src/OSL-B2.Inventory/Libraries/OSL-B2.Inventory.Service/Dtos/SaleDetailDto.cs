@@ -1,6 +1,6 @@
 ﻿namespace OSL_B2.Inventory.Service.Dtos
 {
-    public class SaleDetail
+    public class SaleDetailDto
     {
         public long Id { get; set; }
         public ProductDto Product { get; set; }

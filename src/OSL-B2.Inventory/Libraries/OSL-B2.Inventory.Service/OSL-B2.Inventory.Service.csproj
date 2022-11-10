@@ -104,7 +104,7 @@
     <Compile Include="Dtos\PurchaseDto.cs" />
     <Compile Include="Dtos\PurchaseDetailDto.cs" />
     <Compile Include="Dtos\SaleDto.cs" />
-    <Compile Include="Dtos\SaleDetail.cs" />
+    <Compile Include="Dtos\SaleDetailDto.cs" />
     <Compile Include="Dtos\StockUpdateDto.cs" />
     <Compile Include="Dtos\SupplierDto.cs" />
     <Compile Include="Exceptions\InnerElementException.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseService.cs" />
+    <Compile Include="SaleService.cs" />
     <Compile Include="ServiceModule.cs" />
     <Compile Include="SupplierService.cs" />
   </ItemGroup>

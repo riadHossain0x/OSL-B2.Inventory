@@ -32,10 +32,14 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Models
 
         [Required]
         [DataType(DataType.Currency)]
+        [Display(Name = "Buying Price")]
+        public List<decimal> BuyingPrice { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
         [Display(Name = "Total")]
         public List<decimal> Total { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Discount Total")]
         public decimal DiscountTotal { get; set; }

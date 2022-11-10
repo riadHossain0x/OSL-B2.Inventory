@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using log4net;
-using log4net.Repository.Hierarchy;
 using OSL_B2.Inventory.Entities.Entities;
 using OSL_B2.Inventory.Repository;
 using OSL_B2.Inventory.Repository.DbContexts;
@@ -9,10 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OSL_B2.Inventory.Service
 {

@@ -158,7 +158,7 @@
                                 </th>
                                 <th style="width:20%">
                                     <span id="spanProduct" class="field-validation-valid text-danger" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
-                                    <select onchange="GetProductQty(this, '{0}');" class="form-control valid product" id="product-{0}" name="ProductId">
+                                    <select onchange="GetProductDetails(this, '{0}');" class="form-control valid product" id="product-{0}" name="ProductId">
                                     </select>
                                 </th>
                                  <th class="text-right" style="width:12%">
@@ -166,11 +166,12 @@
                                 </th>
                                 <th class="text-right" style="width:12%">
                                     <span id="spanQuantity" class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
-                                    <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right Quantity" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" value="0" min=0>
+                                    <input onchange="calculateTotal('{0}')" onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right Quantity" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="Quantity-{0}" name="Quantity" type="number" value="0" min=0>
                                 </th>
                                 <th class="text-right" style="width:12%">
                                     <span id="spanPrice" class="field-validation-valid text-danger" data-valmsg-for="Price" data-valmsg-replace="true"></span>
                                     <input onkeyup="calculateTotal('{0}')" class="form-control text-box single-line text-right Price" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price-{0}" name="Price" type="text" value="0.00" min=0>
+                                    <input id="BuyingPrice-{0}" name="BuyingPrice" type="hidden">
                                 </th>
                                 <th class="text-right" style="width:15%">
                                     <span id="spanTotal" class="field-validation-valid text-danger" data-valmsg-for="Total" data-valmsg-replace="true"></span>
@@ -194,7 +195,7 @@
         // delete current row
         $("#table").on("click", "#btnDelete", function () {
             var rowCount = $("#table tr").length;
-            if (rowCount > 3)
+            if (rowCount > 6)
                 $(this).closest("tr").remove();
             return false;
         });
@@ -202,6 +203,7 @@
         // Dropdown events
         var dictQty = new Object(); // key value for id and qty
         var dictPrice = new Object(); // key value for id and price
+        var dictBuyingPrice = new Object(); // key value for id and buying price
 
         function GetProducts(event, element) {
             var value = event.value;
@@ -227,19 +229,22 @@
                         }));
 
                         dictQty[item.value] = item.qty; // load product id and qty.
-                        dictPrice[item.value] = item.price // load product id and price.
+                        dictPrice[item.value] = item.price; // load product id and price.
+                        dictBuyingPrice[item.value] = item.buyingPrice; // load product id and buying price.
                     });
                 }
             });
         }
 
-        function GetProductQty(event, element) {
+        function GetProductDetails(event, element) {
             var value = event.value;
             var qty = dictQty[value];
             var price = dictPrice[value];
+            var buyingPrice = dictBuyingPrice[value];
 
             $("#AvailableQty-" + element).val(qty);
             $("#Price-" + element).val(price);
+            $("#BuyingPrice-" + element).val(buyingPrice);
         }
 
         // validation

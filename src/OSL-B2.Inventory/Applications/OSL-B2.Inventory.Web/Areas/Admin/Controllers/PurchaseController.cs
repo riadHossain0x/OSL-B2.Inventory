@@ -176,7 +176,7 @@ namespace OSL_B2.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
-                var products = _productService.LoadAllProducts(categoryId).Select(x => new { value = x.Id, text = x.Name, qty = x.Quantity, price = x.SalePrice });
+                var products = _productService.LoadAllProducts(categoryId).Select(x => new { value = x.Id, text = x.Name, qty = x.Quantity, price = x.SalePrice, buyingPrice = x.BuyingPrice });
                 return Json(products);
             }
             catch (Exception ex)

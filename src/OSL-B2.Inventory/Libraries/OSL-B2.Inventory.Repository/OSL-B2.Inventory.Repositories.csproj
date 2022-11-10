@@ -90,11 +90,16 @@
     <Compile Include="Migrations\202211070550548_purchase.designer.cs">
       <DependentUpon>202211070550548_purchase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211100549343_discountInSaleTable.cs" />
+    <Compile Include="Migrations\202211100549343_discountInSaleTable.designer.cs">
+      <DependentUpon>202211100549343_discountInSaleTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseRepository.cs" />
     <Compile Include="RepositoryModule.cs" />
+    <Compile Include="SaleRepository.cs" />
     <Compile Include="SupplierRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211070550548_purchase.resx">
       <DependentUpon>202211070550548_purchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211100549343_discountInSaleTable.resx">
+      <DependentUpon>202211100549343_discountInSaleTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

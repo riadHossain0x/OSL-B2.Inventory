@@ -20,6 +20,7 @@ namespace WholeSale.Web.Profiles
             Mapper.CreateMap<PurchaseCreateViewModel, PurchaseDto>().ReverseMap();
             Mapper.CreateMap<PurchaseDetailViewModel, PurchaseDto>().ReverseMap();
             Mapper.CreateMap<DetailsViewModel, PurchaseDetailDto>().ReverseMap();
+            Mapper.CreateMap<SaleCreateViewModel, SaleDto>().ReverseMap();
         }
     }
 }

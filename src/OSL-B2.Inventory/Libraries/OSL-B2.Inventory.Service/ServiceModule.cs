@@ -12,6 +12,7 @@ namespace OSL_B2.Inventory.Service
             container.RegisterType<ISupplierService, SupplierService>();
             container.RegisterType<IProductService, ProductService>();
             container.RegisterType<IPurchaseService, PurchaseService>();
+            container.RegisterType<ISaleService, SaleService>();
             RepositoryModule.Register(container);
         }
     }
