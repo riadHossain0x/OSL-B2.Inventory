@@ -62,8 +62,8 @@ namespace OSL_B2.Inventory.Web
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "523859434679-q8hj6o484dndmqtnd791kikectnv7or5.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
     }
